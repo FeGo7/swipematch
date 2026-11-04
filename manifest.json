@@ -1,0 +1,18 @@
+{
+  "name": "SwipeMatch",
+  "short_name": "SwipeMatch",
+  "description": "30s Konsens ohne Login – Wähle ein Deck, wische durch und matche mit deinem Partner.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#090D16",
+  "theme_color": "#090D16",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
