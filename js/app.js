@@ -1030,3 +1030,69 @@ function initTouchSwipe() {
         }
     }, { passive: true });
 }
+
+/**************************************************************
+ * 9. LEGAL MODALS (Impressum & Datenschutz)
+ **************************************************************/
+function openLegalModal(type) {
+    const modal = document.getElementById('modal-legal');
+    const titleEl = document.getElementById('legal-modal-title');
+    const contentEl = document.getElementById('legal-modal-content');
+    if (!modal || !titleEl || !contentEl) return;
+
+    if (type === 'impressum') {
+        titleEl.innerText = currentLang === 'de' ? 'Impressum' : (currentLang === 'es' ? 'Aviso Legal' : 'Legal Notice / Imprint');
+        contentEl.innerHTML = `
+            <div>
+                <h4 class="font-bold text-white mb-1">Angaben gemäß § 5 TMG / DDG:</h4>
+                <p>Felix Gooßens<br>
+                E-Mail: <a href="mailto:felix.goossens@aol.com" class="text-amber-400 underline">felix.goossens@aol.com</a><br>
+                Webseite: <a href="https://swipematch-128.pages.dev" class="text-amber-400 underline">swipematch-128.pages.dev</a></p>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-1">Verantwortlich für den Inhalt:</h4>
+                <p>Felix Gooßens</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-1">Haftung für Inhalte & Links:</h4>
+                <p>Die Inhalte dieser Web-App wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Für externe Links zu Webseiten Dritter übernehmen wir keine Haftung; für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-1">Affiliate- & Werbehinweis:</h4>
+                <p>Diese Web-App enthält sogenannte Affiliate-Links (u. a. zu Amazon und Partnershops über Netzwerke wie Skimlinks). Wenn Sie über einen dieser Links einen Kauf oder eine Bestellung tätigen, erhalten wir gegebenenfalls eine geringe Provision. Für Sie entstehen dadurch keinerlei Mehrkosten.</p>
+            </div>
+        `;
+    } else {
+        titleEl.innerText = currentLang === 'de' ? 'Datenschutzerklärung' : (currentLang === 'es' ? 'Política de Privacidad' : 'Privacy Policy');
+        contentEl.innerHTML = `
+            <div>
+                <h4 class="font-bold text-white mb-1">1. Datenschutz auf einen Blick</h4>
+                <p>Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Diese Anwendung folgt dem Grundsatz der Datensparsamkeit („Zero-Server Engine“): Wir erfassen und speichern keine personenbezogenen Daten auf eigenen Servern.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-1">2. Verantwortliche Stelle</h4>
+                <p>Felix Gooßens<br>
+                E-Mail: <a href="mailto:felix.goossens@aol.com" class="text-amber-400 underline">felix.goossens@aol.com</a></p>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-1">3. Funktionsweise & Lokale Speicherung</h4>
+                <p>Die Auswahl Ihrer Spielkarten und Präferenzen verbleibt rein clientseitig in Ihrem Browser. Zur Synchronisation mit Ihrem Spielpartner wird der Spielstand kryptografisch Base64-kodiert im URL-Fragment (#m=...) abgelegt und direkt via WhatsApp/Link geteilt. Es findet keine serverseitige Speicherung statt.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-1">4. Hosting & Content Delivery Network (CDN)</h4>
+                <p>Diese Web-App wird über Cloudflare Pages (Cloudflare Inc., 101 Townsend St, San Francisco, CA 94107, USA) gehostet. Beim Aufruf der Seite werden technisch notwendige Server-Logfiles verarbeitet.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-1">5. Externe Links & Partnernetzwerke</h4>
+                <p>Wenn Sie auf externe Partner-Links (z. B. Amazon, Lieferando, Google Maps) klicken, verlassen Sie unsere Anwendung. Für die Datenverarbeitung auf den Zielseiten gelten die Datenschutzbestimmungen der jeweiligen Anbieter.</p>
+            </div>
+        `;
+    }
+
+    modal.classList.remove('hidden');
+}
+
+function closeLegalModal() {
+    const modal = document.getElementById('modal-legal');
+    if (modal) modal.classList.add('hidden');
+}

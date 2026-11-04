@@ -425,9 +425,32 @@
     </main>
 
     <!-- Footer -->
-    <footer id="t-footer" class="w-full text-center py-2 text-[11px] opacity-50">
-        SwipeMatch MVP v1.0 • Zero-Server Engine
+    <footer class="w-full text-center py-3 text-[11px] opacity-60 flex flex-col items-center gap-1.5 z-10">
+        <div id="t-footer">SwipeMatch MVP v1.1 • Zero-Server Engine</div>
+        <div class="flex items-center gap-3 text-[11px]">
+            <button onclick="openLegalModal('impressum')" class="hover:underline hover:opacity-100 transition">Impressum</button>
+            <span>•</span>
+            <button onclick="openLegalModal('datenschutz')" class="hover:underline hover:opacity-100 transition">Datenschutz</button>
+        </div>
     </footer>
+
+    <!-- Legal Modal (Impressum & Datenschutz) -->
+    <div id="modal-legal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-lg bg-slate-900 border border-white/10 rounded-3xl p-6 shadow-2xl text-slate-200 max-h-[85vh] flex flex-col">
+            <div class="flex items-center justify-between pb-3 border-b border-white/10">
+                <h3 id="legal-modal-title" class="text-base font-bold text-white">Rechtliche Hinweise</h3>
+                <button onclick="closeLegalModal()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs transition">✕</button>
+            </div>
+            <div id="legal-modal-content" class="overflow-y-auto py-4 text-xs leading-relaxed space-y-3 opacity-90 pr-1">
+                <!-- Dynamisch per JS befüllt -->
+            </div>
+            <div class="pt-3 border-t border-white/10">
+                <button onclick="closeLegalModal()" class="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/20 font-bold text-xs transition">
+                    Schließen
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Modular Scripts -->
     <script src="js/theme.js"></script>
