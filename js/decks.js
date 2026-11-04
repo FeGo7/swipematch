@@ -217,24 +217,24 @@ const DECKS = {
                 tag: { de: "Italienischer Klassiker", en: "Italian Classic", es: "Clásico Italiano" },
                 title: { de: "Steinofen-Pizza vom Italiener", en: "Wood-Fired Pizza", es: "Pizza al Horno de Leña" },
                 desc: { de: "Dünner Boden, geschmolzener Mozzarella, heiß im Karton.", en: "Crispy crust, melted mozzarella, zero dishes.", es: "Masa crujiente y queso fundido." },
-                actionLabel: { de: "Pizzeria suchen", en: "Find Pizzeria", es: "Buscar Pizzería" },
-                actionUrl: "https://www.google.com/maps/search/Pizzeria"
+                actionLabel: { de: "🍕 Bei Lieferando bestellen", en: "Order Pizza on Delivery", es: "Pedir Pizza a domicilio" },
+                actionUrl: "https://www.lieferando.de/lieferservice/pizza"
             },
             {
                 id: 2, emoji: "🍛", bg: "from-orange-600 to-amber-800",
                 tag: { de: "Seelenwärmer", en: "Comfort Spice", es: "Aromático" },
                 title: { de: "Indisches Curry & warmes Naan-Brot", en: "Indian Curry & Garlic Naan", es: "Curry Indio y Pan Naan" },
                 desc: { de: "Butter Chicken, Tikka Masala oder Dal mit Knoblauch-Naan.", en: "Butter chicken, palak paneer & fluffy naan.", es: "Tikka Masala y pan naan recién hecho." },
-                actionLabel: { de: "Indische Restaurants zeigen", en: "Find Indian Takeout", es: "Buscar restaurante indio" },
-                actionUrl: "https://www.google.com/maps/search/Indian+Restaurant"
+                actionLabel: { de: "🍛 Bei Lieferando bestellen", en: "Order Indian on Delivery", es: "Pedir comida india" },
+                actionUrl: "https://www.lieferando.de/lieferservice/indisch"
             },
             {
                 id: 3, emoji: "🥢", bg: "from-emerald-700 to-cyan-900",
                 tag: { de: "Asiatisch", en: "Asian Craving", es: "Sabor Asiático" },
                 title: { de: "Pad Thai, Gebratene Nudeln oder Pho", en: "Pad Thai, Wok Noodles or Pho", es: "Pad Thai, Wok o Ramen" },
                 desc: { de: "Frisch aus dem Wok mit Erdnüssen, Limette oder Brühe.", en: "Fresh from the wok with peanuts & lime.", es: "Recién salido del wok con toque cítrico." },
-                actionLabel: { de: "Asia-Lieferdienst finden", en: "Find Asian Takeout", es: "Buscar comida asiática" },
-                actionUrl: "https://www.google.com/maps/search/Thai+Vietnamese+Restaurant"
+                actionLabel: { de: "🥢 Bei Lieferando bestellen", en: "Order Asian on Delivery", es: "Pedir comida asiática" },
+                actionUrl: "https://www.lieferando.de/lieferservice/asiatisch"
             },
             {
                 id: 4, emoji: "🍗", bg: "from-yellow-600 to-red-700",
@@ -257,16 +257,16 @@ const DECKS = {
                 tag: { de: "Frisch gerollt", en: "Sushi Night", es: "Noche de Sushi" },
                 title: { de: "Große Sushi-Box (Maki, Inside-Out & Crunchy Rolls)", en: "Sushi Platter & Crunchy Rolls", es: "Bandeja de Sushi y Crunchy Rolls" },
                 desc: { de: "Stäbchen bereitlegen, Sojasauce & Wasabi – leicht und edel.", en: "Chopsticks ready, soy sauce, ginger & crispy rolls.", es: "Palillos listos, salsa de soja y rolls crujientes." },
-                actionLabel: { de: "Sushi-Lieferdienst finden", en: "Find Sushi Delivery", es: "Buscar Sushi cerca" },
-                actionUrl: "https://www.google.com/maps/search/Sushi+Delivery"
+                actionLabel: { de: "🍣 Bei Lieferando bestellen", en: "Order Sushi on Delivery", es: "Pedir Sushi a domicilio" },
+                actionUrl: "https://www.lieferando.de/lieferservice/sushi"
             },
             {
                 id: 7, emoji: "🍔", bg: "from-red-700 to-stone-900",
                 tag: { de: "Cheat-Day", en: "Smash Burger", es: "Burger Gourmet" },
                 title: { de: "Smash-Burger mit Bacon, Cheese & Trüffel-Mayo", en: "Double Smash Burger & Loaded Fries", es: "Smash Burger con Patatas y Salsas" },
                 desc: { de: "Brioche-Bun, geschmolzener Cheddar und knusprige Pommes.", en: "Brioche bun, melted cheddar and crispy fries.", es: "Pan brioche, cheddar fundido y patatas crujientes." },
-                actionLabel: { de: "Burger-Lieferdienst suchen", en: "Find Burger Delivery", es: "Buscar hamburgueserías" },
-                actionUrl: "https://www.google.com/maps/search/Smash+Burger"
+                actionLabel: { de: "🍔 Bei Lieferando bestellen", en: "Order Burger on Delivery", es: "Pedir Burger a domicilio" },
+                actionUrl: "https://www.lieferando.de/lieferservice/burger"
             },
             {
                 id: 8, emoji: "🥗", bg: "from-emerald-600 to-teal-900",
@@ -616,8 +616,8 @@ const DECKS = {
                 tag: { de: "Nostalgie", en: "2000s Throwback", es: "Nostalgia" },
                 title: { de: "Kultfilm aus den 90ern / 2000ern", en: "90s / 2000s Cult Classic", es: "Clásico de los 90 / 2000" },
                 desc: { de: "Ein Film, den man schon kennt und trotzdem liebt.", en: "A comfort movie we both already love.", es: "Una película mítica que nunca falla." },
-                actionLabel: { de: "Kultfilme-Liste öffnen", en: "90s/2000s Rewatch List", es: "Ver lista de clásicos" },
-                actionUrl: "https://www.google.com/search?q=beste+kultfilme+90er+2000er"
+                actionLabel: { de: "🎬 Auf Prime Video leihen/streamen", en: "Rent/Stream on Prime Video", es: "Ver en Prime Video" },
+                actionUrl: "https://www.amazon.de/s?k=kultfilme+90er+2000er&i=instant-video&tag=f05b1-21"
             },
             {
                 id: 5, emoji: "👻", bg: "from-zinc-800 to-red-950",
@@ -832,8 +832,8 @@ const DECKS = {
                 tag: { de: "Analog & Schnell", en: "Cards & Dice", es: "Sin pantallas" },
                 title: { de: "Schnelles Karten- oder Würfelspiel", en: "Fast Card or Dice Game", es: "Juego Rápido de Cartas o Dados" },
                 desc: { de: "Uno, Skyjo, Kniffel, Exploding Kittens oder Cabo am Tisch.", en: "Uno, Yahtzee, Exploding Kittens & good music.", es: "Uno, dados, cartas y música de fondo." },
-                actionLabel: { de: "Regeln / Spielideen öffnen", en: "Quick Card Game Ideas", es: "Juegos de cartas para dos" },
-                actionUrl: "https://www.google.com/search?q=beste+kartenspiele+fuer+2+personen"
+                actionLabel: { de: "🃏 Kartenspiele auf Amazon", en: "Card Games on Amazon", es: "Juegos de cartas en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=kartenspiele+fuer+zwei&tag=f05b1-21"
             },
             {
                 id: 3, emoji: "🧠", bg: "from-blue-600 to-indigo-900",
@@ -848,16 +848,16 @@ const DECKS = {
                 tag: { de: "Taktik & Aufbau", en: "Strategy Board Game", es: "Estrategia" },
                 title: { de: "Strategie-Brettspiel (Catan, Carcassonne, Zug um Zug)", en: "Strategy Board Game Night", es: "Juego de Mesa de Estrategia (Catán, Carcassonne)" },
                 desc: { de: "Spielbrett aufbauen, Snacks bereitstellen und taktisch gewinnen.", en: "Set up the board, grab snacks and outsmart each other.", es: "Desplegar el tablero, picoteo y estrategia." },
-                actionLabel: { de: "Beste Brettspiele für 2–4", en: "Top Board Games", es: "Mejores juegos de mesa" },
-                actionUrl: "https://www.google.com/search?q=beste+brettspiele+fuer+2+personen"
+                actionLabel: { de: "♟️ Brettspiele auf Amazon", en: "Board Games on Amazon", es: "Juegos de mesa en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=Catan+Brettspiel&tag=f05b1-21"
             },
             {
                 id: 5, emoji: "🕵️", bg: "from-zinc-800 to-red-950",
                 tag: { de: "Rätsel lösen", en: "Escape & Crime", es: "Escape en casa" },
                 title: { de: "Exit-Game / Krimi-Akte am Wohnzimmertisch lösen", en: "Escape Room Box / Unsolved Case File", es: "Escape Room de Mesa o Caso Criminal" },
                 desc: { de: "Zusammen Hinweise kombinieren, Codes knacken und den Täter finden.", en: "Crack codes, examine clues and solve the mystery.", es: "Descifrar pistas en equipo y resolver el caso." },
-                actionLabel: { de: "Online-Rätsel & Exit-Games", en: "Find Escape Games", es: "Ver juegos tipo Exit" },
-                actionUrl: "https://www.google.com/search?q=exit+game+krimi+spiel+zuhause"
+                actionLabel: { de: "🕵️ Exit-Games auf Amazon", en: "Exit Games on Amazon", es: "Juegos Exit en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=exit+game+krimispiel&tag=f05b1-21"
             },
             {
                 id: 6, emoji: "🎉", bg: "from-pink-600 to-purple-900",
@@ -888,8 +888,8 @@ const DECKS = {
                 tag: { de: "Entspannt & Fokussiert", en: "Cozy & Chill", es: "Relax y Puzle" },
                 title: { de: "Puzzle, Lego-Set oder Wort-Duell (Scrabble / Wordle)", en: "Lego Build, Puzzle + Podcast or Word Duel", es: "Lego, Puzle con Podcast o Duelo de Palabras" },
                 desc: { de: "Guter Podcast oder Musik im Hintergrund und zusammen bauen/rätseln.", en: "Put on a great podcast or playlist and build together.", es: "Poner buena música o podcast y construir juntos." },
-                actionLabel: { de: "Wort-Duell / Ideen öffnen", en: "Play Word Game Online", es: "Jugar duelo de palabras" },
-                actionUrl: "https://www.google.com/search?q=wortspiele+logikspiele+zu+zweit"
+                actionLabel: { de: "🧩 Lego & Puzzles auf Amazon", en: "Lego & Puzzles on Amazon", es: "Lego y puzles en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=lego+sets+erwachsene+botanicals&tag=f05b1-21"
             }
         ]
     },
@@ -1525,8 +1525,8 @@ const DECKS = {
                 tag: { de: "Jeden Tag nützlich", en: "Daily Upgrade", es: "Tecnología / Hogar" },
                 title: { de: "Cooles Gadget (Tech, Kaffee oder Küche)", en: "Smart Tech, Coffee or Kitchen Upgrade", es: "Gadget Tecnológico o de Café/Cocina" },
                 desc: { de: "Etwas, das man jeden Tag benutzt und sich jedes Mal drüber freut.", en: "Something used every single day with joy.", es: "Algo útil que se disfruta todos los días." },
-                actionLabel: { de: "Beliebte Gadget-Geschenke", en: "Top Gadget Gifts", es: "Ver mejores gadgets para regalar" },
-                actionUrl: "https://www.google.com/search?q=beste+geschenkideen+gadgets+kueche+tech"
+                actionLabel: { de: "🎁 Beliebte Gadgets auf Amazon", en: "Top Gadgets on Amazon", es: "Gadgets en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=coole+gadgets+geschenkideen&tag=f05b1-21"
             },
             {
                 id: 4, emoji: "💆‍♀️", bg: "from-cyan-600 to-teal-900",
@@ -1557,16 +1557,16 @@ const DECKS = {
                 tag: { de: "Gemeinsame Abende", en: "Game & Cozy Night", es: "Para disfrutar en casa" },
                 title: { de: "Besonderes Brettspiel, Lego-Set (Botanicals) oder Buch-Bestseller", en: "Board Game Hit, Lego Botanicals or Bestseller Book", es: "Juego de Mesa Top, Lego Botanicals o Libro" },
                 desc: { de: "Perfekt für gemütliche Wochenenden auf der Couch.", en: "Perfect for cozy weekends at home.", es: "Ideal para tardes tranquilas en casa." },
-                actionLabel: { de: "Aktuelle Bestseller & Sets", en: "Browse Top Games & Lego", es: "Ver juegos y sets top" },
-                actionUrl: "https://www.google.com/search?q=lego+botanicals+brettspiel+geschenk"
+                actionLabel: { de: "🎁 Lego & Bestseller auf Amazon", en: "Lego & Books on Amazon", es: "Lego y libros en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=lego+botanicals+geschenk&tag=f05b1-21"
             },
             {
                 id: 8, emoji: "📸", bg: "from-rose-500 to-red-900",
                 tag: { de: "100% Persönlich", en: "Personal & Emotional", es: "Muy personal" },
                 title: { de: "Fotobuch, gerahmte Erinnerung oder Polaroid-/Instax-Kamera", en: "Custom Photo Book, Framed Print or Instax Camera", es: "Álbum de Fotos, Cuadro o Cámara Instantánea" },
                 desc: { de: "Echte Erinnerungen zum Anfassen statt nur 5.000 Fotos auf dem Handy.", en: "Turn phone photos into real tangible memories.", es: "Convertir los recuerdos del móvil en algo físico." },
-                actionLabel: { de: "Foto-Geschenkideen prüfen", en: "Photo Gift Ideas", es: "Ideas de regalos con fotos" },
-                actionUrl: "https://www.google.com/search?q=kreative+fotogeschenke+ideen"
+                actionLabel: { de: "📸 Polaroid & Instax auf Amazon", en: "Instax Cameras on Amazon", es: "Cámaras Instax en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=instax+mini+kamera&tag=f05b1-21"
             },
             {
                 id: 9, emoji: "🪂", bg: "from-emerald-600 to-teal-950",

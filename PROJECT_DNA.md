@@ -220,12 +220,11 @@ Für das Entwickler- und Produkt-Team gliedert sich die weitere Roadmap in 4 pri
 - [ ] **Asynchroner 2-Wege-Rückkanal oder Live-Room (Optional):** Aktuell erfährt Spieler 2 das Match zuerst und meldet es per 1-Klick-WhatsApp an Spieler 1 zurück. Über einen leichtgewichtigen, kostenlosen Realtime-Dienst (z. B. PartyKit, Supabase Realtime oder Firebase) oder WebRTC könnte Spieler 1 das Match live auf seinem eigenen Screen aufpoppen sehen, sobald Spieler 2 wischt.
 - [ ] **Gruppen-Modus (3 bis 8 Personen für WGs & Freundeskreise):** Erweiterung der Logik von 2 Spielern auf $N$ Teilnehmer (z. B. über einen kurzen 4-stelligen Raum-Code), bei dem die Karte mit den meisten `JA`-Stimmen gewinnt.
 
-### Meilenstein 4: Performance-Härtung & Monetarisierungs-Hooks (Prio 4)
-- [ ] **Tailwind Build-Step für Produktion:** Ersetzen des Runtime-Scripts `cdn.tailwindcss.com` durch eine kompilierte, minifizierte CSS-Datei (`< 15 KB` statt `~100 KB` JS-Parser), um den First Contentful Paint auf unter `0.2s` zu drücken.
-- [ ] **Affiliate- & Conversion-Hooks auf dem Winner-Screen (`#winner-action-btn`):**
-  - Jede Gewinner-Karte besitzt bereits einen kontextsensitiven Action-Button (`actionUrl` / `actionLabel`).
-  - **Monetarisierungs-Potenzial ohne nervige Bannerwerbung:** Integration von Partner-Links im Moment der höchsten Kaufbereitschaft (nach getroffener Entscheidung!), z. B.:
-    - *Essen & Lieferdienst:* Lieferando / Wolt / UberEats Affiliate-Links oder OpenTable/TheFork-Tischreservierung.
-    - *Streaming (`movie` / `series`):* JustWatch-API oder direkte Deep-Links zu Prime Video / Disney+ / Apple TV.
-    - *Trips & Geschenke (`vacation` / `gifts`):* Booking.com, AirBnB, GetYourGuide, Jochen Schweizer oder Amazon-Partnerlinks.
-    - *Sponsored Brand Decks:* Kuratierte Event- oder Marken-Decks (z. B. Valentinstags-Special, Sommer-Drinks-Deck).
+### Meilenstein 4: Performance-Härtung & Monetarisierungs-Hooks (Aktiviert & Live)
+- [x] **Tailwind Build-Step & Carmack Zero-Bloat PWA:** Runtime `cdn.tailwindcss.com` abgelöst durch statisch vorkompiliertes `css/style.min.css` (41 KB), PWA `manifest.json` und cache-first `sw.js` Service Worker aktiv.
+- [x] **Skimlinks Automated Affiliate Integration:** Skimlinks-Script (`https://s.skimresources.com/js/312295X1800881.skimlinks.js`) in `index.html` eingebunden. Wandelt ausgehende Klicks zu Lieferando, UberEats, OpenTable clientseitig on-the-fly in vergütete Affiliate-Weiterleitungen um.
+- [x] **Direkte Amazon Partner-ID (`f05b1-21`):** In `js/decks.js` für 100 % Provisionsmarge ohne Aggregator-Abzug integriert:
+  - *Spiele & Konsolen (`gaming`):* Catan, Exit-Games, Kartenspiele, Lego Botanicals direkt verlinkt.
+  - *Geschenke & Gadgets (`gifts`):* Trending Gadgets, Instax Sofortbildkameras, Bestseller.
+  - *Filme & Leihen (`movie`):* Gezielte Prime Video Instant-Video Leih- & Kauf-Links mit transparenter Kennzeichnung.
+- [x] **Kontextsensitive CTA-Buttons auf dem Winner-Screen (`#winner-action-btn`):** Echte, vertrauenswürdige Buttons (z. B. *„🍕 Bei Lieferando bestellen“*, *„🎬 Auf Prime Video leihen“*, *„🎲 Spiel auf Amazon ansehen“*) statt generischer Platzhalter.
