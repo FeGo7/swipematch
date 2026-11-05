@@ -1,7 +1,7 @@
 {
-  "name": "SwipeMatch",
-  "short_name": "SwipeMatch",
-  "description": "30s Konsens ohne Login – Wähle ein Deck, wische durch und matche mit deinem Partner.",
+  "name": "EasyAgree – 30s Konsens ohne Login",
+  "short_name": "EasyAgree",
+  "description": "Schluss mit 'Mir egal, sag du!': Wische durch kuratierte Decks und finde in 30 Sekunden gemeinsame Matches für Essen, Filme, Dates & Haushalts-Pflichten.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#090D16",

@@ -75,8 +75,8 @@ const I18N = {
         choresShareWaBtn: "📲 Fertigen Plan per WhatsApp senden",
         waChallengeText: "Lass uns in 30 Sekunden entscheiden (ohne Diskussion 😄)! Ich hab schon gewählt – klick hier für unser Match:",
         waWinnerText: "🎉 IT'S A MATCH! Wir haben uns entschieden für:",
-        waChoresSummaryHeader: "🧹 *SwipeMatch Pflichten-Entscheidung steht!*",
-        footerText: "SwipeMatch MVP v1.1 • Dynamic Shuffle Engine"
+        waChoresSummaryHeader: "🧹 *EasyAgree Pflichten-Entscheidung steht!*",
+        footerText: "EasyAgree MVP v1.1 • Zero-Server Consensus Engine"
     },
     en: {
         badge: "NO LOGIN • 30 SECONDS",
@@ -141,8 +141,8 @@ const I18N = {
         choresShareWaBtn: "📲 Send Final Task Plan via WhatsApp",
         waChallengeText: "Let's decide in 30 seconds! I already locked in my picks – click here to find our match:",
         waWinnerText: "🎉 IT'S A MATCH! Tonight's winner is:",
-        waChoresSummaryHeader: "🧹 *SwipeMatch Task Breakdown is locked in!*",
-        footerText: "SwipeMatch MVP v1.1 • Dynamic Shuffle Engine"
+        waChoresSummaryHeader: "🧹 *EasyAgree Task Breakdown is locked in!*",
+        footerText: "EasyAgree MVP v1.1 • Zero-Server Consensus Engine"
     },
     es: {
         badge: "SIN REGISTRO • 30 SEGUNDOS",
@@ -207,7 +207,7 @@ const I18N = {
         choresShareWaBtn: "📲 Enviar reparto final por WhatsApp",
         waChallengeText: "¡Decidamos en 30 segundos sin discutir! Ya hice mi elección, entra aquí:",
         waWinnerText: "🎉 ¡TENEMOS GANADOR! Hoy toca:",
-        waChoresSummaryHeader: "🧹 *¡Reparto oficial en SwipeMatch!*",
-        footerText: "SwipeMatch MVP v1.1 • Dynamic Shuffle Engine"
+        waChoresSummaryHeader: "🧹 *¡Reparto oficial en EasyAgree!*",
+        footerText: "EasyAgree MVP v1.1 • Zero-Server Consensus Engine"
     }
 };

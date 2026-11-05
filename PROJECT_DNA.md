@@ -1,8 +1,10 @@
-# 🧬 PROJECT DNA: SwipeMatch (MVP v1.1)
+# 🧬 PROJECT DNA: EasyAgree (MVP v1.1)
+*(Frühere Arbeitstitel: SwipeMatch / Der Entscheider)*
 
 > **Dokumenten-Zweck:** Technische & strategische System-Dokumentation (Single Source of Truth) für das Advisory-Board, Produktmanagement und Entwickler-Team.  
 > **Status:** Funktionsfähiges, dreisprachiges Zero-Server MVP (`v1.1` – Dynamic Shuffle & Anti-Match Engine)  
-> **Live-URL:** [https://swipematch-128.pages.dev](https://swipematch-128.pages.dev)  
+> **Ziel-Domain:** `easyagree.de` (DENIC verfügbar)  
+> **Staging-URL:** [https://swipematch-128.pages.dev](https://swipematch-128.pages.dev)  
 > **Repository:** [https://github.com/FeGo7/swipematch](https://github.com/FeGo7/swipematch) (Cloudflare Pages CI/CD)  
 > **Letztes Audit:** November 2026
 
