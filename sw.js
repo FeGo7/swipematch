@@ -1,5 +1,5 @@
-// EasyAgree Service Worker (Network-First for HTML, Cache-First for Offline Assets)
-const CACHE_NAME = 'easyagree-v4';
+// EasyAgree Service Worker (Network-First for 100% instant UI updates, Cache for offline)
+const CACHE_NAME = 'easyagree-v5';
 const ASSETS = [
   './',
   './index.html',
@@ -14,10 +14,9 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
-    }).then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
 });
 
@@ -27,7 +26,7 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         keys.map((k) => {
           if (k !== CACHE_NAME) {
-            console.log('[SW] Deleting old cache:', k);
+            console.log('[SW] Purging old cache:', k);
             return caches.delete(k);
           }
         })
@@ -36,35 +35,20 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Network-First for HTML to ensure instant updates, Cache fallback for offline
+// Network-First for ALL resources (HTML, JS, CSS) to prevent stale UI caching
 self.addEventListener('fetch', (event) => {
   const req = event.request;
-  const isHtml = req.mode === 'navigate' || req.headers.get('accept')?.includes('text/html');
-
-  if (isHtml) {
-    event.respondWith(
-      fetch(req)
-        .then((networkRes) => {
-          const clone = networkRes.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
-          return networkRes;
-        })
-        .catch(() => caches.match(req).then((cached) => cached || caches.match('./index.html')))
-    );
-    return;
-  }
-
-  // Assets (CSS, JS, Images): Stale-While-Revalidate
   event.respondWith(
-    caches.match(req).then((cached) => {
-      const fetchPromise = fetch(req).then((networkRes) => {
-        if (networkRes && networkRes.status === 200) {
+    fetch(req)
+      .then((networkRes) => {
+        if (networkRes && networkRes.status === 200 && req.method === 'GET') {
           const clone = networkRes.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
         }
         return networkRes;
-      }).catch(() => {});
-      return cached || fetchPromise;
-    })
+      })
+      .catch(() => {
+        return caches.match(req).then((cached) => cached || caches.match('./index.html'));
+      })
   );
 });
