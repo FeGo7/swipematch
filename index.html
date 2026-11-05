@@ -7,7 +7,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="apple-touch-icon" href="icon.svg">
-    <meta name="theme-color" content="#131312">
+    <meta name="theme-color" content="#18191E">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Agreesy">
@@ -45,15 +45,15 @@
         }
 
         html.dark {
-            --bg: #0E0E11;
-            --surface: #18181B;
-            --surface-raised: #222226;
-            --border: rgba(244, 244, 245, 0.08);
-            --border-strong: rgba(244, 244, 245, 0.15);
-            --text-primary: #F4F4F5;
-            --text-secondary: #A1A1AA;
-            --text-muted: #71717A;
-            --accent: #E05A3A;
+            --bg: #18191E;
+            --surface: #21232B;
+            --surface-raised: #2A2D37;
+            --border: rgba(255, 255, 255, 0.075);
+            --border-strong: rgba(255, 255, 255, 0.14);
+            --text-primary: #EAECF0;
+            --text-secondary: #9EA4B0;
+            --text-muted: #6E7482;
+            --accent: #E86A4B;
             --positive: #22C55E;
         }
 
@@ -64,8 +64,12 @@
             overflow-x: hidden;
             user-select: none;
             -webkit-user-select: none;
-            transition: background-color 0.15s ease-out, color 0.15s ease-out;
+            transition: background-color 0.2s ease-out, color 0.2s ease-out;
             -webkit-font-smoothing: antialiased;
+        }
+
+        html.dark body {
+            background-image: radial-gradient(ellipse 85% 45% at 50% -10%, rgba(232, 106, 75, 0.065), transparent 70%);
         }
 
         .surface {
@@ -216,12 +220,12 @@
             </p>
         </div>
 
-        <!-- 3 Primary Scenarios (Rich Accent Icon Containers + Clear Action Affordance) -->
+        <!-- 3 Primary Scenarios (Soft Tinted Surfaces + Harmonious Action Pills) -->
         <div class="w-full flex flex-col gap-2.5 mb-6">
             <!-- 1. Essen -->
             <button onclick="startGame('dinner')" class="w-full p-4 rounded-[14px] row-card text-left flex items-center justify-between group">
                 <div class="flex items-center gap-3.5">
-                    <div class="w-11 h-11 rounded-[10px] bg-[#E05A3A]/12 text-[#E05A3A] flex items-center justify-center shrink-0">
+                    <div class="w-11 h-11 rounded-[10px] bg-[#E05A3A]/12 dark:bg-[#E86A4B]/15 text-[#D94E2E] dark:text-[#F48265] flex items-center justify-center shrink-0">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
                     </div>
                     <div>
@@ -233,7 +237,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="px-3 py-1.5 rounded-[8px] bg-[#E05A3A] text-white text-xs font-medium shrink-0 flex items-center gap-1">
+                <div class="px-3 py-1.5 rounded-[8px] bg-[#E05A3A]/10 dark:bg-[#E86A4B]/15 text-[#D04829] dark:text-[#F48265] border border-[#E05A3A]/20 dark:border-[#E86A4B]/25 group-hover:bg-[#E05A3A]/18 dark:group-hover:bg-[#E86A4B]/25 transition-colors text-xs font-medium shrink-0 flex items-center gap-1">
                     <span>Starten</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                 </div>
@@ -242,7 +246,7 @@
             <!-- 2. Film & Serie -->
             <button onclick="startGame('streaming')" class="w-full p-4 rounded-[14px] row-card text-left flex items-center justify-between group">
                 <div class="flex items-center gap-3.5">
-                    <div class="w-11 h-11 rounded-[10px] bg-[#0071E3]/12 text-[#0071E3] dark:text-[#3898FF] flex items-center justify-center shrink-0">
+                    <div class="w-11 h-11 rounded-[10px] bg-[#0071E3]/12 dark:bg-[#3898FF]/15 text-[#0066CC] dark:text-[#66B2FF] flex items-center justify-center shrink-0">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg>
                     </div>
                     <div>
@@ -254,7 +258,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="px-3 py-1.5 rounded-[8px] bg-[#0071E3] text-white text-xs font-medium shrink-0 flex items-center gap-1">
+                <div class="px-3 py-1.5 rounded-[8px] bg-[#0071E3]/10 dark:bg-[#3898FF]/15 text-[#0066CC] dark:text-[#66B2FF] border border-[#0071E3]/20 dark:border-[#3898FF]/25 group-hover:bg-[#0071E3]/18 dark:group-hover:bg-[#3898FF]/25 transition-colors text-xs font-medium shrink-0 flex items-center gap-1">
                     <span>Starten</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                 </div>
@@ -263,7 +267,7 @@
             <!-- 3. Haushalt & Aufgaben -->
             <button onclick="startGame('chores')" class="w-full p-4 rounded-[14px] row-card text-left flex items-center justify-between group">
                 <div class="flex items-center gap-3.5">
-                    <div class="w-11 h-11 rounded-[10px] bg-[#16A34A]/12 text-[#16A34A] dark:text-[#22C55E] flex items-center justify-center shrink-0">
+                    <div class="w-11 h-11 rounded-[10px] bg-[#16A34A]/12 dark:bg-[#22C55E]/15 text-[#15803D] dark:text-[#4ADE80] flex items-center justify-center shrink-0">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
                     </div>
                     <div>
@@ -275,7 +279,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="px-3 py-1.5 rounded-[8px] surface-raised text-primary-role text-xs font-medium shrink-0 flex items-center gap-1">
+                <div class="px-3 py-1.5 rounded-[8px] bg-[#16A34A]/10 dark:bg-[#22C55E]/15 text-[#15803D] dark:text-[#4ADE80] border border-[#16A34A]/20 dark:border-[#22C55E]/25 group-hover:bg-[#16A34A]/18 dark:group-hover:bg-[#22C55E]/25 transition-colors text-xs font-medium shrink-0 flex items-center gap-1">
                     <span>Aufteilen</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                 </div>
@@ -694,12 +698,12 @@
         </div>
     </div>
 
-    <!-- Modular Scripts mit Cache-Bust v12 -->
-    <script src="js/theme.js?v=12"></script>
-    <script src="js/i18n.js?v=12"></script>
-    <script src="js/decks.js?v=12"></script>
-    <script src="js/logos.js?v=12"></script>
-    <script src="js/app.js?v=12"></script>
+    <!-- Modular Scripts mit Cache-Bust v13 -->
+    <script src="js/theme.js?v=13"></script>
+    <script src="js/i18n.js?v=13"></script>
+    <script src="js/decks.js?v=13"></script>
+    <script src="js/logos.js?v=13"></script>
+    <script src="js/app.js?v=13"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {

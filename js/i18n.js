@@ -14,7 +14,7 @@ const CATEGORIES = [
 const I18N = {
     de: {
         badge: "Gemeinsam entscheiden in 30 Sekunden",
-        heroTitle: "Einigen ohne Diskussion",
+        heroTitle: "Einigen ohne <span class=\"text-[#E05A3A] dark:text-[#F48265]\">Diskussion</span>",
         heroSub: "Jeder wählt für sich aus acht Vorschlägen. Am Ende zählt nur, was ihr beide wollt",
         p2Badge: "Einladung aktiv",
         p2Title: "Dein Gegenüber hat bereits gewählt",
@@ -80,7 +80,7 @@ const I18N = {
     },
     en: {
         badge: "Shared decisions in 30 seconds",
-        heroTitle: "Agree without the debate",
+        heroTitle: "Agree without the <span class=\"text-[#E05A3A] dark:text-[#F48265]\">debate</span>",
         heroSub: "Each person privately picks from eight options. Only what you both want comes through",
         p2Badge: "Invite active",
         p2Title: "Your partner has already chosen",
@@ -146,7 +146,7 @@ const I18N = {
     },
     es: {
         badge: "Decisiones compartidas en 30 segundos",
-        heroTitle: "De acuerdo sin debatir",
+        heroTitle: "De acuerdo sin <span class=\"text-[#E05A3A] dark:text-[#F48265]\">debatir</span>",
         heroSub: "Cada persona elige en privado entre ocho opciones. Solo cuenta lo que ambos queréis",
         p2Badge: "Invitación activa",
         p2Title: "La otra persona ya ha elegido",
