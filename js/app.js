@@ -348,41 +348,63 @@ function renderDeckList() {
         const totalPool = deck.cards.length;
         const sampleCount = Math.min(CARDS_PER_ROUND, totalPool);
 
-        // Zeigt transparent an, wie groß der Pool ist (z.B. "🔀 8 aus 22" oder "🧹 Anti-Match • 12 Pool")
         const poolText = totalPool > sampleCount
             ? `🔀 ${sampleCount} / ${totalPool} ${t.cardsCountSuffix}`
             : `${totalPool} ${t.cardsCountSuffix}`;
 
         const modeBadgeHtml = isChoresMode
-            ? `<span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-500 dark:text-amber-300 border border-amber-500/30 font-extrabold uppercase whitespace-nowrap">🧹 ${t.modeChoreBadge} (${poolText})</span>`
-            : `<span class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-500 dark:text-rose-300 font-bold uppercase whitespace-nowrap">${poolText}</span>`;
+            ? `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-500 dark:text-amber-300 border border-amber-500/30 font-extrabold uppercase whitespace-nowrap">🧹 ${t.modeChoreBadge} • ${poolText}</span>`
+            : `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-500 dark:text-rose-300 font-bold uppercase whitespace-nowrap">${poolText}</span>`;
 
-        const btn = document.createElement('button');
-        btn.onclick = () => startGame(deck.id);
-        btn.className = `w-full p-4 rounded-2xl text-left flex items-center justify-between transition transform active:scale-98 ${
+        const categoryObj = CATEGORIES.find(c => c.id === deck.category);
+        const categoryLabel = (categoryObj ? (categoryObj.label[currentLang] || categoryObj.label.de) : deck.category).toUpperCase();
+
+        const cardContainer = document.createElement('div');
+        cardContainer.onclick = () => startGame(deck.id);
+        cardContainer.className = `w-full p-5 rounded-3xl text-left cursor-pointer transition-all duration-300 transform active:scale-[0.98] relative overflow-hidden group shadow-lg ${
             isPartnerDeck 
-                ? 'bg-gradient-to-r ' + deck.gradient + ' ring-4 ring-white/40 shadow-2xl scale-[1.02] text-white' 
-                : 'glass hover:bg-white/10 dark:hover:bg-white/10'
-        } ${dimOtherDecks ? 'opacity-40' : ''}`;
+                ? 'bg-gradient-to-br ' + deck.gradient + ' ring-4 ring-rose-400/50 shadow-2xl scale-[1.02] text-white' 
+                : 'glass hover:border-slate-300/80 dark:hover:border-white/20 hover:shadow-2xl'
+        } ${dimOtherDecks ? 'opacity-35 grayscale' : ''}`;
 
-        btn.innerHTML = `
-            <div class="flex items-center gap-3.5 pr-2">
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr ${deck.gradient} flex items-center justify-center text-3xl shadow-lg shrink-0 text-white">
+        cardContainer.innerHTML = `
+            <!-- Apple Subtle Ambient Gradient Background Accent -->
+            <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-gradient-to-tr ${deck.gradient} opacity-10 dark:opacity-20 blur-2xl pointer-events-none group-hover:scale-150 transition-transform duration-500"></div>
+
+            <!-- Top Eyebrow Row -->
+            <div class="flex items-center justify-between mb-3 relative z-10">
+                <span class="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-900/5 dark:bg-white/10 text-slate-600 dark:text-slate-300">
+                    ${categoryLabel}
+                </span>
+                ${isPartnerDeck ? '<span class="text-[10px] bg-white text-slate-950 px-2.5 py-0.5 rounded-full font-black uppercase shadow animate-pulse">⚡ Partner wartet</span>' : modeBadgeHtml}
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="flex items-start justify-between gap-4 mb-4 relative z-10">
+                <div class="flex-1 pr-1">
+                    <h3 class="font-extrabold text-lg text-slate-900 dark:text-white leading-snug tracking-tight mb-1 group-hover:text-rose-500 dark:group-hover:text-rose-400 transition-colors">
+                        ${deck.title[currentLang] || deck.title.de}
+                    </h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                        ${deck.sub[currentLang] || deck.sub.de}
+                    </p>
+                </div>
+                <div class="w-[52px] h-[52px] rounded-2xl bg-gradient-to-tr ${deck.gradient} flex items-center justify-center text-2xl shadow-lg shadow-black/20 shrink-0 text-white transform group-hover:scale-105 group-hover:rotate-3 transition-transform duration-300">
                     ${deck.icon}
                 </div>
-                <div>
-                    <div class="flex flex-wrap items-center gap-1.5 mb-0.5">
-                        <h3 class="font-extrabold text-base leading-tight">
-                            ${deck.title[currentLang] || deck.title.de}
-                        </h3>
-                        ${isPartnerDeck ? '<span class="text-[10px] bg-white text-slate-950 px-2 py-0.5 rounded-full font-black uppercase">⚡ Start</span>' : modeBadgeHtml}
-                    </div>
-                    <p class="text-xs opacity-75 leading-snug">${deck.sub[currentLang] || deck.sub.de}</p>
-                </div>
             </div>
-            <div class="text-lg opacity-80 shrink-0">👉</div>
+
+            <!-- Bottom Action Row (Apple Capsule Pill) -->
+            <div class="flex items-center justify-between pt-2.5 border-t border-slate-100 dark:border-white/5 relative z-10 text-xs">
+                <span class="text-[11px] opacity-60 font-semibold">
+                    ${isChoresMode ? '💥 Anti-Match & Roulette' : '⏱️ 30s Schnell-Konsens'}
+                </span>
+                <span class="px-3.5 py-1 rounded-full ${isPartnerDeck ? 'bg-white text-slate-950' : 'bg-slate-900/5 dark:bg-white/10 group-hover:bg-rose-500 group-hover:text-white text-slate-900 dark:text-white'} font-bold transition-all duration-200 flex items-center gap-1">
+                    Starten <span>→</span>
+                </span>
+            </div>
         `;
-        container.appendChild(btn);
+        container.appendChild(cardContainer);
     });
 }
 
@@ -634,6 +656,10 @@ function renderCurrentCard() {
 
     const cardEl = document.getElementById('active-card');
     if (cardEl) {
+        cardEl.style.transform = '';
+        cardEl.style.transition = '';
+        cardEl.style.opacity = '1';
+        cardEl.style.boxShadow = '';
         cardEl.className = `w-full h-96 rounded-3xl p-6 flex flex-col justify-between items-center text-center shadow-2xl border border-white/20 relative overflow-hidden card-enter bg-gradient-to-br ${card.bg} text-white`;
     }
 
@@ -1011,22 +1037,73 @@ function showScreen(screenId) {
 }
 
 /**************************************************************
- * 8. TOUCH SWIPE GESTURES
+ * 8. TOUCH SWIPE GESTURES (Apple Fluid Physics & Dynamic Drag)
  **************************************************************/
 function initTouchSwipe() {
     const cardEl = document.getElementById('active-card');
     if (!cardEl) return;
     let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let isDragging = false;
 
     cardEl.addEventListener('touchstart', (e) => {
-        startX = e.changedTouches[0].screenX;
+        if (!e.touches || e.touches.length === 0) return;
+        startX = e.touches[0].screenX;
+        startY = e.touches[0].screenY;
+        currentX = startX;
+        isDragging = true;
+        cardEl.style.transition = 'none';
     }, { passive: true });
 
-    cardEl.addEventListener('touchend', (e) => {
-        const endX = e.changedTouches[0].screenX;
-        const diff = endX - startX;
-        if (Math.abs(diff) > 55) {
-            handleSwipe(diff > 0);
+    cardEl.addEventListener('touchmove', (e) => {
+        if (!isDragging || !e.touches || e.touches.length === 0) return;
+        currentX = e.touches[0].screenX;
+        const currentY = e.touches[0].screenY;
+        const dx = currentX - startX;
+        const dy = currentY - startY;
+
+        // Apple fluid rotation & translation
+        const rotation = (dx * 0.07).toFixed(2);
+        cardEl.style.transform = `translate3d(${dx}px, ${dy * 0.25}px, 0) rotate(${rotation}deg)`;
+
+        // Tactile glow feedback
+        if (dx > 25) {
+            cardEl.style.boxShadow = `0 20px 45px rgba(16, 185, 129, ${Math.min(0.45, dx / 200)})`;
+        } else if (dx < -25) {
+            cardEl.style.boxShadow = `0 20px 45px rgba(244, 63, 94, ${Math.min(0.45, Math.abs(dx) / 200)})`;
+        } else {
+            cardEl.style.boxShadow = '';
+        }
+    }, { passive: true });
+
+    cardEl.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        const dx = currentX - startX;
+
+        if (Math.abs(dx) > 65) {
+            // Apple spring exit animation
+            cardEl.style.transition = 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.28s ease';
+            cardEl.style.transform = dx > 0 
+                ? 'translate3d(120vw, 20px, 0) rotate(22deg)' 
+                : 'translate3d(-120vw, 20px, 0) rotate(-22deg)';
+            cardEl.style.opacity = '0';
+            setTimeout(() => {
+                cardEl.style.transition = '';
+                cardEl.style.transform = '';
+                cardEl.style.opacity = '1';
+                cardEl.style.boxShadow = '';
+                handleSwipe(dx > 0);
+            }, 250);
+        } else {
+            // Spring bounce back to center
+            cardEl.style.transition = 'transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease';
+            cardEl.style.transform = 'translate3d(0, 0, 0) rotate(0deg)';
+            cardEl.style.boxShadow = '';
+            setTimeout(() => {
+                cardEl.style.transition = '';
+            }, 350);
         }
     }, { passive: true });
 }

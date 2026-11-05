@@ -1,5 +1,5 @@
-// Minimaler Cache-First Service Worker (Zero Bloatware nach John Carmack Standard)
-const CACHE_NAME = 'swipematch-v1';
+// EasyAgree Service Worker (Network-First for HTML, Cache-First for Offline Assets)
+const CACHE_NAME = 'easyagree-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -27,6 +27,7 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         keys.map((k) => {
           if (k !== CACHE_NAME) {
+            console.log('[SW] Deleting old cache:', k);
             return caches.delete(k);
           }
         })
@@ -35,18 +36,35 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// Network-First for HTML to ensure instant updates, Cache fallback for offline
 self.addEventListener('fetch', (event) => {
+  const req = event.request;
+  const isHtml = req.mode === 'navigate' || req.headers.get('accept')?.includes('text/html');
+
+  if (isHtml) {
+    event.respondWith(
+      fetch(req)
+        .then((networkRes) => {
+          const clone = networkRes.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
+          return networkRes;
+        })
+        .catch(() => caches.match(req).then((cached) => cached || caches.match('./index.html')))
+    );
+    return;
+  }
+
+  // Assets (CSS, JS, Images): Stale-While-Revalidate
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request).then((networkResponse) => {
-        return networkResponse;
-      }).catch(() => {
-        // Fallback wenn komplett offline
-        return caches.match('./index.html');
-      });
+    caches.match(req).then((cached) => {
+      const fetchPromise = fetch(req).then((networkRes) => {
+        if (networkRes && networkRes.status === 200) {
+          const clone = networkRes.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
+        }
+        return networkRes;
+      }).catch(() => {});
+      return cached || fetchPromise;
     })
   );
 });

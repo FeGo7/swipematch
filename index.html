@@ -342,17 +342,17 @@
             <p id="winner-desc" class="text-sm opacity-90">Winner Description</p>
         </div>
 
-        <!-- Action Hook Button -->
-        <a id="winner-action-btn" href="#" target="_blank" class="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-extrabold text-base flex items-center justify-center gap-2 shadow-xl shadow-orange-500/25 mb-3 transition hover:brightness-110">
+        <!-- Apple Style Floating Capsule Action Button -->
+        <a id="winner-action-btn" href="#" target="_blank" class="w-full py-4 rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500 text-slate-950 font-extrabold text-base flex items-center justify-center gap-2 shadow-2xl shadow-orange-500/30 mb-3 transition hover:brightness-110 active:scale-95">
             🔥 <span id="winner-action-text">Direkt öffnen</span>
         </a>
 
-        <button onclick="sendWinnerToPartner()" class="w-full py-3.5 rounded-2xl glass hover:bg-white/10 font-bold text-sm mb-2 transition">
+        <button onclick="sendWinnerToPartner()" class="w-full py-3.5 rounded-full glass hover:bg-white/10 font-bold text-sm mb-2 transition active:scale-95 border border-white/15 flex items-center justify-center gap-2">
             📲 <span id="t-notify-partner">Ergebnis per WhatsApp bestätigen</span>
         </button>
 
-        <button onclick="continueSwiping()" id="btn-continue-swiping" class="text-xs opacity-70 hover:opacity-100 underline mt-2">
-            Weiterwischen für weitere Treffer
+        <button onclick="continueSwiping()" id="btn-continue-swiping" class="w-full py-3 rounded-full glass text-xs font-bold opacity-75 hover:opacity-100 transition active:scale-95 border border-white/10 mt-1">
+            🔄 Weiterwischen für weitere Treffer
         </button>
     </main>
 
