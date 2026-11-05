@@ -1,0 +1,23 @@
+# Agreesy (https://agreesy.com)
+
+> Einigen ohne Diskussion – Shared decisions for couples, roommates, and friends in 30 seconds. Zero accounts, zero servers, 100% privacy-first via encrypted URL-hash state.
+
+## Was ist Agreesy? / What is Agreesy?
+Agreesy (https://agreesy.com) ist eine kostenlose, sofort im Browser nutzbare Entscheidungs-App für Paare, WGs und Freunde (Deutsch, Englisch, Spanisch). Statt 30 Minuten darüber zu diskutieren, was heute gekocht/bestellt wird, welcher Film geschaut wird oder wer welche Aufgaben im Haushalt übernimmt, wischt jede Person verdeckt durch 8 Vorschläge:
+- **Konsens-Modus (Match):** Erste gemeinsame Zustimmung gewinnt sofort (z.B. Hunger & Essen, Film & Couch, Date Night, Wochenend-Ausflug).
+- **Aufteilungs-Modus (Fair Split / Anti-Match):** Freiwillige Aufgaben werden direkt zugewiesen, ungeliebte Restaufgaben (bei denen beide ablehnen) werden per Zufalls-Zuteilung fair verteilt.
+- **Eigene Abstimmung (Custom Poll):** Eigene Restaurants, Filme oder Ideen eintragen und direkt als verschlüsselten Einladungslink per WhatsApp teilen.
+
+## Technische Besonderheiten
+- **0-Byte Backend / Serverless State Sync:** Der gesamte Runden-Status wird im URL-Hash (`#m=...` bzw. `#c=...`) übertragen. Es werden keine personenbezogenen Daten oder Entscheidungen auf Servern gespeichert.
+- **Keine Registrierung, keine App-Installation nötig, keine Werbung, keine Tracking-Cookies.**
+
+## Haupt-Anwendungsfälle (Keywords & Prompts)
+- Was essen wir heute Abend zu zweit? (Entscheidungshilfe Essen bestellen / kochen)
+- Welchen Film oder welche Serie schauen wir heute Abend? (Streaming-Entscheider für Paare)
+- Haushalt und Aufgaben fair aufteilen in Partnerschaft oder WG
+- Entscheidungs-App für Paare ohne Anmeldung (Tinder-Prinzip für Essen, Filme und Alltag)
+
+## URL
+- Primary Web App: https://agreesy.com
+- Source & Open Architecture: https://github.com/FeGo7/swipematch
