@@ -94,8 +94,10 @@ function rerollCodename() {
     updateProfileUI();
     const input = document.getElementById('profile-name-input');
     const dotEl = document.getElementById('profile-modal-dot');
+    const aliasEl = document.getElementById('profile-current-alias');
     if (input) input.value = '';
     if (dotEl) dotEl.style.backgroundColor = newCodename.dot;
+    if (aliasEl) aliasEl.innerText = newCodename.name;
 }
 
 function updateProfileUI() {
@@ -110,14 +112,26 @@ function openProfileModal() {
     const modal = document.getElementById('modal-profile');
     const input = document.getElementById('profile-name-input');
     const dotEl = document.getElementById('profile-modal-dot');
+    const aliasEl = document.getElementById('profile-current-alias');
     const profile = getUserProfile();
 
+    // Ensure we also read the underlying codename for the Alias display
+    let codenameObj = profile;
+    const savedCodenameStr = localStorage.getItem('easyagree_codename');
+    if (savedCodenameStr) {
+        try {
+            codenameObj = JSON.parse(savedCodenameStr);
+        } catch (e) {}
+    }
+
     if (input) input.value = profile.isCustom ? profile.name : '';
-    if (dotEl) dotEl.style.backgroundColor = profile.dot;
+    if (dotEl) dotEl.style.backgroundColor = codenameObj.dot || profile.dot;
+    if (aliasEl) aliasEl.innerText = codenameObj.name || profile.name;
     if (modal) modal.classList.remove('hidden');
 }
 
 function closeProfileModal() {
+    localStorage.setItem('agreesy_profile_initialized', '1');
     const modal = document.getElementById('modal-profile');
     if (modal) modal.classList.add('hidden');
 }
@@ -127,6 +141,7 @@ function saveProfileName() {
     if (input) {
         setUserProfileName(input.value);
     }
+    localStorage.setItem('agreesy_profile_initialized', '1');
     closeProfileModal();
 }
 
@@ -265,8 +280,11 @@ window.addEventListener('DOMContentLoaded', () => {
     currentLang = detectInitialLanguage();
     setLang(currentLang);
 
-    // 2b. Profil & Codename anzeigen
+    // 2b. Profil & Codename anzeigen + beim allerersten Öffnen nach Namen/Alias fragen
     updateProfileUI();
+    if (!localStorage.getItem('agreesy_profile_initialized')) {
+        openProfileModal();
+    }
 
     // 3. Partner-Herausforderung via Hash prüfen (#m=... oder #c=...)
     checkIncomingChallenge();
@@ -888,7 +906,7 @@ function renderCurrentCard() {
     }
 
     document.getElementById('card-tag').innerText = card.tag[currentLang] || card.tag.de;
-    document.getElementById('card-emoji').innerHTML = getCategoryLineIcon(deck.category);
+    document.getElementById('card-emoji').innerHTML = card.emoji || getCategoryLineIcon(deck.category);
     document.getElementById('card-title').innerText = card.title[currentLang] || card.title.de;
     document.getElementById('card-desc').innerText = card.desc[currentLang] || card.desc.de;
 }
@@ -1099,7 +1117,7 @@ function revealMatchScreen(card) {
     if (winnerCardEl) {
         winnerCardEl.className = "w-full rounded-[16px] p-6 mb-5 flex flex-col items-start text-left surface";
     }
-    document.getElementById('winner-emoji').innerHTML = getCategoryLineIcon(deck ? deck.category : 'all');
+    document.getElementById('winner-emoji').innerHTML = card.emoji || getCategoryLineIcon(deck ? deck.category : 'all');
     document.getElementById('winner-title').innerText = card.title[currentLang] || card.title.de;
     document.getElementById('winner-desc').innerText = card.desc[currentLang] || card.desc.de;
 
