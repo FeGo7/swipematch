@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="EasyAgree">
     <!-- Statisches CSS & Tailwind CDN Engine -->
-    <link rel="stylesheet" href="css/style.min.css?v=6">
+    <link rel="stylesheet" href="css/style.min.css?v=7">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -331,9 +331,13 @@
             </div>
         </div>
 
-        <!-- Swipeable Card Area -->
+        <!-- Swipeable Card Area with Jony Ive Physical Stack Depth Effect -->
         <div class="relative w-full flex-1 flex items-center justify-center my-4">
-            <div id="active-card" class="w-full h-[400px] rounded-[28px] p-6 flex flex-col justify-between items-center text-center glass relative overflow-hidden card-enter cursor-grab active:cursor-grabbing">
+            <!-- Next Card in Stack (Physical Layering beneath) -->
+            <div id="stack-next-card" class="absolute inset-x-2 top-2 h-[390px] rounded-[26px] glass opacity-45 scale-[0.94] translate-y-2 pointer-events-none z-0 transition-all duration-300 border border-black/[0.04] dark:border-white/[0.04] shadow-sm"></div>
+
+            <!-- Active Hero Card -->
+            <div id="active-card" class="w-full h-[400px] rounded-[28px] p-6 flex flex-col justify-between items-center text-center glass relative z-10 overflow-hidden card-enter cursor-grab active:cursor-grabbing shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.5)]">
                 <div class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-black/[0.04] dark:bg-white/10 text-[#86868B]" id="card-tag">
                     KATEGORIE
                 </div>
@@ -424,7 +428,7 @@
         </a>
 
         <button onclick="sendWinnerToPartner()" class="w-full py-3.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold text-sm mb-2 transition active:scale-95 flex items-center justify-center gap-2 shadow-sm">
-            <span>📲</span> <span id="t-notify-partner">Ergebnis per WhatsApp teilen</span>
+            <span>📲</span> <span id="t-notify-partner">Ergebnis per WhatsApp (Gruppe) teilen</span>
         </button>
 
         <button onclick="continueSwiping()" id="btn-continue-swiping" class="w-full py-3 rounded-full text-xs font-semibold text-[#86868B] hover:text-[#1D1D1F] dark:hover:text-white transition active:scale-95 mt-1">
@@ -551,17 +555,17 @@
         </div>
     </div>
 
-    <!-- Modular Scripts mit Cache-Bust v6 -->
-    <script src="js/theme.js?v=6"></script>
-    <script src="js/i18n.js?v=6"></script>
-    <script src="js/decks.js?v=6"></script>
-    <script src="js/logos.js?v=6"></script>
-    <script src="js/app.js?v=6"></script>
+    <!-- Modular Scripts mit Cache-Bust v7 -->
+    <script src="js/theme.js?v=7"></script>
+    <script src="js/i18n.js?v=7"></script>
+    <script src="js/decks.js?v=7"></script>
+    <script src="js/logos.js?v=7"></script>
+    <script src="js/app.js?v=7"></script>
     <!-- Carmack Service Worker Registration mit Auto-Update -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=6')
+                navigator.serviceWorker.register('./sw.js?v=7')
                     .then(reg => {
                         reg.update();
                         console.log('[PWA] Service Worker aktiv & aktualisiert:', reg.scope);

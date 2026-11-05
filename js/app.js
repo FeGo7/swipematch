@@ -874,7 +874,19 @@ function renderCurrentCard() {
         cardEl.style.transition = '';
         cardEl.style.opacity = '1';
         cardEl.style.boxShadow = '';
-        cardEl.className = "w-full h-[400px] rounded-[28px] p-6 flex flex-col justify-between items-center text-center glass relative overflow-hidden card-enter text-[#1D1D1F] dark:text-white";
+        cardEl.className = "w-full h-[400px] rounded-[28px] p-6 flex flex-col justify-between items-center text-center glass relative z-10 overflow-hidden card-enter text-[#1D1D1F] dark:text-white shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.5)]";
+    }
+
+    // Jony Ive: Haptischer physischer Kartenstapel (Depth Effect)
+    const stackNextEl = document.getElementById('stack-next-card');
+    if (stackNextEl) {
+        if (currentCardIndex + 1 < activeRoundCards.length) {
+            stackNextEl.style.opacity = '0.45';
+            stackNextEl.style.transform = 'translateY(8px) scale(0.94)';
+        } else {
+            stackNextEl.style.opacity = '0';
+            stackNextEl.style.transform = 'translateY(0) scale(0.88)';
+        }
     }
 
     document.getElementById('card-tag').innerText = card.tag[currentLang] || card.tag.de;
@@ -1006,7 +1018,7 @@ function revealMatchScreen(card) {
         partiesEl.innerText = `${p1Name} & ${p2Name} haben ein Match!`;
     }
 
-    // Hormozi Action Button (Lieferando / Prime Video / Google Maps)
+    // Hormozi Action Button (1-Click Lieferando / Prime Video / Deep Link)
     const actionBtn = document.getElementById('winner-action-btn');
     const actionText = document.getElementById('winner-action-text');
     if (actionBtn && actionText) {
@@ -1015,11 +1027,13 @@ function revealMatchScreen(card) {
         const isEntertainment = deck && deck.category === 'entertainment';
 
         if (isFood) {
-            actionBtn.href = `https://www.lieferando.de/lieferservice/essen/${encodeURIComponent(card.title.de || '')}`;
-            actionText.innerText = "🍕 Jetzt bestellen bei Lieferando";
+            const foodQuery = encodeURIComponent(card.title.de || card.title.en || 'Essen');
+            actionBtn.href = `https://www.lieferando.de/lieferservice/essen/${foodQuery}`;
+            actionText.innerText = `🍕 ${card.title[currentLang] || card.title.de} bei Lieferando bestellen`;
         } else if (isEntertainment) {
-            actionBtn.href = "https://www.amazon.de/gp/video/storefront?tag=f05b1-21";
-            actionText.innerText = "🍿 Jetzt auf Prime Video ansehen";
+            const filmQuery = encodeURIComponent(card.title.de || card.title.en || 'Film');
+            actionBtn.href = `https://www.amazon.de/s?k=${filmQuery}&i=instant-video&tag=f05b1-21`;
+            actionText.innerText = `🍿 ${card.title[currentLang] || card.title.de} auf Prime Video ansehen`;
         } else {
             actionBtn.href = card.actionUrl || "https://www.google.com";
             actionText.innerText = card.actionLabel ? (card.actionLabel[currentLang] || card.actionLabel.de) : "Direkt öffnen";
@@ -1244,7 +1258,8 @@ function copyShareLink() {
 function shareViaWhatsApp() {
     const url = document.getElementById('share-url-input').value;
     const myName = getUserProfile().name;
-    const text = encodeURIComponent(`🔥 ${myName} hat 8 Optionen gewählt!\nWisch kurz in 20 Sekunden durch, sonst entscheidet ${myName} allein:\n${url}`);
+    // Monte Dringlichkeits-Text
+    const text = encodeURIComponent(`🔥 ${myName} hat 8 Optionen gewählt!\nWisch JETZT in 20 Sekunden durch, sonst entscheidet ${myName} allein:\n${url}`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 }
 
@@ -1253,7 +1268,9 @@ function sendWinnerToPartner() {
     const p1Name = partnerSenderName || "Partner 1";
     const p2Name = getUserProfile().name;
     const title = matchedCard.title[currentLang] || matchedCard.title.de;
-    const text = encodeURIComponent(`🎉 IT'S A MATCH!\n${p1Name} & ${p2Name} haben sich geeinigt auf: ${matchedCard.emoji} *${title}*!`);
+    const baseUrl = window.location.origin + window.location.pathname;
+    // Alex Schultz Gruppen-Viral-Text
+    const text = encodeURIComponent(`🎉 IT'S A MATCH!\n${p1Name} & ${p2Name} haben sich geeinigt auf: ${matchedCard.emoji} *${title}*!\n\nEntscheidet auch in 30s mit: ${baseUrl}`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 }
 
