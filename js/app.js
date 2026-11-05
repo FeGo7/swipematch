@@ -302,10 +302,10 @@ function renderCategoryFilter() {
         const isSelected = (selectedCategory === cat.id);
         const btn = document.createElement('button');
         btn.onclick = () => selectCategory(cat.id);
-        btn.className = `px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap active:scale-95 ${
+        btn.className = `px-4 py-2 rounded-full text-xs font-extrabold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap active:scale-95 ${
             isSelected
-                ? 'bg-gradient-to-r from-rose-500 to-orange-500 text-white shadow-md shadow-rose-500/25 scale-105'
-                : 'glass opacity-75 hover:opacity-100 dark:text-slate-300 text-slate-700'
+                ? 'bg-gradient-to-r from-rose-500 to-orange-500 text-white shadow-lg shadow-rose-500/30 scale-105'
+                : 'glass text-slate-700 dark:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'
         }`;
         btn.innerHTML = `<span>${cat.icon}</span> <span>${cat.label[currentLang] || cat.label.de}</span>`;
         container.appendChild(btn);
@@ -361,45 +361,49 @@ function renderDeckList() {
 
         const cardContainer = document.createElement('div');
         cardContainer.onclick = () => startGame(deck.id);
-        cardContainer.className = `w-full p-5 rounded-3xl text-left cursor-pointer transition-all duration-300 transform active:scale-[0.98] relative overflow-hidden group shadow-lg ${
+        cardContainer.className = `w-full p-6 rounded-[28px] text-left cursor-pointer transition-all duration-300 transform active:scale-[0.97] relative overflow-hidden group shadow-xl bg-gradient-to-br ${deck.gradient} text-white ${
             isPartnerDeck 
-                ? 'bg-gradient-to-br ' + deck.gradient + ' ring-4 ring-rose-400/50 shadow-2xl scale-[1.02] text-white' 
-                : 'glass hover:border-slate-300/80 dark:hover:border-white/20 hover:shadow-2xl'
+                ? 'ring-4 ring-white ring-offset-2 ring-offset-slate-900 shadow-2xl scale-[1.02]' 
+                : 'hover:shadow-2xl hover:brightness-105'
         } ${dimOtherDecks ? 'opacity-35 grayscale' : ''}`;
 
         cardContainer.innerHTML = `
-            <!-- Apple Subtle Ambient Gradient Background Accent -->
-            <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-gradient-to-tr ${deck.gradient} opacity-10 dark:opacity-20 blur-2xl pointer-events-none group-hover:scale-150 transition-transform duration-500"></div>
+            <!-- Apple Glass Sheen Reflection -->
+            <div class="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-black/20 pointer-events-none"></div>
 
             <!-- Top Eyebrow Row -->
             <div class="flex items-center justify-between mb-3 relative z-10">
-                <span class="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-900/5 dark:bg-white/10 text-slate-600 dark:text-slate-300">
+                <span class="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-black/25 backdrop-blur-md text-white/90 border border-white/10">
                     ${categoryLabel}
                 </span>
-                ${isPartnerDeck ? '<span class="text-[10px] bg-white text-slate-950 px-2.5 py-0.5 rounded-full font-black uppercase shadow animate-pulse">⚡ Partner wartet</span>' : modeBadgeHtml}
+                ${isPartnerDeck 
+                    ? '<span class="text-[10px] bg-white text-slate-950 px-3 py-1 rounded-full font-black uppercase shadow-lg animate-pulse flex items-center gap-1">⚡ PARTNER WARTET</span>' 
+                    : `<span class="text-[10px] px-3 py-1 rounded-full bg-black/20 backdrop-blur-md text-white/80 font-bold border border-white/10">${poolText}</span>`
+                }
             </div>
 
             <!-- Main Content Area -->
-            <div class="flex items-start justify-between gap-4 mb-4 relative z-10">
-                <div class="flex-1 pr-1">
-                    <h3 class="font-extrabold text-lg text-slate-900 dark:text-white leading-snug tracking-tight mb-1 group-hover:text-rose-500 dark:group-hover:text-rose-400 transition-colors">
+            <div class="flex items-center justify-between gap-4 mb-4 relative z-10">
+                <div class="flex-1 pr-2">
+                    <h3 class="font-black text-2xl text-white leading-tight tracking-tight mb-1.5 drop-shadow-sm">
                         ${deck.title[currentLang] || deck.title.de}
                     </h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                    <p class="text-xs text-white/85 font-medium leading-relaxed max-w-[85%]">
                         ${deck.sub[currentLang] || deck.sub.de}
                     </p>
                 </div>
-                <div class="w-[52px] h-[52px] rounded-2xl bg-gradient-to-tr ${deck.gradient} flex items-center justify-center text-2xl shadow-lg shadow-black/20 shrink-0 text-white transform group-hover:scale-105 group-hover:rotate-3 transition-transform duration-300">
+                <!-- Oversized 3D Floating Emoji Icon -->
+                <div class="text-5xl shrink-0 transform group-hover:scale-115 group-hover:rotate-6 transition-all duration-300 drop-shadow-lg select-none">
                     ${deck.icon}
                 </div>
             </div>
 
             <!-- Bottom Action Row (Apple Capsule Pill) -->
-            <div class="flex items-center justify-between pt-2.5 border-t border-slate-100 dark:border-white/5 relative z-10 text-xs">
-                <span class="text-[11px] opacity-60 font-semibold">
-                    ${isChoresMode ? '💥 Anti-Match & Roulette' : '⏱️ 30s Schnell-Konsens'}
+            <div class="flex items-center justify-between pt-3 border-t border-white/15 relative z-10 text-xs">
+                <span class="text-[11px] text-white/80 font-semibold flex items-center gap-1">
+                    ${isChoresMode ? '🧹 Anti-Match Roulette' : '⏱️ 30s Konsens'}
                 </span>
-                <span class="px-3.5 py-1 rounded-full ${isPartnerDeck ? 'bg-white text-slate-950' : 'bg-slate-900/5 dark:bg-white/10 group-hover:bg-rose-500 group-hover:text-white text-slate-900 dark:text-white'} font-bold transition-all duration-200 flex items-center gap-1">
+                <span class="px-4 py-1.5 rounded-full bg-white text-slate-950 font-black text-xs shadow-md group-hover:bg-amber-300 group-hover:scale-105 transition-all flex items-center gap-1.5">
                     Starten <span>→</span>
                 </span>
             </div>

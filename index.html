@@ -12,8 +12,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="EasyAgree">
-    <!-- Statisches vorkompiliertes Tailwind CSS (Zero Runtime Overhead, 0ms CPU Freeze) -->
+    <!-- Statisches CSS & Tailwind CDN Engine (Garantiert 100% aller Klassen & Apple-Gradients) -->
     <link rel="stylesheet" href="css/style.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        };
+    </script>
     <!-- Canvas Confetti für den Treffer-Moment -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
