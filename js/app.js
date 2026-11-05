@@ -500,8 +500,25 @@ document.addEventListener('click', (e) => {
 });
 
 /**************************************************************
- * 4. KATEGORIEN-FILTER & DECK-LISTE
+ * 4. KATEGORIEN-FILTER, LINE ICONS & DECK-LISTE (Unslop Standard)
  **************************************************************/
+function getCategoryLineIcon(category) {
+    switch (category) {
+        case 'food':
+            return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>`;
+        case 'entertainment':
+            return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg>`;
+        case 'activity':
+            return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`;
+        case 'chores':
+            return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`;
+        case 'trips':
+            return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg>`;
+        default:
+            return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>`;
+    }
+}
+
 function renderCategoryFilter() {
     const container = document.getElementById('category-filter');
     if (!container) return;
@@ -511,12 +528,12 @@ function renderCategoryFilter() {
         const isSelected = (selectedCategory === cat.id);
         const btn = document.createElement('button');
         btn.onclick = () => selectCategory(cat.id);
-        btn.className = `px-4 py-2 rounded-full text-xs transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap active:scale-95 ${
+        btn.className = `px-3 py-1.5 rounded-[8px] text-[12px] transition-colors whitespace-nowrap ${
             isSelected
-                ? 'bg-[#1D1D1F] text-white dark:bg-white dark:text-[#1D1D1F] shadow-md font-bold'
-                : 'bg-white/90 dark:bg-[#1C1C1E] text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white border border-black/5 dark:border-white/10 font-semibold'
+                ? 'btn-primary font-medium'
+                : 'surface-raised text-secondary-role hover:text-primary-role font-normal'
         }`;
-        btn.innerHTML = `<span>${cat.icon}</span> <span>${cat.label[currentLang] || cat.label.de}</span>`;
+        btn.innerText = cat.label[currentLang] || cat.label.de;
         container.appendChild(btn);
     });
 }
@@ -531,7 +548,6 @@ function renderDeckList() {
     const container = document.getElementById('deck-list');
     if (!container) return;
     container.innerHTML = '';
-    const t = I18N[currentLang];
 
     const allDecks = Object.values(DECKS);
 
@@ -553,68 +569,36 @@ function renderDeckList() {
     filteredDecks.forEach(deck => {
         const isPartnerDeck = (partnerLikes !== null && currentDeckId === deck.id);
         const dimOtherDecks = (partnerLikes !== null && currentDeckId !== deck.id);
-        const isChoresMode = (deck.mode === 'chores');
         const totalPool = deck.cards.length;
         const sampleCount = Math.min(CARDS_PER_ROUND, totalPool);
+        const poolText = totalPool > sampleCount ? `${sampleCount} / ${totalPool}` : `${totalPool}`;
 
-        const poolText = totalPool > sampleCount
-            ? `🔀 ${sampleCount} / ${totalPool}`
-            : `${totalPool}`;
+        const row = document.createElement('button');
+        row.onclick = () => startGame(deck.id);
+        row.className = `w-full p-3.5 rounded-[10px] row-card text-left flex items-center justify-between gap-3 ${
+            isPartnerDeck ? 'border-[#E05A3A]' : ''
+        } ${dimOtherDecks ? 'opacity-40' : ''}`;
 
-        const modeBadgeHtml = isChoresMode
-            ? `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-bold uppercase tracking-wider">🧹 Anti-Match • ${poolText}</span>`
-            : `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-neutral-300 font-semibold tracking-wider uppercase">${poolText} ${t.cardsCountSuffix}</span>`;
-
-        const categoryObj = CATEGORIES.find(c => c.id === deck.category);
-        const categoryLabel = (categoryObj ? (categoryObj.label[currentLang] || categoryObj.label.de) : deck.category).toUpperCase();
-
-        const cardContainer = document.createElement('div');
-        cardContainer.onclick = () => startGame(deck.id);
-        cardContainer.className = `w-full p-5 rounded-[22px] text-left cursor-pointer transition-all duration-200 transform active:scale-[0.98] relative overflow-hidden group glass ${
-            isPartnerDeck 
-                ? 'ring-2 ring-[#0071E3] dark:ring-[#0A84FF] shadow-xl' 
-                : 'hover:border-slate-300 dark:hover:border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)]'
-        } ${dimOtherDecks ? 'opacity-35 grayscale' : ''}`;
-
-        cardContainer.innerHTML = `
-            <!-- Top Eyebrow Row -->
-            <div class="flex items-center justify-between mb-2.5 relative z-10">
-                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500">
-                    ${categoryLabel}
-                </span>
-                ${isPartnerDeck 
-                    ? '<span class="text-[10px] bg-[#0071E3] text-white px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider shadow animate-pulse">⚡ Partner wartet</span>' 
-                    : modeBadgeHtml
-                }
-            </div>
-
-            <!-- Main Content Area -->
-            <div class="flex items-start justify-between gap-3.5 mb-3.5 relative z-10">
-                <div class="flex-1 pr-1">
-                    <h3 class="font-bold text-[19px] text-slate-900 dark:text-white leading-snug tracking-tight mb-1 group-hover:text-[#0071E3] dark:group-hover:text-[#0A84FF] transition-colors">
+        row.innerHTML = `
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-5 h-5 flex items-center justify-center text-secondary-role shrink-0">
+                    ${getCategoryLineIcon(deck.category)}
+                </div>
+                <div class="min-w-0">
+                    <div class="font-medium text-[14px] text-primary-role truncate">
                         ${deck.title[currentLang] || deck.title.de}
-                    </h3>
-                    <p class="text-[13px] text-slate-500 dark:text-neutral-400 font-normal leading-relaxed">
+                    </div>
+                    <div class="text-[12px] text-secondary-role truncate mt-0.5">
                         ${deck.sub[currentLang] || deck.sub.de}
-                    </p>
-                </div>
-                <!-- Refined Frosted Squircle Icon -->
-                <div class="w-12 h-12 rounded-2xl bg-slate-100/80 dark:bg-neutral-800/80 border border-slate-200/50 dark:border-white/5 flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition-transform duration-200 shadow-sm">
-                    ${deck.icon}
+                    </div>
                 </div>
             </div>
-
-            <!-- Bottom Action Row (Apple Capsule Pill) -->
-            <div class="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-white/5 relative z-10 text-xs">
-                <span class="text-[11px] text-slate-400 dark:text-neutral-500 font-medium">
-                    ${isChoresMode ? '💥 Faires Losen' : '⏱️ 30s Schnell-Konsens'}
-                </span>
-                <span class="px-4 py-1.5 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white font-semibold text-xs shadow-sm transition-all duration-150 flex items-center gap-1">
-                    Starten <span>→</span>
-                </span>
+            <div class="flex items-center gap-2 text-muted-role shrink-0">
+                <span class="text-[11px] font-mono tabular-nums">${isPartnerDeck ? 'Aktiv' : poolText}</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </div>
         `;
-        container.appendChild(cardContainer);
+        container.appendChild(row);
     });
 }
 
@@ -640,13 +624,13 @@ function setCustomDeckMode(mode) {
     const choresCheck = document.getElementById('custom-mode-chores-check');
 
     if (customDeckMode === 'match') {
-        matchBtn.className = "w-full p-3.5 rounded-2xl text-left text-xs font-semibold border transition flex items-center justify-between bg-[#0071E3]/10 border-[#0071E3] text-[#0071E3] dark:text-[#0A84FF]";
-        choresBtn.className = "w-full p-3.5 rounded-2xl text-left text-xs font-semibold border transition flex items-center justify-between glass border-transparent text-[#86868B]";
+        matchBtn.className = "w-full p-3 rounded-[10px] text-left text-[13px] font-medium border transition-colors flex items-center justify-between surface-raised border-[var(--border-strong)] text-primary-role";
+        choresBtn.className = "w-full p-3 rounded-[10px] text-left text-[13px] font-normal border transition-colors flex items-center justify-between surface border-[var(--border)] text-secondary-role";
         if (matchCheck) matchCheck.innerText = "●";
         if (choresCheck) choresCheck.innerText = "○";
     } else {
-        choresBtn.className = "w-full p-3.5 rounded-2xl text-left text-xs font-semibold border transition flex items-center justify-between bg-amber-500/10 border-amber-500 text-amber-600 dark:text-amber-400";
-        matchBtn.className = "w-full p-3.5 rounded-2xl text-left text-xs font-semibold border transition flex items-center justify-between glass border-transparent text-[#86868B]";
+        choresBtn.className = "w-full p-3 rounded-[10px] text-left text-[13px] font-medium border transition-colors flex items-center justify-between surface-raised border-[var(--border-strong)] text-primary-role";
+        matchBtn.className = "w-full p-3 rounded-[10px] text-left text-[13px] font-normal border transition-colors flex items-center justify-between surface border-[var(--border)] text-secondary-role";
         if (choresCheck) choresCheck.innerText = "●";
         if (matchCheck) matchCheck.innerText = "○";
     }
@@ -660,10 +644,10 @@ function renderCustomOptionInputs(existingValues) {
 
     existingValues.forEach((val, idx) => {
         const row = document.createElement('div');
-        row.className = "flex items-center gap-2";
+        row.className = "flex items-center gap-2.5";
         row.innerHTML = `
-            <span class="w-6 text-center text-xs font-bold text-[#86868B]">${idx + 1}</span>
-            <input type="text" maxlength="50" value="${val.replace(/"/g, '&quot;')}" placeholder="${t.customOptionPlaceholder} ${idx + 1}" class="custom-opt-input flex-1 glass rounded-xl px-3.5 py-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#0071E3] dark:text-white text-[#1D1D1F] placeholder:text-[#86868B]">
+            <span class="w-5 text-right text-[12px] font-mono tabular-nums text-muted-role">${String(idx + 1).padStart(2, '0')}</span>
+            <input type="text" maxlength="50" value="${val.replace(/"/g, '&quot;')}" placeholder="${t.customOptionPlaceholder} ${idx + 1}" class="custom-opt-input flex-1 surface rounded-[8px] px-3 py-2 text-[13px] font-normal focus:outline-none focus:border-[var(--text-secondary)] text-primary-role placeholder:text-muted-role">
         `;
         container.appendChild(row);
     });
@@ -686,17 +670,17 @@ function addCustomOptionInput() {
 }
 
 function registerCustomDeckInMemory(rawTitle, mode, optionsArray) {
-    const cleanTitle = (rawTitle && rawTitle.trim()) ? rawTitle.trim() : "Blitz-Entscheidung ⚡";
+    const cleanTitle = (rawTitle && rawTitle.trim()) ? rawTitle.trim() : "Eigene Abstimmung";
     const cards = optionsArray.map((optText, idx) => ({
         id: idx,
-        emoji: CUSTOM_CARD_EMOJIS[idx] || "✨",
-        bg: CUSTOM_CARD_GRADIENTS[idx % CUSTOM_CARD_GRADIENTS.length],
+        emoji: "",
+        bg: "",
         tag: { de: cleanTitle, en: cleanTitle, es: cleanTitle },
         title: { de: optText, en: optText, es: optText },
         desc: {
-            de: mode === 'chores' ? "Rechts = Mach ich! • Links = Bloß nicht!" : "Rechts = Ja, gerne! • Links = Heute nicht",
-            en: mode === 'chores' ? "Right = I'll do it! • Left = No way!" : "Right = Hell yes! • Left = Not today",
-            es: mode === 'chores' ? "Derecha = ¡Yo lo hago! • Izquierda = ¡Paso!" : "Derecha = ¡Sí! • Izquierda = Hoy no"
+            de: mode === 'chores' ? "Aufgabe zuteilen" : "Option zur Abstimmung",
+            en: mode === 'chores' ? "Assign task" : "Option for this round",
+            es: mode === 'chores' ? "Asignar tarea" : "Opción de la ronda"
         },
         actionLabel: {
             de: "Auf Google suchen",
@@ -715,13 +699,13 @@ function registerCustomDeckInMemory(rawTitle, mode, optionsArray) {
             m: mode === 'chores' ? 'chores' : 'match',
             o: optionsArray
         },
-        icon: "⚡",
-        gradient: "from-[#1D1D1F] to-[#2C2C2E]",
+        icon: "",
+        gradient: "",
         title: { de: cleanTitle, en: cleanTitle, es: cleanTitle },
         sub: {
-            de: `Eigenes Blitz-Deck (${optionsArray.length} Optionen)`,
-            en: `Custom Quick-Deck (${optionsArray.length} options)`,
-            es: `Mazo Personalizado (${optionsArray.length} opciones)`
+            de: `${optionsArray.length} eigene Optionen`,
+            en: `${optionsArray.length} custom options`,
+            es: `${optionsArray.length} opciones propias`
         },
         cards: cards
     };
@@ -752,18 +736,15 @@ function startCustomDeck() {
 function buildActiveRoundCards(deck) {
     if (!deck || !Array.isArray(deck.cards)) return [];
 
-    // FALL 1: Spieler 2 öffnet einen Link mit festgelegtem 8er-Pool von Spieler 1
     if (partnerLikes !== null && Array.isArray(partnerRoundCardIds) && partnerRoundCardIds.length > 0) {
         const subset = partnerRoundCardIds
             .map(id => deck.cards.find(c => c.id === id))
             .filter(Boolean);
-        // Auch für Spieler 2 mischen, damit die Reihenfolge spannend bleibt!
         if (subset.length > 0) {
             return shuffleArray(subset);
         }
     }
 
-    // FALL 2: Spieler 1 startet eine neue Runde -> Mische alle Karten im Pool & ziehe bis zu 8 Karten
     const shuffledPool = shuffleArray(deck.cards);
     if (deck.id === 'custom') {
         return shuffledPool;
@@ -789,13 +770,12 @@ function startGame(deckId) {
 
     showScreen('screen-game');
 
-    // P2 live indicator
     const p2LiveEl = document.getElementById('p2-live-indicator');
     const p2TextEl = document.getElementById('p2-live-text');
     if (p2LiveEl && p2TextEl) {
         if (partnerLikes !== null) {
-            const sender = partnerSenderName || "Partner";
-            p2TextEl.innerText = `${sender} hat vorgelegt • Wisch in 20s mit!`;
+            const sender = partnerSenderName || "Person 1";
+            p2TextEl.innerText = `${sender} hat bereits gewählt`;
             p2LiveEl.classList.remove('hidden');
         } else {
             p2LiveEl.classList.add('hidden');
@@ -807,7 +787,6 @@ function startGame(deckId) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Zieht aus demselben Deck sofort 8 komplett neue Zufalls-Karten (für Spieler 1)
 function startFreshShuffleRound() {
     if (!currentDeckId || !DECKS[currentDeckId]) {
         resetToHome();
@@ -838,7 +817,7 @@ function startTimer() {
 function updateTimerUI() {
     const display = document.getElementById('timer-display');
     const bar = document.getElementById('timer-bar');
-    if (display) display.innerText = timeLeft;
+    if (display) display.innerText = String(timeLeft).padStart(2, '0');
     if (bar) {
         const pct = Math.max(0, (timeLeft / 30) * 100);
         bar.style.width = pct + '%';
@@ -853,31 +832,40 @@ function renderCurrentCard() {
     const t = I18N[currentLang];
     const isChoresMode = (deck.mode === 'chores');
 
+    const numCurrent = String(currentCardIndex + 1).padStart(2, '0');
+    const numTotal = String(activeRoundCards.length).padStart(2, '0');
+
     const progressEl = document.getElementById('game-progress-text');
     if (progressEl) {
-        progressEl.innerText = `${t.cardWord} ${currentCardIndex + 1} / ${activeRoundCards.length}`;
+        progressEl.innerText = `${numCurrent} / ${numTotal}`;
+    }
+
+    const indexMonoEl = document.getElementById('card-index-mono');
+    if (indexMonoEl) {
+        indexMonoEl.innerText = numCurrent;
+    }
+
+    // Update Signature Convergence Dots
+    const dotLeft = document.getElementById('sig-dot-left');
+    const dotRight = document.getElementById('sig-dot-right');
+    if (dotLeft && dotRight) {
+        const ratio = currentCardIndex / Math.max(1, activeRoundCards.length);
+        const offsetPct = Math.round(ratio * 46);
+        dotLeft.style.left = `${offsetPct}%`;
+        dotRight.style.right = `${offsetPct}%`;
     }
 
     const modePill = document.getElementById('game-mode-pill');
     if (modePill) {
-        if (isChoresMode) {
-            modePill.innerText = t.modeChoreBadge;
-            modePill.className = "text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-semibold uppercase tracking-wider";
-        } else {
-            modePill.innerText = `${t.shuffleBadge} • ${deck.cards.length} ${t.cardsCountSuffix}`;
-            modePill.className = "text-[10px] px-2.5 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/10 text-[#86868B] font-semibold uppercase tracking-wider";
-        }
+        modePill.innerText = isChoresMode ? t.modeChoreBadge : (deck.title[currentLang] || deck.title.de);
+        modePill.className = "font-sans text-[12px] text-muted-role";
     }
 
     const nopeHintEl = document.getElementById('t-nope-hint');
     const likeHintEl = document.getElementById('t-like-hint');
-    const yesBtnEl = document.getElementById('btn-swipe-yes');
     if (nopeHintEl && likeHintEl) {
-        nopeHintEl.innerText = isChoresMode ? t.choreNopeHint : t.nopeHint;
-        likeHintEl.innerText = isChoresMode ? t.choreLikeHint : t.likeHint;
-    }
-    if (yesBtnEl) {
-        yesBtnEl.innerText = "✓";
+        nopeHintEl.innerText = `← ${isChoresMode ? t.choreNopeHint : t.nopeHint}`;
+        likeHintEl.innerText = `${isChoresMode ? t.choreLikeHint : t.likeHint} →`;
     }
 
     const cardEl = document.getElementById('active-card');
@@ -885,24 +873,22 @@ function renderCurrentCard() {
         cardEl.style.transform = '';
         cardEl.style.transition = '';
         cardEl.style.opacity = '1';
-        cardEl.style.boxShadow = '';
-        cardEl.className = "w-full h-[400px] rounded-[28px] p-6 flex flex-col justify-between items-center text-center glass relative z-10 overflow-hidden card-enter text-[#1D1D1F] dark:text-white shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.5)]";
+        cardEl.className = "w-full h-[360px] rounded-[16px] p-6 flex flex-col justify-between items-start text-left surface relative z-10 overflow-hidden card-enter";
     }
 
-    // Jony Ive: Haptischer physischer Kartenstapel (Depth Effect)
     const stackNextEl = document.getElementById('stack-next-card');
     if (stackNextEl) {
         if (currentCardIndex + 1 < activeRoundCards.length) {
-            stackNextEl.style.opacity = '0.45';
-            stackNextEl.style.transform = 'translateY(8px) scale(0.94)';
+            stackNextEl.style.opacity = '0.5';
+            stackNextEl.style.transform = 'translateY(8px) scale(0.96)';
         } else {
             stackNextEl.style.opacity = '0';
-            stackNextEl.style.transform = 'translateY(0) scale(0.88)';
+            stackNextEl.style.transform = 'translateY(0) scale(0.92)';
         }
     }
 
     document.getElementById('card-tag').innerText = card.tag[currentLang] || card.tag.de;
-    document.getElementById('card-emoji').innerText = card.emoji;
+    document.getElementById('card-emoji').innerHTML = getCategoryLineIcon(deck.category);
     document.getElementById('card-title').innerText = card.title[currentLang] || card.title.de;
     document.getElementById('card-desc').innerText = card.desc[currentLang] || card.desc.de;
 }
@@ -1102,44 +1088,42 @@ function revealMatchScreen(card) {
 
     if (typeof confetti === 'function') {
         confetti({
-            particleCount: 95,
-            spread: 75,
+            particleCount: 70,
+            spread: 60,
             origin: { y: 0.6 }
         });
     }
 
+    const deck = DECKS[currentDeckId];
     const winnerCardEl = document.getElementById('winner-card');
     if (winnerCardEl) {
-        winnerCardEl.className = "w-full rounded-[28px] p-6 mb-5 flex flex-col items-center text-center glass text-[#1D1D1F] dark:text-white";
+        winnerCardEl.className = "w-full rounded-[16px] p-6 mb-5 flex flex-col items-start text-left surface";
     }
-    document.getElementById('winner-emoji').innerText = card.emoji;
+    document.getElementById('winner-emoji').innerHTML = getCategoryLineIcon(deck ? deck.category : 'all');
     document.getElementById('winner-title').innerText = card.title[currentLang] || card.title.de;
     document.getElementById('winner-desc').innerText = card.desc[currentLang] || card.desc.de;
 
-    // Parties display
     const partiesEl = document.getElementById('winner-parties');
     if (partiesEl) {
-        const p1Name = partnerSenderName || "Partner 1";
+        const p1Name = partnerSenderName || "Person 1";
         const p2Name = getUserProfile().name;
-        partiesEl.innerText = `${p1Name} & ${p2Name} haben ein Match!`;
+        partiesEl.innerText = `${p1Name} & ${p2Name}`;
     }
 
-    // Hormozi Action Button (1-Click Lieferando / Prime Video / Deep Link)
     const actionBtn = document.getElementById('winner-action-btn');
     const actionText = document.getElementById('winner-action-text');
     if (actionBtn && actionText) {
-        const deck = DECKS[currentDeckId];
         const isFood = deck && deck.category === 'food';
         const isEntertainment = deck && deck.category === 'entertainment';
 
         if (isFood) {
             const foodQuery = encodeURIComponent(card.title.de || card.title.en || 'Essen');
             actionBtn.href = `https://www.lieferando.de/lieferservice/essen/${foodQuery}`;
-            actionText.innerText = `🍕 ${card.title[currentLang] || card.title.de} bei Lieferando bestellen`;
+            actionText.innerText = `${card.title[currentLang] || card.title.de} bei Lieferando suchen`;
         } else if (isEntertainment) {
             const filmQuery = encodeURIComponent(card.title.de || card.title.en || 'Film');
             actionBtn.href = `https://www.amazon.de/s?k=${filmQuery}&i=instant-video&tag=f05b1-21`;
-            actionText.innerText = `🍿 ${card.title[currentLang] || card.title.de} auf Prime Video ansehen`;
+            actionText.innerText = `${card.title[currentLang] || card.title.de} auf Prime Video ansehen`;
         } else {
             actionBtn.href = card.actionUrl || "https://www.google.com";
             actionText.innerText = card.actionLabel ? (card.actionLabel[currentLang] || card.actionLabel.de) : "Direkt öffnen";
@@ -1167,7 +1151,6 @@ function continueSwiping() {
     }
 }
 
-// Schicksals-Wurf (Tie-Breaker bei 0 Matches)
 function pickRandomCardFallback() {
     const deck = DECKS[currentDeckId];
     if (!deck || !deck.cards.length) return;
@@ -1205,7 +1188,6 @@ function triggerChoresResultScreen() {
         } else if (p2Liked) {
             voluntary.push({ card, owner: 'p2' });
         } else {
-            // Beide haben NEIN gewischt -> ANTI-MATCH!
             antiMatches.push({ card, assignedTo: null });
         }
     });
@@ -1218,10 +1200,6 @@ function triggerChoresResultScreen() {
 
     showScreen('screen-chores-result');
     renderChoresSummaryUI();
-
-    if (antiMatches.length === 0 && typeof confetti === 'function') {
-        confetti({ particleCount: 70, spread: 65, origin: { y: 0.6 } });
-    }
 }
 
 function renderChoresSummaryUI() {
@@ -1229,65 +1207,47 @@ function renderChoresSummaryUI() {
     const volListEl = document.getElementById('chores-voluntary-list');
     const antiListEl = document.getElementById('chores-antimatch-list');
     const rouletteBtn = document.getElementById('btn-chores-roulette');
-    const p1Name = partnerSenderName || "Partner 1";
+    const p1Name = partnerSenderName || "Person 1";
     const p2Name = getUserProfile().name;
 
     if (!volListEl || !antiListEl) return;
     volListEl.innerHTML = '';
     antiListEl.innerHTML = '';
 
-    // 1. Freiwillige Aufgaben rendern
     if (currentChoresSummary.voluntary.length === 0) {
-        volListEl.innerHTML = `<div class="opacity-60 italic py-1">–</div>`;
+        volListEl.innerHTML = `<div class="text-muted-role py-1">Keine</div>`;
     } else {
         currentChoresSummary.voluntary.forEach(item => {
             const title = item.card.title[currentLang] || item.card.title.de;
             let badgeText = t.choresBothWant;
-            let badgeClass = "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400";
-            if (item.owner === 'p1') {
-                badgeText = `💪 ${p1Name}`;
-                badgeClass = "bg-black/[0.04] dark:bg-white/10 text-slate-700 dark:text-neutral-300";
-            } else if (item.owner === 'p2') {
-                badgeText = `💪 ${p2Name}`;
-                badgeClass = "bg-[#0071E3]/15 text-[#0071E3] dark:text-[#0A84FF]";
-            }
+            if (item.owner === 'p1') badgeText = p1Name;
+            if (item.owner === 'p2') badgeText = p2Name;
 
             const row = document.createElement('div');
-            row.className = "flex items-center justify-between gap-2 p-2 rounded-xl bg-black/[0.03] dark:bg-white/5";
+            row.className = "flex items-center justify-between gap-2 p-2.5 rounded-[8px] surface-raised";
             row.innerHTML = `
-                <div class="flex items-center gap-2 font-bold">
-                    <span class="text-base">${item.card.emoji}</span>
-                    <span>${title}</span>
-                </div>
-                <span class="text-[10px] px-2.5 py-0.5 rounded-full font-semibold whitespace-nowrap ${badgeClass}">${badgeText}</span>
+                <span class="font-medium text-primary-role">${title}</span>
+                <span class="text-[11px] font-mono text-secondary-role whitespace-nowrap">${badgeText}</span>
             `;
             volListEl.appendChild(row);
         });
     }
 
-    // 2. Anti-Matches rendern
     if (currentChoresSummary.antiMatches.length === 0) {
-        antiListEl.innerHTML = `<div class="text-emerald-600 dark:text-emerald-400 font-bold py-1">${t.choresNoAntiMatch}</div>`;
+        antiListEl.innerHTML = `<div class="text-[#349B6B] font-medium py-1">${t.choresNoAntiMatch}</div>`;
         if (rouletteBtn) rouletteBtn.classList.add('hidden');
     } else {
         currentChoresSummary.antiMatches.forEach(item => {
             const title = item.card.title[currentLang] || item.card.title.de;
-            let statusHtml = `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/10 text-[#86868B] font-semibold whitespace-nowrap">Offen</span>`;
-
-            if (item.assignedTo === 'p1') {
-                statusHtml = `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-black/[0.06] dark:bg-white/15 text-slate-700 dark:text-neutral-200 font-semibold whitespace-nowrap">Muss ${p1Name} machen</span>`;
-            } else if (item.assignedTo === 'p2') {
-                statusHtml = `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-[#0071E3] text-white font-semibold whitespace-nowrap">Musst DU (${p2Name}) machen</span>`;
-            }
+            let statusText = "Offen";
+            if (item.assignedTo === 'p1') statusText = p1Name;
+            if (item.assignedTo === 'p2') statusText = p2Name;
 
             const row = document.createElement('div');
-            row.className = "flex items-center justify-between gap-2 p-2.5 rounded-xl bg-black/[0.03] dark:bg-white/5";
+            row.className = "flex items-center justify-between gap-2 p-2.5 rounded-[8px] surface-raised";
             row.innerHTML = `
-                <div class="flex items-center gap-2 font-bold">
-                    <span class="text-base">${item.card.emoji}</span>
-                    <span>${title}</span>
-                </div>
-                ${statusHtml}
+                <span class="font-medium text-primary-role">${title}</span>
+                <span class="text-[11px] font-mono text-secondary-role whitespace-nowrap">${statusText}</span>
             `;
             antiListEl.appendChild(row);
         });
@@ -1295,11 +1255,11 @@ function renderChoresSummaryUI() {
         if (rouletteBtn) {
             if (currentChoresSummary.resolved) {
                 rouletteBtn.innerText = t.choresRouletteDone;
-                rouletteBtn.className = "w-full py-3.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold text-xs cursor-default";
+                rouletteBtn.className = "w-full h-10 rounded-[8px] surface-raised text-secondary-role font-medium text-[13px] cursor-default";
             } else {
                 rouletteBtn.classList.remove('hidden');
                 rouletteBtn.innerText = t.choresRouletteBtn;
-                rouletteBtn.className = "w-full py-3.5 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white font-semibold text-xs shadow-sm transition active:scale-95";
+                rouletteBtn.className = "w-full h-10 rounded-[8px] btn-primary font-medium text-[13px]";
             }
         }
     }
@@ -1318,10 +1278,6 @@ function resolveChoresAntiMatches() {
 
     currentChoresSummary.resolved = true;
     renderChoresSummaryUI();
-
-    if (typeof confetti === 'function') {
-        confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
-    }
 }
 
 function shareChoresPlanViaWhatsApp() {
@@ -1330,20 +1286,20 @@ function shareChoresPlanViaWhatsApp() {
     }
 
     const t = I18N[currentLang];
-    const p1Name = partnerSenderName || "Partner 1";
+    const p1Name = partnerSenderName || "Person 1";
     const p2Name = getUserProfile().name;
-    const lines = [t.waChoresSummaryHeader, `Beteiligte: ${p1Name} & ${p2Name}`, ""];
+    const lines = [t.waChoresSummaryHeader, `${p1Name} & ${p2Name}`, ""];
 
     currentChoresSummary.voluntary.forEach(item => {
         const title = item.card.title[currentLang] || item.card.title.de;
         const who = item.owner === 'p1' ? p1Name : (item.owner === 'p2' ? p2Name : t.choresBothWant);
-        lines.push(`✅ ${item.card.emoji} *${title}*: ${who}`);
+        lines.push(`• ${title}: ${who}`);
     });
 
     currentChoresSummary.antiMatches.forEach(item => {
         const title = item.card.title[currentLang] || item.card.title.de;
         const who = item.assignedTo === 'p1' ? p1Name : p2Name;
-        lines.push(`🎲 ${item.card.emoji} *${title}* (Ausgelost): ${who}`);
+        lines.push(`• ${title}: ${who}`);
     });
 
     const text = encodeURIComponent(lines.join('\n'));
@@ -1364,19 +1320,17 @@ function copyShareLink() {
 function shareViaWhatsApp() {
     const url = document.getElementById('share-url-input').value;
     const myName = getUserProfile().name;
-    // Monte Dringlichkeits-Text
-    const text = encodeURIComponent(`🔥 ${myName} hat 8 Optionen gewählt!\nWisch JETZT in 20 Sekunden durch, sonst entscheidet ${myName} allein:\n${url}`);
+    const text = encodeURIComponent(`${myName} hat eine Runde auf Agreesy gestartet. Schau kurz rein, wo ihr übereinstimmt:\n${url}`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 }
 
 function sendWinnerToPartner() {
     if (!matchedCard) return;
-    const p1Name = partnerSenderName || "Partner 1";
+    const p1Name = partnerSenderName || "Person 1";
     const p2Name = getUserProfile().name;
     const title = matchedCard.title[currentLang] || matchedCard.title.de;
     const baseUrl = window.location.origin + window.location.pathname;
-    // Alex Schultz Gruppen-Viral-Text
-    const text = encodeURIComponent(`🎉 IT'S A MATCH!\n${p1Name} & ${p2Name} haben sich geeinigt auf: ${matchedCard.emoji} *${title}*!\n\nEntscheidet auch in 30s mit: ${baseUrl}`);
+    const text = encodeURIComponent(`Gemeinsame Wahl von ${p1Name} & ${p2Name}: ${title}\n${baseUrl}`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 }
 
@@ -1500,24 +1454,24 @@ function openLegalModal(type) {
     if (!modal || !titleEl || !contentEl) return;
 
     if (type === 'impressum') {
-        titleEl.innerText = currentLang === 'de' ? 'Impressum' : (currentLang === 'es' ? 'Aviso Legal' : 'Legal Notice / Imprint');
+        titleEl.innerText = currentLang === 'de' ? 'Impressum' : (currentLang === 'es' ? 'Aviso Legal' : 'Legal Notice');
         contentEl.innerHTML = `
             <div>
-                <h4 class="font-bold text-white mb-1">Angaben gemäß § 5 TMG / DDG:</h4>
+                <h4 class="font-medium text-primary-role mb-1">Angaben gemäß § 5 DDG</h4>
                 <p>Felix Gooßens<br>
-                E-Mail: <a href="mailto:felix.goossens@aol.com" class="text-amber-400 underline">felix.goossens@aol.com</a><br>
-                Webseite: <a href="https://swipematch-128.pages.dev" class="text-amber-400 underline">swipematch-128.pages.dev</a></p>
+                E-Mail: <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a><br>
+                Webseite: <a href="https://agreesy.com" class="text-primary-role underline">agreesy.com</a></p>
             </div>
             <div>
-                <h4 class="font-bold text-white mb-1">Verantwortlich für den Inhalt:</h4>
+                <h4 class="font-medium text-primary-role mb-1">Verantwortlich für den Inhalt</h4>
                 <p>Felix Gooßens</p>
             </div>
             <div>
-                <h4 class="font-bold text-white mb-1">Haftung für Inhalte & Links:</h4>
+                <h4 class="font-medium text-primary-role mb-1">Haftung für Inhalte und Links</h4>
                 <p>Die Inhalte dieser Web-App wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Für externe Links zu Webseiten Dritter übernehmen wir keine Haftung; für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich.</p>
             </div>
             <div>
-                <h4 class="font-bold text-white mb-1">Affiliate- & Werbehinweis:</h4>
+                <h4 class="font-medium text-primary-role mb-1">Affiliate- und Werbehinweis</h4>
                 <p>Diese Web-App enthält sogenannte Affiliate-Links (u. a. zu Amazon und Partnershops über Netzwerke wie Skimlinks). Wenn Sie über einen dieser Links einen Kauf oder eine Bestellung tätigen, erhalten wir gegebenenfalls eine geringe Provision. Für Sie entstehen dadurch keinerlei Mehrkosten.</p>
             </div>
         `;
@@ -1525,24 +1479,24 @@ function openLegalModal(type) {
         titleEl.innerText = currentLang === 'de' ? 'Datenschutzerklärung' : (currentLang === 'es' ? 'Política de Privacidad' : 'Privacy Policy');
         contentEl.innerHTML = `
             <div>
-                <h4 class="font-bold text-white mb-1">1. Datenschutz auf einen Blick</h4>
+                <h4 class="font-medium text-primary-role mb-1">1. Datenschutz auf einen Blick</h4>
                 <p>Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Diese Anwendung folgt dem Grundsatz der Datensparsamkeit („Zero-Server Engine“): Wir erfassen und speichern keine personenbezogenen Daten auf eigenen Servern.</p>
             </div>
             <div>
-                <h4 class="font-bold text-white mb-1">2. Verantwortliche Stelle</h4>
+                <h4 class="font-medium text-primary-role mb-1">2. Verantwortliche Stelle</h4>
                 <p>Felix Gooßens<br>
-                E-Mail: <a href="mailto:felix.goossens@aol.com" class="text-amber-400 underline">felix.goossens@aol.com</a></p>
+                E-Mail: <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a></p>
             </div>
             <div>
-                <h4 class="font-bold text-white mb-1">3. Funktionsweise & Lokale Speicherung</h4>
-                <p>Die Auswahl Ihrer Spielkarten und Präferenzen verbleibt rein clientseitig in Ihrem Browser. Zur Synchronisation mit Ihrem Spielpartner wird der Spielstand kryptografisch Base64-kodiert im URL-Fragment (#m=...) abgelegt und direkt via WhatsApp/Link geteilt. Es findet keine serverseitige Speicherung statt.</p>
+                <h4 class="font-medium text-primary-role mb-1">3. Funktionsweise und lokale Speicherung</h4>
+                <p>Die Auswahl Ihrer Karten und Präferenzen verbleibt rein clientseitig in Ihrem Browser. Zur Synchronisation mit Ihrem Gegenüber wird der Spielstand Base64-kodiert im URL-Fragment (#m=...) abgelegt und direkt per Link geteilt. Es findet keine serverseitige Speicherung statt.</p>
             </div>
             <div>
-                <h4 class="font-bold text-white mb-1">4. Hosting & Content Delivery Network (CDN)</h4>
+                <h4 class="font-medium text-primary-role mb-1">4. Hosting und Content Delivery Network (CDN)</h4>
                 <p>Diese Web-App wird über Cloudflare Pages (Cloudflare Inc., 101 Townsend St, San Francisco, CA 94107, USA) gehostet. Beim Aufruf der Seite werden technisch notwendige Server-Logfiles verarbeitet.</p>
             </div>
             <div>
-                <h4 class="font-bold text-white mb-1">5. Externe Links & Partnernetzwerke</h4>
+                <h4 class="font-medium text-primary-role mb-1">5. Externe Links und Partnernetzwerke</h4>
                 <p>Wenn Sie auf externe Partner-Links (z. B. Amazon, Lieferando, Google Maps) klicken, verlassen Sie unsere Anwendung. Für die Datenverarbeitung auf den Zielseiten gelten die Datenschutzbestimmungen der jeweiligen Anbieter.</p>
             </div>
         `;
