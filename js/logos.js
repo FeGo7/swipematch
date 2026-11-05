@@ -25,20 +25,18 @@ const LOGO_VARIANTS = {
     },
     vennMark: {
         id: 'vennMark',
-        title: { de: '2. Schnittmenge', en: '2. Intersection', es: '2. Intersección' },
-        desc: { de: 'Zwei klare Kreise mit dem Konsenspunkt in der Mitte.', en: 'Two clean circles with the consensus dot at the center.', es: 'Dos círculos limpios con el punto central.' },
+        title: { de: '1. Schnittmenge (Offizielles Logo)', en: '1. Intersection (Official Logo)', es: '1. Intersección (Logo Oficial)' },
+        desc: { de: 'Zwei überlappende Ringe (Weiß & Coral) – genau wie auf Instagram & Reddit.', en: 'Two overlapping rings (White & Coral).', es: 'Dos anillos superpuestos.' },
         svgSmall: `
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="9.5" cy="12" r="6" stroke="currentColor" stroke-width="1.75"/>
-                <circle cx="14.5" cy="12" r="6" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.75"/>
-                <circle cx="12" cy="12" r="1.75" fill="#E05A3A"/>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="9.2" cy="12" r="5.5" stroke="currentColor" stroke-width="2.1"/>
+                <circle cx="14.8" cy="12" r="5.5" stroke="#F07153" stroke-width="2.1"/>
             </svg>
         `,
         svgLarge: `
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="9.5" cy="12" r="6" stroke="currentColor" stroke-width="1.75"/>
-                <circle cx="14.5" cy="12" r="6" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.75"/>
-                <circle cx="12" cy="12" r="1.75" fill="#E05A3A"/>
+                <circle cx="9.2" cy="12" r="5.5" stroke="currentColor" stroke-width="2.1"/>
+                <circle cx="14.8" cy="12" r="5.5" stroke="#F07153" stroke-width="2.1"/>
             </svg>
         `
     },
@@ -63,18 +61,18 @@ const LOGO_VARIANTS = {
     }
 };
 
-let currentLogoId = localStorage.getItem('agreesy_logo') || 'convergenceCheck';
+let currentLogoId = localStorage.getItem('agreesy_logo_v2') || 'vennMark';
 
 function getActiveLogo() {
-    return LOGO_VARIANTS[currentLogoId] || LOGO_VARIANTS.convergenceCheck;
+    return LOGO_VARIANTS[currentLogoId] || LOGO_VARIANTS.vennMark;
 }
 
 function setActiveLogo(logoId) {
     if (!LOGO_VARIANTS[logoId]) {
-        logoId = 'convergenceCheck';
+        logoId = 'vennMark';
     }
     currentLogoId = logoId;
-    localStorage.setItem('agreesy_logo', logoId);
+    localStorage.setItem('agreesy_logo_v2', logoId);
 
     const headerIconEl = document.getElementById('header-logo-icon');
     if (headerIconEl) {
