@@ -33,14 +33,14 @@ let currentChoresSummary = {
 };
 
 const CUSTOM_CARD_GRADIENTS = [
-    "from-rose-600 to-orange-500",
-    "from-indigo-600 to-blue-500",
-    "from-emerald-600 to-teal-500",
-    "from-purple-600 to-pink-500",
-    "from-amber-500 to-red-500",
-    "from-cyan-600 to-sky-500"
+    "from-slate-900 to-slate-800",
+    "from-blue-900 to-slate-900",
+    "from-emerald-900 to-slate-900",
+    "from-indigo-900 to-slate-900",
+    "from-neutral-900 to-stone-900",
+    "from-sky-900 to-slate-900"
 ];
-const CUSTOM_CARD_EMOJIS = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣"];
+const CUSTOM_CARD_EMOJIS = ["1", "2", "3", "4", "5", "6"];
 
 /**************************************************************
  * 0. HELPERS: UTF-8 BASE64 & FISHER-YATES SHUFFLE
@@ -181,9 +181,9 @@ function setLang(lang) {
         const opt = document.getElementById(`lang-opt-${code}`);
         if (opt) {
             if (code === lang) {
-                opt.className = "w-full text-left px-2.5 py-2 rounded-xl text-xs font-black flex items-center justify-between bg-rose-500/15 text-rose-500 transition";
+                opt.className = "w-full text-left px-2.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-between bg-[#0071E3]/10 text-[#0071E3] dark:text-[#0A84FF] transition";
             } else {
-                opt.className = "w-full text-left px-2.5 py-2 rounded-xl text-xs font-bold flex items-center justify-between hover:bg-slate-500/10 transition opacity-80 hover:opacity-100";
+                opt.className = "w-full text-left px-2.5 py-2 rounded-xl text-xs font-medium flex items-center justify-between hover:bg-black/5 dark:hover:bg-white/10 transition text-slate-700 dark:text-neutral-300";
             }
         }
     });
@@ -302,10 +302,10 @@ function renderCategoryFilter() {
         const isSelected = (selectedCategory === cat.id);
         const btn = document.createElement('button');
         btn.onclick = () => selectCategory(cat.id);
-        btn.className = `px-4 py-2 rounded-full text-xs font-extrabold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap active:scale-95 ${
+        btn.className = `px-4 py-2 rounded-full text-xs transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap active:scale-95 ${
             isSelected
-                ? 'bg-gradient-to-r from-rose-500 to-orange-500 text-white shadow-lg shadow-rose-500/30 scale-105'
-                : 'glass text-slate-700 dark:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-white/10 border border-slate-200/50 dark:border-white/10'
+                ? 'bg-[#1D1D1F] text-white dark:bg-white dark:text-[#1D1D1F] shadow-md font-bold'
+                : 'bg-white/90 dark:bg-[#1C1C1E] text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white border border-black/5 dark:border-white/10 font-semibold'
         }`;
         btn.innerHTML = `<span>${cat.icon}</span> <span>${cat.label[currentLang] || cat.label.de}</span>`;
         container.appendChild(btn);
@@ -349,61 +349,58 @@ function renderDeckList() {
         const sampleCount = Math.min(CARDS_PER_ROUND, totalPool);
 
         const poolText = totalPool > sampleCount
-            ? `🔀 ${sampleCount} / ${totalPool} ${t.cardsCountSuffix}`
-            : `${totalPool} ${t.cardsCountSuffix}`;
+            ? `🔀 ${sampleCount} / ${totalPool}`
+            : `${totalPool}`;
 
         const modeBadgeHtml = isChoresMode
-            ? `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-500 dark:text-amber-300 border border-amber-500/30 font-extrabold uppercase whitespace-nowrap">🧹 ${t.modeChoreBadge} • ${poolText}</span>`
-            : `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-500 dark:text-rose-300 font-bold uppercase whitespace-nowrap">${poolText}</span>`;
+            ? `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-bold uppercase tracking-wider">🧹 Anti-Match • ${poolText}</span>`
+            : `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-neutral-300 font-semibold tracking-wider uppercase">${poolText} ${t.cardsCountSuffix}</span>`;
 
         const categoryObj = CATEGORIES.find(c => c.id === deck.category);
         const categoryLabel = (categoryObj ? (categoryObj.label[currentLang] || categoryObj.label.de) : deck.category).toUpperCase();
 
         const cardContainer = document.createElement('div');
         cardContainer.onclick = () => startGame(deck.id);
-        cardContainer.className = `w-full p-6 rounded-[28px] text-left cursor-pointer transition-all duration-300 transform active:scale-[0.97] relative overflow-hidden group shadow-xl bg-gradient-to-br ${deck.gradient} text-white ${
+        cardContainer.className = `w-full p-5 rounded-[22px] text-left cursor-pointer transition-all duration-200 transform active:scale-[0.98] relative overflow-hidden group glass ${
             isPartnerDeck 
-                ? 'ring-4 ring-white ring-offset-2 ring-offset-slate-900 shadow-2xl scale-[1.02]' 
-                : 'hover:shadow-2xl hover:brightness-105'
+                ? 'ring-2 ring-[#0071E3] dark:ring-[#0A84FF] shadow-xl' 
+                : 'hover:border-slate-300 dark:hover:border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)]'
         } ${dimOtherDecks ? 'opacity-35 grayscale' : ''}`;
 
         cardContainer.innerHTML = `
-            <!-- Apple Glass Sheen Reflection -->
-            <div class="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-black/20 pointer-events-none"></div>
-
             <!-- Top Eyebrow Row -->
-            <div class="flex items-center justify-between mb-3 relative z-10">
-                <span class="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-black/25 backdrop-blur-md text-white/90 border border-white/10">
+            <div class="flex items-center justify-between mb-2.5 relative z-10">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500">
                     ${categoryLabel}
                 </span>
                 ${isPartnerDeck 
-                    ? '<span class="text-[10px] bg-white text-slate-950 px-3 py-1 rounded-full font-black uppercase shadow-lg animate-pulse flex items-center gap-1">⚡ PARTNER WARTET</span>' 
-                    : `<span class="text-[10px] px-3 py-1 rounded-full bg-black/20 backdrop-blur-md text-white/80 font-bold border border-white/10">${poolText}</span>`
+                    ? '<span class="text-[10px] bg-[#0071E3] text-white px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider shadow animate-pulse">⚡ Partner wartet</span>' 
+                    : modeBadgeHtml
                 }
             </div>
 
             <!-- Main Content Area -->
-            <div class="flex items-center justify-between gap-4 mb-4 relative z-10">
-                <div class="flex-1 pr-2">
-                    <h3 class="font-black text-2xl text-white leading-tight tracking-tight mb-1.5 drop-shadow-sm">
+            <div class="flex items-start justify-between gap-3.5 mb-3.5 relative z-10">
+                <div class="flex-1 pr-1">
+                    <h3 class="font-bold text-[19px] text-slate-900 dark:text-white leading-snug tracking-tight mb-1 group-hover:text-[#0071E3] dark:group-hover:text-[#0A84FF] transition-colors">
                         ${deck.title[currentLang] || deck.title.de}
                     </h3>
-                    <p class="text-xs text-white/85 font-medium leading-relaxed max-w-[85%]">
+                    <p class="text-[13px] text-slate-500 dark:text-neutral-400 font-normal leading-relaxed">
                         ${deck.sub[currentLang] || deck.sub.de}
                     </p>
                 </div>
-                <!-- Oversized 3D Floating Emoji Icon -->
-                <div class="text-5xl shrink-0 transform group-hover:scale-115 group-hover:rotate-6 transition-all duration-300 drop-shadow-lg select-none">
+                <!-- Refined Frosted Squircle Icon -->
+                <div class="w-12 h-12 rounded-2xl bg-slate-100/80 dark:bg-neutral-800/80 border border-slate-200/50 dark:border-white/5 flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition-transform duration-200 shadow-sm">
                     ${deck.icon}
                 </div>
             </div>
 
             <!-- Bottom Action Row (Apple Capsule Pill) -->
-            <div class="flex items-center justify-between pt-3 border-t border-white/15 relative z-10 text-xs">
-                <span class="text-[11px] text-white/80 font-semibold flex items-center gap-1">
-                    ${isChoresMode ? '🧹 Anti-Match Roulette' : '⏱️ 30s Konsens'}
+            <div class="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-white/5 relative z-10 text-xs">
+                <span class="text-[11px] text-slate-400 dark:text-neutral-500 font-medium">
+                    ${isChoresMode ? '💥 Faires Losen' : '⏱️ 30s Schnell-Konsens'}
                 </span>
-                <span class="px-4 py-1.5 rounded-full bg-white text-slate-950 font-black text-xs shadow-md group-hover:bg-amber-300 group-hover:scale-105 transition-all flex items-center gap-1.5">
+                <span class="px-4 py-1.5 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white font-semibold text-xs shadow-sm transition-all duration-150 flex items-center gap-1">
                     Starten <span>→</span>
                 </span>
             </div>
@@ -434,13 +431,13 @@ function setCustomDeckMode(mode) {
     const choresCheck = document.getElementById('custom-mode-chores-check');
 
     if (customDeckMode === 'match') {
-        matchBtn.className = "w-full p-3 rounded-2xl text-left text-xs font-bold border transition flex items-center justify-between bg-rose-500/15 border-rose-500 text-rose-500 dark:text-rose-300";
-        choresBtn.className = "w-full p-3 rounded-2xl text-left text-xs font-bold border transition flex items-center justify-between glass border-transparent opacity-75";
+        matchBtn.className = "w-full p-3.5 rounded-2xl text-left text-xs font-semibold border transition flex items-center justify-between bg-[#0071E3]/10 border-[#0071E3] text-[#0071E3] dark:text-[#0A84FF]";
+        choresBtn.className = "w-full p-3.5 rounded-2xl text-left text-xs font-semibold border transition flex items-center justify-between glass border-transparent text-[#86868B]";
         if (matchCheck) matchCheck.innerText = "●";
         if (choresCheck) choresCheck.innerText = "○";
     } else {
-        choresBtn.className = "w-full p-3 rounded-2xl text-left text-xs font-bold border transition flex items-center justify-between bg-amber-500/15 border-amber-500 text-amber-500 dark:text-amber-300";
-        matchBtn.className = "w-full p-3 rounded-2xl text-left text-xs font-bold border transition flex items-center justify-between glass border-transparent opacity-75";
+        choresBtn.className = "w-full p-3.5 rounded-2xl text-left text-xs font-semibold border transition flex items-center justify-between bg-amber-500/10 border-amber-500 text-amber-600 dark:text-amber-400";
+        matchBtn.className = "w-full p-3.5 rounded-2xl text-left text-xs font-semibold border transition flex items-center justify-between glass border-transparent text-[#86868B]";
         if (choresCheck) choresCheck.innerText = "●";
         if (matchCheck) matchCheck.innerText = "○";
     }
@@ -456,8 +453,8 @@ function renderCustomOptionInputs(existingValues) {
         const row = document.createElement('div');
         row.className = "flex items-center gap-2";
         row.innerHTML = `
-            <span class="w-7 text-center text-sm font-extrabold opacity-60">${CUSTOM_CARD_EMOJIS[idx] || '🔹'}</span>
-            <input type="text" maxlength="50" value="${val.replace(/"/g, '&quot;')}" placeholder="${t.customOptionPlaceholder} ${idx + 1}" class="custom-opt-input flex-1 glass rounded-xl px-3.5 py-2.5 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-rose-500 dark:text-white text-slate-900 placeholder:opacity-50">
+            <span class="w-6 text-center text-xs font-bold text-[#86868B]">${idx + 1}</span>
+            <input type="text" maxlength="50" value="${val.replace(/"/g, '&quot;')}" placeholder="${t.customOptionPlaceholder} ${idx + 1}" class="custom-opt-input flex-1 glass rounded-xl px-3.5 py-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#0071E3] dark:text-white text-[#1D1D1F] placeholder:text-[#86868B]">
         `;
         container.appendChild(row);
     });
@@ -510,7 +507,7 @@ function registerCustomDeckInMemory(rawTitle, mode, optionsArray) {
             o: optionsArray
         },
         icon: "⚡",
-        gradient: "from-rose-500 to-orange-500",
+        gradient: "from-[#1D1D1F] to-[#2C2C2E]",
         title: { de: cleanTitle, en: cleanTitle, es: cleanTitle },
         sub: {
             de: `Eigenes Blitz-Deck (${optionsArray.length} Optionen)`,
@@ -639,11 +636,11 @@ function renderCurrentCard() {
     const modePill = document.getElementById('game-mode-pill');
     if (modePill) {
         if (isChoresMode) {
-            modePill.innerText = `🧹 ${t.modeChoreBadge}`;
-            modePill.className = "text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-extrabold uppercase";
+            modePill.innerText = t.modeChoreBadge;
+            modePill.className = "text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-semibold uppercase tracking-wider";
         } else {
-            modePill.innerText = `${t.shuffleBadge} (${deck.cards.length} ${t.cardsCountSuffix})`;
-            modePill.className = "text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 font-extrabold uppercase";
+            modePill.innerText = `${t.shuffleBadge} • ${deck.cards.length} ${t.cardsCountSuffix}`;
+            modePill.className = "text-[10px] px-2.5 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/10 text-[#86868B] font-semibold uppercase tracking-wider";
         }
     }
 
@@ -655,7 +652,7 @@ function renderCurrentCard() {
         likeHintEl.innerText = isChoresMode ? t.choreLikeHint : t.likeHint;
     }
     if (yesBtnEl) {
-        yesBtnEl.innerText = isChoresMode ? "💪" : "❤️";
+        yesBtnEl.innerText = "✓";
     }
 
     const cardEl = document.getElementById('active-card');
@@ -664,7 +661,7 @@ function renderCurrentCard() {
         cardEl.style.transition = '';
         cardEl.style.opacity = '1';
         cardEl.style.boxShadow = '';
-        cardEl.className = `w-full h-96 rounded-3xl p-6 flex flex-col justify-between items-center text-center shadow-2xl border border-white/20 relative overflow-hidden card-enter bg-gradient-to-br ${card.bg} text-white`;
+        cardEl.className = "w-full h-[400px] rounded-[28px] p-6 flex flex-col justify-between items-center text-center glass relative overflow-hidden card-enter text-[#1D1D1F] dark:text-white";
     }
 
     document.getElementById('card-tag').innerText = card.tag[currentLang] || card.tag.de;
@@ -765,7 +762,7 @@ function triggerMatchScreen(card) {
 
     const winnerCardEl = document.getElementById('winner-card');
     if (winnerCardEl) {
-        winnerCardEl.className = `w-full rounded-3xl p-6 mb-6 flex flex-col items-center text-center shadow-2xl border border-white/20 bg-gradient-to-br ${card.bg} text-white`;
+        winnerCardEl.className = "w-full rounded-[28px] p-6 mb-5 flex flex-col items-center text-center glass text-[#1D1D1F] dark:text-white";
     }
     document.getElementById('winner-emoji').innerText = card.emoji;
     document.getElementById('winner-title').innerText = card.title[currentLang] || card.title.de;
@@ -901,16 +898,16 @@ function renderChoresSummaryUI() {
     } else {
         currentChoresSummary.antiMatches.forEach(item => {
             const title = item.card.title[currentLang] || item.card.title.de;
-            let statusHtml = `<span class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/25 text-rose-300 font-extrabold whitespace-nowrap">💥 Anti-Match</span>`;
+            let statusHtml = `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/10 text-[#86868B] font-semibold whitespace-nowrap">Offen</span>`;
 
             if (item.assignedTo === 'p1') {
-                statusHtml = `<span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/25 text-amber-300 font-extrabold whitespace-nowrap">${t.choresAssignedToP1}</span>`;
+                statusHtml = `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-black/[0.06] dark:bg-white/15 text-slate-700 dark:text-neutral-200 font-semibold whitespace-nowrap">${t.choresAssignedToP1}</span>`;
             } else if (item.assignedTo === 'p2') {
-                statusHtml = `<span class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500 text-white font-extrabold whitespace-nowrap">${t.choresAssignedToP2}</span>`;
+                statusHtml = `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-[#0071E3] text-white font-semibold whitespace-nowrap">${t.choresAssignedToP2}</span>`;
             }
 
             const row = document.createElement('div');
-            row.className = "flex items-center justify-between gap-2 p-2 rounded-xl bg-black/15 dark:bg-white/5";
+            row.className = "flex items-center justify-between gap-2 p-2.5 rounded-xl bg-black/[0.03] dark:bg-white/5";
             row.innerHTML = `
                 <div class="flex items-center gap-2 font-bold">
                     <span class="text-base">${item.card.emoji}</span>
@@ -924,11 +921,11 @@ function renderChoresSummaryUI() {
         if (rouletteBtn) {
             if (currentChoresSummary.resolved) {
                 rouletteBtn.innerText = t.choresRouletteDone;
-                rouletteBtn.className = "w-full py-3 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-extrabold text-xs cursor-default";
+                rouletteBtn.className = "w-full py-3.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold text-xs cursor-default";
             } else {
                 rouletteBtn.classList.remove('hidden');
                 rouletteBtn.innerText = t.choresRouletteBtn;
-                rouletteBtn.className = "w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 text-white font-extrabold text-xs shadow-lg shadow-rose-500/25 transition active:scale-95";
+                rouletteBtn.className = "w-full py-3.5 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white font-semibold text-xs shadow-sm transition active:scale-95";
             }
         }
     }
