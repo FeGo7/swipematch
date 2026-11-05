@@ -313,8 +313,20 @@ function checkIncomingChallenge() {
             const deckId = parts[0];
             const likesStr = parts[1] || '';
             const poolStr = parts[2] || '';
+            const customIdeaEncoded = parts[3] || '';
 
             if (DECKS[deckId]) {
+                if (customIdeaEncoded) {
+                    const ideaText = decodeURIComponent(customIdeaEncoded);
+                    DECKS[deckId].cards = DECKS[deckId].cards.filter(c => c.id !== 999);
+                    DECKS[deckId].cards.push({
+                        id: 999,
+                        emoji: '✨',
+                        tag: { de: 'Vorschlag', en: 'Suggestion', es: 'Sugerencia' },
+                        title: { de: ideaText, en: ideaText, es: ideaText },
+                        desc: { de: 'Eigene Idee für diese Runde', en: 'Custom idea for this round', es: 'Idea propia para esta ronda' }
+                    });
+                }
                 currentDeckId = deckId;
                 partnerLikes = likesStr ? likesStr.split(',').filter(s => s !== '').map(Number) : [];
                 partnerRoundCardIds = poolStr ? poolStr.split(',').filter(s => s !== '').map(Number) : null;
@@ -941,6 +953,14 @@ function finishSwipingRound() {
 
     // FALL A: Spieler 1 ist fertig -> Geheim-Link generieren mit &from=MyName
     if (partnerLikes === null) {
+        // Wenn Spieler 1 im Match-Modus 0-mal JA gewischt hat -> Zwischenscreen für neue Karten oder eigene Idee
+        if (deck.mode !== 'chores' && myLikes.length === 0) {
+            const inputEl = document.getElementById('p1-custom-idea-input');
+            if (inputEl) inputEl.value = '';
+            showScreen('screen-p1-zero');
+            return;
+        }
+
         const baseUrl = window.location.origin + window.location.pathname;
         let shareUrl = '';
         const roundIds = activeRoundCards.map(c => c.id);
@@ -972,7 +992,93 @@ function finishSwipingRound() {
     }
 
     // FALL C: Spieler 2 ist fertig im Match-Modus ohne gemeinsamen Treffer
+    const p2InputEl = document.getElementById('p2-counter-idea-input');
+    if (p2InputEl) p2InputEl.value = '';
     showScreen('screen-nomatch');
+}
+
+// Fall A: Spieler 1 platziert eine eigene Idee direkt in diese Runde
+function injectPlayer1CustomIdea() {
+    const inputEl = document.getElementById('p1-custom-idea-input');
+    const ideaText = inputEl ? inputEl.value.trim() : '';
+    if (!ideaText) {
+        if (inputEl) inputEl.focus();
+        return;
+    }
+    const deck = DECKS[currentDeckId];
+    if (!deck) return;
+
+    deck.cards = deck.cards.filter(c => c.id !== 999);
+    const customCard = {
+        id: 999,
+        emoji: '✨',
+        tag: { de: 'Vorschlag', en: 'Suggestion', es: 'Sugerencia' },
+        title: { de: ideaText, en: ideaText, es: ideaText },
+        desc: { de: 'Eigene Idee für diese Runde', en: 'Custom idea for this round', es: 'Idea propia para esta ronda' }
+    };
+    deck.cards.push(customCard);
+
+    if (activeRoundCards.length >= 8) {
+        activeRoundCards[activeRoundCards.length - 1] = customCard;
+    } else {
+        activeRoundCards.push(customCard);
+    }
+    myLikes = [999];
+
+    const baseUrl = window.location.origin + window.location.pathname;
+    const roundIds = activeRoundCards.map(c => c.id);
+    const myName = getUserProfile().name;
+    const encodedPayload = btoa(`${currentDeckId}:${myLikes.join(',')}:${roundIds.join(',')}:${encodeURIComponent(ideaText)}`);
+    const shareUrl = `${baseUrl}#m=${encodedPayload}&from=${encodeURIComponent(myName)}`;
+
+    document.getElementById('share-url-input').value = shareUrl;
+    showScreen('screen-share');
+}
+
+// Fall B: Spieler 2 gibt per WhatsApp Bescheid, dass es 0 Treffer gab
+function notifyNoMatchViaWhatsApp() {
+    const baseUrl = window.location.origin + window.location.pathname;
+    const text = encodeURIComponent(`Wir hatten in dieser Runde leider keine Übereinstimmung 😅 Lass uns 8 frische Karten probieren oder eine neue Runde starten:\n${baseUrl}`);
+    window.open(`https://wa.me/?text=${text}`, '_blank');
+}
+
+// Fall B: Spieler 2 schickt direkt eine Gegenidee in einer neuen Runde zurück
+function sendCounterIdeaFromNoMatch() {
+    const inputEl = document.getElementById('p2-counter-idea-input');
+    const ideaText = inputEl ? inputEl.value.trim() : '';
+    if (!ideaText) {
+        if (inputEl) inputEl.focus();
+        return;
+    }
+    const deck = DECKS[currentDeckId];
+    if (!deck) return;
+
+    deck.cards = deck.cards.filter(c => c.id !== 999);
+    const customCard = {
+        id: 999,
+        emoji: '✨',
+        tag: { de: 'Gegenidee', en: 'Counter Idea', es: 'Propuesta' },
+        title: { de: ideaText, en: ideaText, es: ideaText },
+        desc: { de: 'Eigener Vorschlag für unsere Runde', en: 'Suggested for our round', es: 'Sugerencia para nuestra ronda' }
+    };
+    deck.cards.push(customCard);
+
+    const otherCards = shuffleArray(deck.cards.filter(c => c.id !== 999)).slice(0, 7);
+    activeRoundCards = [...otherCards, customCard];
+    partnerLikes = null;
+    partnerRoundCardIds = null;
+    myLikes = [999];
+
+    const baseUrl = window.location.origin + window.location.pathname;
+    const roundIds = activeRoundCards.map(c => c.id);
+    const myName = getUserProfile().name;
+    const encodedPayload = btoa(`${currentDeckId}:${myLikes.join(',')}:${roundIds.join(',')}:${encodeURIComponent(ideaText)}`);
+    const shareUrl = `${baseUrl}#m=${encodedPayload}&from=${encodeURIComponent(myName)}`;
+
+    document.getElementById('share-url-input').value = shareUrl;
+    const text = encodeURIComponent(`Wir hatten eben leider keine Übereinstimmung 😅 Ich habe eine neue Runde mit einer eigenen Idee gestartet – wisch mal kurz durch:\n${shareUrl}`);
+    window.open(`https://wa.me/?text=${text}`, '_blank');
+    showScreen('screen-share');
 }
 
 function triggerMatchScreen(card) {
@@ -1300,6 +1406,7 @@ function showScreen(screenId) {
         'screen-custom',
         'screen-game',
         'screen-share',
+        'screen-p1-zero',
         'screen-match',
         'screen-nomatch',
         'screen-chores-result'
