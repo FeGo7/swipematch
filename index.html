@@ -7,7 +7,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="apple-touch-icon" href="icon.svg">
-    <meta name="theme-color" content="#18191E">
+    <meta name="theme-color" content="#242832">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Agreesy">
@@ -45,16 +45,16 @@
         }
 
         html.dark {
-            --bg: #18191E;
-            --surface: #21232B;
-            --surface-raised: #2A2D37;
-            --border: rgba(255, 255, 255, 0.075);
-            --border-strong: rgba(255, 255, 255, 0.14);
-            --text-primary: #EAECF0;
-            --text-secondary: #9EA4B0;
-            --text-muted: #6E7482;
-            --accent: #E86A4B;
-            --positive: #22C55E;
+            --bg: #242832;
+            --surface: #2E3340;
+            --surface-raised: #383E4E;
+            --border: rgba(255, 255, 255, 0.09);
+            --border-strong: rgba(255, 255, 255, 0.16);
+            --text-primary: #E8ECF2;
+            --text-secondary: #A9B1C1;
+            --text-muted: #7F889A;
+            --accent: #F07153;
+            --positive: #34D399;
         }
 
         body {
@@ -69,12 +69,19 @@
         }
 
         html.dark body {
-            background-image: radial-gradient(ellipse 85% 45% at 50% -10%, rgba(232, 106, 75, 0.065), transparent 70%);
+            background-image:
+                radial-gradient(ellipse 90% 50% at 50% -10%, rgba(240, 113, 83, 0.11), rgba(56, 152, 255, 0.05) 45%, transparent 75%);
         }
 
         .surface {
             background-color: var(--surface);
             border: 1px solid var(--border);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        html.dark .surface,
+        html.dark .row-card {
+            box-shadow: 0 4px 20px -2px rgba(10, 12, 18, 0.25);
         }
 
         .surface-raised {
@@ -698,12 +705,12 @@
         </div>
     </div>
 
-    <!-- Modular Scripts mit Cache-Bust v13 -->
-    <script src="js/theme.js?v=13"></script>
-    <script src="js/i18n.js?v=13"></script>
-    <script src="js/decks.js?v=13"></script>
-    <script src="js/logos.js?v=13"></script>
-    <script src="js/app.js?v=13"></script>
+    <!-- Modular Scripts mit Cache-Bust v14 -->
+    <script src="js/theme.js?v=14"></script>
+    <script src="js/i18n.js?v=14"></script>
+    <script src="js/decks.js?v=14"></script>
+    <script src="js/logos.js?v=14"></script>
+    <script src="js/app.js?v=14"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
