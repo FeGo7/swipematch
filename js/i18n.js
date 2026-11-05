@@ -75,8 +75,8 @@ const I18N = {
         choresShareWaBtn: "Aufgabenplan per WhatsApp teilen",
         waChallengeText: "Lass uns in 30 Sekunden entscheiden! Ich habe schon gewählt – klick hier für unser Match:",
         waWinnerText: "Match gefunden! Wir haben uns entschieden für:",
-        waChoresSummaryHeader: "*EasyAgree Aufgabenplan steht!*",
-        footerText: "EasyAgree • Minimalist Consensus Engine"
+        waChoresSummaryHeader: "*Agreesy Aufgabenplan steht!*",
+        footerText: "Agreesy • Minimalist Consensus Engine"
     },
     en: {
         badge: "30s Consensus • No Login",
@@ -141,8 +141,8 @@ const I18N = {
         choresShareWaBtn: "Share task breakdown via WhatsApp",
         waChallengeText: "Let's decide in 30 seconds! I already swiped – tap here to find our match:",
         waWinnerText: "Match found! Tonight's winner is:",
-        waChoresSummaryHeader: "*EasyAgree Task Breakdown is locked in!*",
-        footerText: "EasyAgree • Minimalist Consensus Engine"
+        waChoresSummaryHeader: "*Agreesy Task Breakdown is locked in!*",
+        footerText: "Agreesy • Minimalist Consensus Engine"
     },
     es: {
         badge: "30s Consenso • Sin Registro",
@@ -207,7 +207,7 @@ const I18N = {
         choresShareWaBtn: "Enviar reparto por WhatsApp",
         waChallengeText: "¡Decidamos en 30 segundos! Ya hice mi elección, entra aquí:",
         waWinnerText: "¡Tenemos coincidencia! Hoy toca:",
-        waChoresSummaryHeader: "*¡Reparto oficial en EasyAgree!*",
-        footerText: "EasyAgree • Minimalist Consensus Engine"
+        waChoresSummaryHeader: "*¡Reparto oficial en Agreesy!*",
+        footerText: "Agreesy • Minimalist Consensus Engine"
     }
 };
