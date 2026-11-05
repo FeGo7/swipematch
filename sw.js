@@ -1,5 +1,5 @@
 // EasyAgree Service Worker (Network-First for 100% instant UI updates, Cache for offline)
-const CACHE_NAME = 'easyagree-v5';
+const CACHE_NAME = 'easyagree-v6';
 const ASSETS = [
   './',
   './index.html',

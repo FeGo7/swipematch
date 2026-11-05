@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="EasyAgree">
     <!-- Statisches CSS & Tailwind CDN Engine -->
-    <link rel="stylesheet" href="css/style.min.css?v=5">
+    <link rel="stylesheet" href="css/style.min.css?v=6">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -85,7 +85,7 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between items-center p-4 max-w-md mx-auto relative">
 
-    <!-- Top Navigation with Theme Toggle & Language Dropdown -->
+    <!-- Top Navigation with Codename Profile, Theme Toggle & Language Dropdown -->
     <header class="w-full flex justify-between items-center py-3 z-20">
         <div class="flex items-center gap-2.5 cursor-pointer group" onclick="resetToHome()">
             <!-- Minimalistischer Apple-Icon-Squircle -->
@@ -98,6 +98,12 @@
         </div>
 
         <div class="flex items-center gap-2">
+            <!-- Codename / Name Profile Pill Button -->
+            <button onclick="openProfileModal()" id="user-profile-btn" class="glass rounded-full px-3 py-1.5 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 text-[#1D1D1F] dark:text-white" title="Dein Name & Codename">
+                <span id="user-profile-dot" class="w-2 h-2 rounded-full bg-amber-500"></span>
+                <span id="user-profile-name">Titan</span>
+            </button>
+
             <!-- Dark / Light Mode Toggle Button -->
             <button onclick="toggleTheme()" id="theme-toggle-btn" class="w-9 h-9 rounded-full glass flex items-center justify-center text-sm transition active:scale-95 text-[#1D1D1F] dark:text-neutral-300" aria-label="Toggle Dark/Light Mode">
                 ☀️
@@ -105,10 +111,9 @@
 
             <!-- Custom Styled Language Dropdown -->
             <div class="relative" id="lang-dropdown-wrapper">
-                <button onclick="toggleLangMenu(event)" id="lang-btn" class="glass rounded-full px-3 py-1.5 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 dark:text-white text-[#1D1D1F]">
-                    <span class="opacity-70 text-[12px]">🌐</span>
+                <button onclick="toggleLangMenu(event)" id="lang-btn" class="glass rounded-full px-2.5 py-1.5 text-xs font-semibold flex items-center gap-1 transition active:scale-95 dark:text-white text-[#1D1D1F]">
                     <span id="lang-btn-label">DE</span>
-                    <span class="text-[8px] opacity-40 ml-0.5">▼</span>
+                    <span class="text-[8px] opacity-40">▼</span>
                 </button>
 
                 <!-- Glassmorphism Dropdown Menu -->
@@ -132,17 +137,11 @@
 
     <!-- SCREEN 1: HOME / DECK SELECTION -->
     <main id="screen-home" class="w-full flex-1 flex flex-col justify-start my-1">
-        <div id="p2-welcome-banner" class="hidden my-3 p-4 rounded-2xl bg-[#0071E3]/10 border border-[#0071E3]/20 text-center animate-pulse">
-            <p class="text-[11px] uppercase tracking-widest text-[#0071E3] dark:text-[#0A84FF] font-bold mb-1" id="t-p2-badge">⚡ HERAUSFORDERUNG AKTIV</p>
-            <h2 class="text-base font-bold text-[#1D1D1F] dark:text-white" id="t-p2-title">Dein Gegenüber hat schon vorgelegt!</h2>
-            <p class="text-xs text-[#86868B] mt-1" id="t-p2-sub">Starte das markierte Deck. Mal sehen, wo ihr übereinstimmt!</p>
-        </div>
-
-        <div class="text-center my-4" id="home-hero-text">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-black/[0.04] dark:bg-white/10 text-[#86868B] mb-2.5 tracking-wide" id="t-badge">
+        <div class="text-center my-3" id="home-hero-text">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-black/[0.04] dark:bg-white/10 text-[#86868B] mb-2 tracking-wide" id="t-badge">
                 30s Konsens • Kein Login
             </span>
-            <h1 class="text-3xl font-extrabold tracking-tight text-[#1D1D1F] dark:text-white leading-tight mb-2" id="t-hero-title">
+            <h1 class="text-3xl font-extrabold tracking-tight text-[#1D1D1F] dark:text-white leading-tight mb-1.5" id="t-hero-title">
                 Schluss mit <br><span class="text-[#0071E3] dark:text-[#0A84FF]">„Mir egal, sag du!“</span>
             </h1>
             <p class="text-xs text-[#86868B] max-w-xs mx-auto leading-relaxed" id="t-hero-sub">
@@ -150,45 +149,108 @@
             </p>
         </div>
 
-        <!-- Custom Quick-Deck Creator CTA (Apple Minimalist Card) -->
-        <button onclick="openCustomDeckModal()" class="w-full mb-3.5 p-4 rounded-2xl glass hover:border-[#0071E3]/30 flex items-center justify-between text-left transition transform active:scale-[0.98] group">
-            <div class="flex items-center gap-3.5">
-                <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-[#0071E3] dark:text-[#0A84FF] flex items-center justify-center text-lg font-bold shadow-sm shrink-0 group-hover:scale-105 transition">
+        <!-- 3 INSTANT-START HERO TILES (Jobs & Musk: Unter 2 Sekunden zum ersten Swipe) -->
+        <div class="w-full grid grid-cols-1 gap-2.5 mb-3.5">
+            <!-- 1. Hunger -->
+            <div onclick="startGame('dinner')" class="w-full p-4 rounded-2xl glass hover:border-[#0071E3]/40 cursor-pointer transition transform active:scale-[0.98] flex items-center justify-between group shadow-sm">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-12 h-12 rounded-2xl bg-[#F5F5F7] dark:bg-[#2C2C2E] flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition">
+                        🍕
+                    </div>
+                    <div>
+                        <div class="font-bold text-base text-[#1D1D1F] dark:text-white tracking-tight flex items-center gap-2">
+                            Hunger & Essen
+                            <span class="text-[9px] px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/40 text-[#0071E3] dark:text-blue-300 font-bold uppercase">Sofort</span>
+                        </div>
+                        <p class="text-xs text-[#86868B] leading-snug mt-0.5">
+                            Abendessen, Lieferdienst, Restaurants
+                        </p>
+                    </div>
+                </div>
+                <span class="px-3.5 py-1.5 rounded-full bg-[#0071E3] text-white font-semibold text-xs shrink-0 shadow-sm">
+                    Wischen →
+                </span>
+            </div>
+
+            <!-- 2. Film & Serie -->
+            <div onclick="startGame('streaming')" class="w-full p-4 rounded-2xl glass hover:border-[#0071E3]/40 cursor-pointer transition transform active:scale-[0.98] flex items-center justify-between group shadow-sm">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-12 h-12 rounded-2xl bg-[#F5F5F7] dark:bg-[#2C2C2E] flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition">
+                        🎬
+                    </div>
+                    <div>
+                        <div class="font-bold text-base text-[#1D1D1F] dark:text-white tracking-tight flex items-center gap-2">
+                            Film & Couch
+                            <span class="text-[9px] px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/40 text-[#0071E3] dark:text-blue-300 font-bold uppercase">Sofort</span>
+                        </div>
+                        <p class="text-xs text-[#86868B] leading-snug mt-0.5">
+                            Serien-Binge, Filme, Watchlist
+                        </p>
+                    </div>
+                </div>
+                <span class="px-3.5 py-1.5 rounded-full bg-[#0071E3] text-white font-semibold text-xs shrink-0 shadow-sm">
+                    Wischen →
+                </span>
+            </div>
+
+            <!-- 3. Haushalt & Aufgaben -->
+            <div onclick="startGame('chores')" class="w-full p-4 rounded-2xl glass hover:border-amber-500/40 cursor-pointer transition transform active:scale-[0.98] flex items-center justify-between group shadow-sm">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-12 h-12 rounded-2xl bg-[#F5F5F7] dark:bg-[#2C2C2E] flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition">
+                        🧹
+                    </div>
+                    <div>
+                        <div class="font-bold text-base text-[#1D1D1F] dark:text-white tracking-tight flex items-center gap-2">
+                            Wer macht's?
+                            <span class="text-[9px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold uppercase">Aufgaben</span>
+                        </div>
+                        <p class="text-xs text-[#86868B] leading-snug mt-0.5">
+                            Haushalt, Pflichten, Drückeberger-Check
+                        </p>
+                    </div>
+                </div>
+                <span class="px-3.5 py-1.5 rounded-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] font-semibold text-xs shrink-0 shadow-sm">
+                    Aufteilen →
+                </span>
+            </div>
+        </div>
+
+        <!-- Custom Quick-Deck CTA -->
+        <button onclick="openCustomDeckModal()" class="w-full mb-3.5 p-3.5 rounded-2xl glass hover:border-[#0071E3]/30 flex items-center justify-between text-left transition transform active:scale-[0.98] group">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-[#0071E3] dark:text-[#0A84FF] flex items-center justify-center text-base font-bold shadow-sm shrink-0">
                     ⚡
                 </div>
                 <div>
-                    <div class="font-bold text-sm flex items-center gap-2 text-[#1D1D1F] dark:text-white">
+                    <div class="font-bold text-xs text-[#1D1D1F] dark:text-white">
                         <span id="t-custom-btn-title">Eigenes Blitz-Deck erstellen</span>
-                        <span class="text-[9px] px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/40 text-[#0071E3] dark:text-blue-300 font-bold uppercase tracking-wider">Neu</span>
                     </div>
                     <p class="text-[11px] text-[#86868B] leading-snug mt-0.5" id="t-custom-btn-sub">
                         Tippe 2–6 eigene Optionen ein (Restaurants, Filme, Aufgaben)
                     </p>
                 </div>
             </div>
-            <span class="text-[#0071E3] dark:text-[#0A84FF] font-bold text-base mr-1 group-hover:translate-x-0.5 transition-transform">→</span>
+            <span class="text-[#0071E3] dark:text-[#0A84FF] font-bold text-sm mr-1">→</span>
         </button>
 
-        <!-- Horizontal Swipeable Category Filter -->
-        <div id="category-filter" class="w-full flex gap-2 overflow-x-auto no-scrollbar py-2 mb-2">
-            <!-- Kategorien werden dynamisch per JS gerendert -->
-        </div>
-
-        <!-- Deck List -->
-        <div id="deck-list" class="space-y-3 w-full">
-            <!-- Decks werden dynamisch per JS gerendert -->
-        </div>
-
-        <!-- Collapsible Logo-Switcher (Dezent für MVP) -->
-        <details class="w-full my-6 rounded-2xl glass p-3.5 text-left group">
+        <!-- Collapsible: Alle weiteren Decks entdecken -->
+        <details class="w-full my-2 rounded-2xl glass p-3.5 text-left group">
             <summary class="cursor-pointer list-none flex items-center justify-between text-xs font-semibold text-[#86868B] hover:text-[#1D1D1F] dark:hover:text-white">
                 <span class="flex items-center gap-2">
-                    <span>Branding & Logo-Variante</span>
+                    <span>Weitere Themen (Games, Dates, Trips, Geschenke)</span>
                 </span>
                 <span class="text-[10px] opacity-60 group-open:rotate-180 transition-transform">▼</span>
             </summary>
-            <div id="logo-showcase-container" class="grid grid-cols-1 gap-2.5 mt-3 pt-3 border-t border-black/[0.04] dark:border-white/[0.06]">
-                <!-- Dynamisch aus js/logos.js gerendert -->
+            
+            <div class="mt-3 pt-3 border-t border-black/[0.04] dark:border-white/[0.06] space-y-3">
+                <!-- Filter Pills -->
+                <div id="category-filter" class="w-full flex gap-1.5 overflow-x-auto no-scrollbar py-1">
+                    <!-- Kategorien per JS -->
+                </div>
+                <!-- Deck List -->
+                <div id="deck-list" class="space-y-2.5 w-full">
+                    <!-- Decks per JS -->
+                </div>
             </div>
         </details>
     </main>
@@ -248,6 +310,11 @@
 
     <!-- SCREEN 2: ACTIVE SWIPING GAME -->
     <main id="screen-game" class="w-full flex-1 flex flex-col justify-between my-2 hidden">
+        <!-- P2 Live Sender Indicator -->
+        <div id="p2-live-indicator" class="hidden text-center text-xs font-semibold text-[#0071E3] dark:text-[#0A84FF] py-1.5 px-3 bg-[#0071E3]/10 rounded-full mb-1">
+            ⚡ <span id="p2-live-text">Felix hat vorgelegt • Wisch in 20s mit!</span>
+        </div>
+
         <!-- Progress Bar & Counter -->
         <div class="w-full space-y-2">
             <div class="flex justify-between items-center text-xs font-semibold text-[#86868B]">
@@ -329,13 +396,20 @@
         </button>
     </main>
 
-    <!-- SCREEN 4: IT'S A MATCH (WINNER SCREEN) -->
+    <!-- SCREEN: HITCHCOCK SUSPENSE (1.1s Herzschlag-Moment vor Match-Reveal) -->
+    <div id="screen-suspense" class="fixed inset-0 z-40 bg-black/80 backdrop-blur-md hidden flex flex-col items-center justify-center p-6 text-center text-white">
+        <div class="w-16 h-16 rounded-full border-4 border-white/20 border-t-[#0071E3] animate-spin mb-5"></div>
+        <h3 class="text-xl font-bold tracking-tight mb-1.5 animate-pulse">Berechne Übereinstimmung...</h3>
+        <p class="text-xs text-white/70 max-w-xs">Gleich steht die Entscheidung fest!</p>
+    </div>
+
+    <!-- SCREEN 4: IT'S A MATCH (WINNER SCREEN MIT HORMOZI-CASHFLOW BUTTONS) -->
     <main id="screen-match" class="w-full flex-1 flex flex-col justify-center items-center text-center my-4 hidden">
-        <div class="inline-block px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold tracking-wider uppercase mb-3" id="t-match-badge">
+        <div class="inline-block px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold tracking-wider uppercase mb-2" id="t-match-badge">
             MATCH GEFUNDEN
         </div>
-        <h2 class="text-3xl font-extrabold tracking-tight text-[#1D1D1F] dark:text-white mb-1" id="t-match-title">Entscheidung gefallen</h2>
-        <p class="text-xs text-[#86868B] mb-5" id="t-match-sub">Ihr habt beide mit JA gestimmt für:</p>
+        <h2 class="text-3xl font-extrabold tracking-tight text-[#1D1D1F] dark:text-white mb-0.5" id="t-match-title">Entscheidung gefallen!</h2>
+        <p class="text-xs font-semibold text-[#0071E3] dark:text-[#0A84FF] mb-4" id="winner-parties">Felix & Janina</p>
 
         <!-- Winner Card (Apple Pure Surface) -->
         <div id="winner-card" class="w-full rounded-[28px] p-6 mb-5 flex flex-col items-center text-center glass">
@@ -344,9 +418,9 @@
             <p id="winner-desc" class="text-xs text-[#86868B] max-w-xs leading-relaxed">Winner Description</p>
         </div>
 
-        <!-- Apple Capsule Action Button -->
-        <a id="winner-action-btn" href="#" target="_blank" class="w-full py-3.5 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-sm mb-2.5 transition active:scale-95">
-            <span id="winner-action-text">Direkt öffnen</span>
+        <!-- Hormozi Primary Action Button (Lieferando / Prime / Deep Link) -->
+        <a id="winner-action-btn" href="#" target="_blank" class="w-full py-4 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-sm mb-2.5 transition active:scale-95">
+            <span id="winner-action-text">Direkt bestellen / ansehen</span>
         </a>
 
         <button onclick="sendWinnerToPartner()" class="w-full py-3.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold text-sm mb-2 transition active:scale-95 flex items-center justify-center gap-2 shadow-sm">
@@ -436,6 +510,29 @@
         </div>
     </footer>
 
+    <!-- Codename / Name Profile Modal -->
+    <div id="modal-profile" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-sm glass rounded-3xl p-6 shadow-2xl text-slate-900 dark:text-slate-100 flex flex-col">
+            <h3 class="text-base font-bold mb-1">Dein Name / Codename</h3>
+            <p class="text-xs text-[#86868B] mb-4">Wird in deinen Einladungs-Links und Matches angezeigt. Bleibt rein auf deinem Gerät gespeichert.</p>
+            <div class="flex items-center gap-2.5 mb-4">
+                <span id="profile-modal-dot" class="w-3.5 h-3.5 rounded-full bg-amber-500 shrink-0"></span>
+                <input id="profile-name-input" type="text" maxlength="24" placeholder="Dein Name (z.B. Felix)" class="w-full glass rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0071E3] dark:text-white text-[#1D1D1F]">
+            </div>
+            <div class="flex gap-2">
+                <button onclick="rerollCodename()" class="flex-1 py-2.5 rounded-full glass text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10 transition">
+                    🎲 Neuer Codename
+                </button>
+                <button onclick="saveProfileName()" class="flex-1 py-2.5 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white text-xs font-semibold transition">
+                    Speichern
+                </button>
+            </div>
+            <button onclick="closeProfileModal()" class="mt-3 text-xs text-[#86868B] hover:underline text-center">
+                Schließen
+            </button>
+        </div>
+    </div>
+
     <!-- Legal Modal (Impressum & Datenschutz) -->
     <div id="modal-legal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-md hidden flex items-center justify-center p-4">
         <div class="w-full max-w-lg glass rounded-3xl p-6 shadow-2xl text-slate-900 dark:text-slate-100 max-h-[85vh] flex flex-col">
@@ -454,17 +551,17 @@
         </div>
     </div>
 
-    <!-- Modular Scripts mit Cache-Bust v5 -->
-    <script src="js/theme.js?v=5"></script>
-    <script src="js/i18n.js?v=5"></script>
-    <script src="js/decks.js?v=5"></script>
-    <script src="js/logos.js?v=5"></script>
-    <script src="js/app.js?v=5"></script>
+    <!-- Modular Scripts mit Cache-Bust v6 -->
+    <script src="js/theme.js?v=6"></script>
+    <script src="js/i18n.js?v=6"></script>
+    <script src="js/decks.js?v=6"></script>
+    <script src="js/logos.js?v=6"></script>
+    <script src="js/app.js?v=6"></script>
     <!-- Carmack Service Worker Registration mit Auto-Update -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=5')
+                navigator.serviceWorker.register('./sw.js?v=6')
                     .then(reg => {
                         reg.update();
                         console.log('[PWA] Service Worker aktiv & aktualisiert:', reg.scope);

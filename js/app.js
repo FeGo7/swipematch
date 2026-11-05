@@ -9,11 +9,199 @@
 
 const CARDS_PER_ROUND = 8; // Zieht pro Runde 8 zufällige Karten aus großen Pools
 
+// 45 CODENAMES FÜR 100% GENDER-NEUTRALE & GLEICHBERECHTIGTE SPIELER (Heist & Apple Aesthetic)
+const CODENAMES = [
+    { name: "Gold", dot: "#EAB308" },
+    { name: "Silver", dot: "#94A3B8" },
+    { name: "Titan", dot: "#64748B" },
+    { name: "Onyx", dot: "#1E293B" },
+    { name: "Ruby", dot: "#E11D48" },
+    { name: "Jade", dot: "#059669" },
+    { name: "Amber", dot: "#D97706" },
+    { name: "Cobalt", dot: "#2563EB" },
+    { name: "Opal", dot: "#06B6D4" },
+    { name: "Carbon", dot: "#334155" },
+    { name: "Chrome", dot: "#64748B" },
+    { name: "Platin", dot: "#A1A1AA" },
+    { name: "Midnight", dot: "#1E1B4B" },
+    { name: "Slate", dot: "#475569" },
+    { name: "Indigo", dot: "#4F46E5" },
+    { name: "Mint", dot: "#10B981" },
+    { name: "Copper", dot: "#B45309" },
+    { name: "Bronze", dot: "#92400E" },
+    { name: "Smoke", dot: "#71717A" },
+    { name: "Sage", dot: "#84CC16" },
+    { name: "Shadow", dot: "#18181B" },
+    { name: "Coral", dot: "#F43F5E" },
+    { name: "Ice", dot: "#38BDF8" },
+    { name: "Nova", dot: "#F59E0B" },
+    { name: "Echo", dot: "#6366F1" },
+    { name: "Orion", dot: "#3B82F6" },
+    { name: "Atlas", dot: "#0EA5E9" },
+    { name: "Zenith", dot: "#8B5CF6" },
+    { name: "Eclipse", dot: "#0F172A" },
+    { name: "Solar", dot: "#FBBF24" },
+    { name: "Frost", dot: "#7DD3FC" },
+    { name: "Thunder", dot: "#EAB308" },
+    { name: "Vortex", dot: "#6D28D9" },
+    { name: "Apex", dot: "#0D9488" },
+    { name: "Phantom", dot: "#6B7280" },
+    { name: "Pulse", dot: "#0284C7" },
+    { name: "Volt", dot: "#EAB308" },
+    { name: "Nitro", dot: "#EF4444" },
+    { name: "Zero", dot: "#09090B" },
+    { name: "Drift", dot: "#065F46" },
+    { name: "Ghost", dot: "#9CA3AF" },
+    { name: "Matrix", dot: "#22C55E" },
+    { name: "Raven", dot: "#171717" },
+    { name: "Jet", dot: "#0369A1" },
+    { name: "Flash", dot: "#FACC15" }
+];
+
+function getRandomCodename() {
+    return CODENAMES[Math.floor(Math.random() * CODENAMES.length)];
+}
+
+function getUserProfile() {
+    const customName = localStorage.getItem('easyagree_user_name');
+    if (customName && customName.trim()) {
+        return { name: customName.trim(), dot: '#0071E3', isCustom: true };
+    }
+    const savedCodenameStr = localStorage.getItem('easyagree_codename');
+    if (savedCodenameStr) {
+        try {
+            return JSON.parse(savedCodenameStr);
+        } catch (e) {}
+    }
+    const initial = getRandomCodename();
+    localStorage.setItem('easyagree_codename', JSON.stringify(initial));
+    return initial;
+}
+
+function setUserProfileName(name) {
+    if (name && name.trim()) {
+        localStorage.setItem('easyagree_user_name', name.trim());
+    } else {
+        localStorage.removeItem('easyagree_user_name');
+    }
+    updateProfileUI();
+}
+
+function rerollCodename() {
+    localStorage.removeItem('easyagree_user_name');
+    const newCodename = getRandomCodename();
+    localStorage.setItem('easyagree_codename', JSON.stringify(newCodename));
+    updateProfileUI();
+    const input = document.getElementById('profile-name-input');
+    const dotEl = document.getElementById('profile-modal-dot');
+    if (input) input.value = '';
+    if (dotEl) dotEl.style.backgroundColor = newCodename.dot;
+}
+
+function updateProfileUI() {
+    const profile = getUserProfile();
+    const nameEl = document.getElementById('user-profile-name');
+    const dotEl = document.getElementById('user-profile-dot');
+    if (nameEl) nameEl.innerText = profile.name;
+    if (dotEl) dotEl.style.backgroundColor = profile.dot;
+}
+
+function openProfileModal() {
+    const modal = document.getElementById('modal-profile');
+    const input = document.getElementById('profile-name-input');
+    const dotEl = document.getElementById('profile-modal-dot');
+    const profile = getUserProfile();
+
+    if (input) input.value = profile.isCustom ? profile.name : '';
+    if (dotEl) dotEl.style.backgroundColor = profile.dot;
+    if (modal) modal.classList.remove('hidden');
+}
+
+function closeProfileModal() {
+    const modal = document.getElementById('modal-profile');
+    if (modal) modal.classList.add('hidden');
+}
+
+function saveProfileName() {
+    const input = document.getElementById('profile-name-input');
+    if (input) {
+        setUserProfileName(input.value);
+    }
+    closeProfileModal();
+}
+
+// 0-BYTE WEB AUDIO SYNTHESIZER (Walt Disney, Hans Zimmer & John Carmack)
+let audioCtx = null;
+function getAudioContext() {
+    if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+            audioCtx = new AudioContextClass();
+        }
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    return audioCtx;
+}
+
+function playSwipeClick(isLike) {
+    try {
+        if (navigator.vibrate) navigator.vibrate(isLike ? 16 : 10);
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        const now = ctx.currentTime;
+        const freq = isLike ? 587.33 : 329.63; // D5 vs E4
+        osc.frequency.setValueAtTime(freq, now);
+        osc.frequency.exponentialRampToValueAtTime(freq * (isLike ? 1.25 : 0.75), now + 0.04);
+        
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+        
+        osc.start(now);
+        osc.stop(now + 0.04);
+    } catch (e) {}
+}
+
+function playMatchChime() {
+    try {
+        if (navigator.vibrate) navigator.vibrate([40, 80, 140]);
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        
+        // Warm Major Triad Chime: C5, E5, G5, C6
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            
+            const now = ctx.currentTime + (idx * 0.06);
+            osc.frequency.setValueAtTime(freq, now);
+            
+            gain.gain.setValueAtTime(0.001, now);
+            gain.gain.linearRampToValueAtTime(0.12, now + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.85);
+            
+            osc.start(now);
+            osc.stop(now + 0.85);
+        });
+    } catch (e) {}
+}
+
 let currentLang = 'de';
 let currentDeckId = null;
 let currentCardIndex = 0;
 let activeRoundCards = []; // Die für diese Runde gezogenen & gemischten Karten
 let partnerRoundCardIds = null; // Welche Karten-IDs Spieler 1 in seiner Runde hatte
+let partnerSenderName = null;   // Name oder Codename des Partners
 let myLikes = [];          // Card-IDs mit JA-Swipe
 let partnerLikes = null;   // null = Spieler 1; Array = Spieler 2
 let matchedCard = null;
@@ -77,6 +265,9 @@ window.addEventListener('DOMContentLoaded', () => {
     currentLang = detectInitialLanguage();
     setLang(currentLang);
 
+    // 2b. Profil & Codename anzeigen
+    updateProfileUI();
+
     // 3. Partner-Herausforderung via Hash prüfen (#m=... oder #c=...)
     checkIncomingChallenge();
 
@@ -103,12 +294,21 @@ function detectInitialLanguage() {
  **************************************************************/
 function checkIncomingChallenge() {
     const hash = window.location.hash;
+    const fullHref = window.location.href;
+
+    // Check sender name from URL (&from=...)
+    if (fullHref.includes('from=')) {
+        const match = fullHref.match(/from=([^&/#]+)/);
+        if (match) {
+            partnerSenderName = decodeURIComponent(match[1]);
+        }
+    }
 
     // FALL 1: Standard-Deck Challenge (#m=deckId:likes:roundPool)
     if (hash && hash.startsWith('#m=')) {
         try {
-            const encoded = hash.replace('#m=', '');
-            const decodedStr = atob(encoded); // Format: "dinner:0,14,5:14,3,0,19,5,8,11,2"
+            const raw = hash.replace('#m=', '').split('&')[0];
+            const decodedStr = atob(raw); // Format: "dinner:0,14,5:14,3,0,19,5,8,11,2"
             const parts = decodedStr.split(':');
             const deckId = parts[0];
             const likesStr = parts[1] || '';
@@ -123,11 +323,10 @@ function checkIncomingChallenge() {
                     selectedCategory = DECKS[deckId].category;
                 }
 
-                const banner = document.getElementById('p2-welcome-banner');
-                if (banner) banner.classList.remove('hidden');
-
-                renderCategoryFilter();
-                renderDeckList();
+                // Jobs & Monte: SOFORTIGER START FÜR SPIELER 2 (Direkt in Karte 1!)
+                setTimeout(() => {
+                    startGame(deckId);
+                }, 80);
                 return;
             }
         } catch (e) {
@@ -138,9 +337,8 @@ function checkIncomingChallenge() {
     // FALL 2: Eigenes Blitz-Deck Challenge (#c=...)
     if (hash && hash.startsWith('#c=')) {
         try {
-            const encoded = hash.replace('#c=', '');
-            const payload = JSON.parse(decodeBase64Utf8(encoded));
-            // payload: { t: title, m: mode, o: [opt1, opt2, ...], l: [0, 2] }
+            const raw = hash.replace('#c=', '').split('&')[0];
+            const payload = JSON.parse(decodeBase64Utf8(raw));
             if (payload && Array.isArray(payload.o) && payload.o.length >= 2) {
                 registerCustomDeckInMemory(payload.t, payload.m || 'match', payload.o);
                 currentDeckId = 'custom';
@@ -148,11 +346,10 @@ function checkIncomingChallenge() {
                 partnerRoundCardIds = null;
                 selectedCategory = 'all';
 
-                const banner = document.getElementById('p2-welcome-banner');
-                if (banner) banner.classList.remove('hidden');
-
-                renderCategoryFilter();
-                renderDeckList();
+                // Jobs & Monte: SOFORTIGER START FÜR SPIELER 2
+                setTimeout(() => {
+                    startGame('custom');
+                }, 80);
                 return;
             }
         } catch (e) {
@@ -566,6 +763,7 @@ function startGame(deckId) {
     if (partnerLikes !== null && deckId !== currentDeckId) {
         partnerLikes = null;
         partnerRoundCardIds = null;
+        partnerSenderName = null;
         window.history.replaceState(null, null, window.location.pathname);
     }
     currentDeckId = deckId;
@@ -578,8 +776,23 @@ function startGame(deckId) {
     matchedCard = null;
 
     showScreen('screen-game');
+
+    // P2 live indicator
+    const p2LiveEl = document.getElementById('p2-live-indicator');
+    const p2TextEl = document.getElementById('p2-live-text');
+    if (p2LiveEl && p2TextEl) {
+        if (partnerLikes !== null) {
+            const sender = partnerSenderName || "Partner";
+            p2TextEl.innerText = `${sender} hat vorgelegt • Wisch in 20s mit!`;
+            p2LiveEl.classList.remove('hidden');
+        } else {
+            p2LiveEl.classList.add('hidden');
+        }
+    }
+
     renderCurrentCard();
     startTimer();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Zieht aus demselben Deck sofort 8 komplett neue Zufalls-Karten (für Spieler 1)
@@ -674,6 +887,7 @@ function renderCurrentCard() {
  * 6. SWIPE ACTIONS, SUDDEN-DEATH MATCH & ANTI-MATCH ENGINE
  **************************************************************/
 function handleSwipe(isLike) {
+    playSwipeClick(isLike);
     const deck = DECKS[currentDeckId];
     if (!deck || !activeRoundCards.length) return;
     const card = activeRoundCards[currentCardIndex];
@@ -688,7 +902,7 @@ function handleSwipe(isLike) {
     if (isLike) {
         myLikes.push(card.id);
 
-        // SUDDEN DEATH CHECK (Nur im klassischen Match-Modus! Im Chores-Modus werden alle 8 gezogenen Karten durchgegangen)
+        // SUDDEN DEATH CHECK (Nur im klassischen Match-Modus!)
         if (deck.mode !== 'chores' && partnerLikes !== null && partnerLikes.includes(card.id)) {
             clearInterval(timerInterval);
             setTimeout(() => {
@@ -713,11 +927,12 @@ function finishSwipingRound() {
     const deck = DECKS[currentDeckId];
     if (!deck) return;
 
-    // FALL A: Spieler 1 ist fertig -> Geheim-Link generieren (inkl. den gezogenen 8 Karten-IDs!)
+    // FALL A: Spieler 1 ist fertig -> Geheim-Link generieren mit &from=MyName
     if (partnerLikes === null) {
         const baseUrl = window.location.origin + window.location.pathname;
         let shareUrl = '';
         const roundIds = activeRoundCards.map(c => c.id);
+        const myName = getUserProfile().name;
 
         if (currentDeckId === 'custom' && deck.customMeta) {
             const payload = {
@@ -726,11 +941,11 @@ function finishSwipingRound() {
                 o: deck.customMeta.o,
                 l: myLikes
             };
-            shareUrl = `${baseUrl}#c=${encodeBase64Utf8(JSON.stringify(payload))}`;
+            shareUrl = `${baseUrl}#c=${encodeBase64Utf8(JSON.stringify(payload))}&from=${encodeURIComponent(myName)}`;
         } else {
             // Format: deckId:likedIds:roundCardIds
             const encodedPayload = btoa(`${currentDeckId}:${myLikes.join(',')}:${roundIds.join(',')}`);
-            shareUrl = `${baseUrl}#m=${encodedPayload}`;
+            shareUrl = `${baseUrl}#m=${encodedPayload}&from=${encodeURIComponent(myName)}`;
         }
 
         document.getElementById('share-url-input').value = shareUrl;
@@ -750,11 +965,26 @@ function finishSwipingRound() {
 
 function triggerMatchScreen(card) {
     matchedCard = card;
+    const suspenseEl = document.getElementById('screen-suspense');
+    if (suspenseEl) {
+        suspenseEl.classList.remove('hidden');
+        if (navigator.vibrate) navigator.vibrate([25, 40, 25]);
+        setTimeout(() => {
+            suspenseEl.classList.add('hidden');
+            revealMatchScreen(card);
+        }, 1100);
+    } else {
+        revealMatchScreen(card);
+    }
+}
+
+function revealMatchScreen(card) {
     showScreen('screen-match');
+    playMatchChime();
 
     if (typeof confetti === 'function') {
         confetti({
-            particleCount: 90,
+            particleCount: 95,
             spread: 75,
             origin: { y: 0.6 }
         });
@@ -768,10 +998,32 @@ function triggerMatchScreen(card) {
     document.getElementById('winner-title').innerText = card.title[currentLang] || card.title.de;
     document.getElementById('winner-desc').innerText = card.desc[currentLang] || card.desc.de;
 
+    // Parties display
+    const partiesEl = document.getElementById('winner-parties');
+    if (partiesEl) {
+        const p1Name = partnerSenderName || "Partner 1";
+        const p2Name = getUserProfile().name;
+        partiesEl.innerText = `${p1Name} & ${p2Name} haben ein Match!`;
+    }
+
+    // Hormozi Action Button (Lieferando / Prime Video / Google Maps)
     const actionBtn = document.getElementById('winner-action-btn');
-    if (actionBtn) {
-        actionBtn.href = card.actionUrl;
-        document.getElementById('winner-action-text').innerText = card.actionLabel[currentLang] || card.actionLabel.de;
+    const actionText = document.getElementById('winner-action-text');
+    if (actionBtn && actionText) {
+        const deck = DECKS[currentDeckId];
+        const isFood = deck && deck.category === 'food';
+        const isEntertainment = deck && deck.category === 'entertainment';
+
+        if (isFood) {
+            actionBtn.href = `https://www.lieferando.de/lieferservice/essen/${encodeURIComponent(card.title.de || '')}`;
+            actionText.innerText = "🍕 Jetzt bestellen bei Lieferando";
+        } else if (isEntertainment) {
+            actionBtn.href = "https://www.amazon.de/gp/video/storefront?tag=f05b1-21";
+            actionText.innerText = "🍿 Jetzt auf Prime Video ansehen";
+        } else {
+            actionBtn.href = card.actionUrl || "https://www.google.com";
+            actionText.innerText = card.actionLabel ? (card.actionLabel[currentLang] || card.actionLabel.de) : "Direkt öffnen";
+        }
     }
 
     const continueBtn = document.getElementById('btn-continue-swiping');
@@ -857,6 +1109,8 @@ function renderChoresSummaryUI() {
     const volListEl = document.getElementById('chores-voluntary-list');
     const antiListEl = document.getElementById('chores-antimatch-list');
     const rouletteBtn = document.getElementById('btn-chores-roulette');
+    const p1Name = partnerSenderName || "Partner 1";
+    const p2Name = getUserProfile().name;
 
     if (!volListEl || !antiListEl) return;
     volListEl.innerHTML = '';
@@ -869,23 +1123,23 @@ function renderChoresSummaryUI() {
         currentChoresSummary.voluntary.forEach(item => {
             const title = item.card.title[currentLang] || item.card.title.de;
             let badgeText = t.choresBothWant;
-            let badgeClass = "bg-emerald-500/20 text-emerald-400 border-emerald-500/30";
+            let badgeClass = "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400";
             if (item.owner === 'p1') {
-                badgeText = `💪 ${t.choresPlayer1}`;
-                badgeClass = "bg-indigo-500/20 text-indigo-300 border-indigo-500/30";
+                badgeText = `💪 ${p1Name}`;
+                badgeClass = "bg-black/[0.04] dark:bg-white/10 text-slate-700 dark:text-neutral-300";
             } else if (item.owner === 'p2') {
-                badgeText = `💪 ${t.choresPlayer2}`;
-                badgeClass = "bg-teal-500/20 text-teal-300 border-teal-500/30";
+                badgeText = `💪 ${p2Name}`;
+                badgeClass = "bg-[#0071E3]/15 text-[#0071E3] dark:text-[#0A84FF]";
             }
 
             const row = document.createElement('div');
-            row.className = "flex items-center justify-between gap-2 p-2 rounded-xl bg-black/10 dark:bg-white/5";
+            row.className = "flex items-center justify-between gap-2 p-2 rounded-xl bg-black/[0.03] dark:bg-white/5";
             row.innerHTML = `
                 <div class="flex items-center gap-2 font-bold">
                     <span class="text-base">${item.card.emoji}</span>
                     <span>${title}</span>
                 </div>
-                <span class="text-[10px] px-2 py-0.5 rounded-full border font-extrabold whitespace-nowrap ${badgeClass}">${badgeText}</span>
+                <span class="text-[10px] px-2.5 py-0.5 rounded-full font-semibold whitespace-nowrap ${badgeClass}">${badgeText}</span>
             `;
             volListEl.appendChild(row);
         });
@@ -893,7 +1147,7 @@ function renderChoresSummaryUI() {
 
     // 2. Anti-Matches rendern
     if (currentChoresSummary.antiMatches.length === 0) {
-        antiListEl.innerHTML = `<div class="text-emerald-400 font-bold py-1">${t.choresNoAntiMatch}</div>`;
+        antiListEl.innerHTML = `<div class="text-emerald-600 dark:text-emerald-400 font-bold py-1">${t.choresNoAntiMatch}</div>`;
         if (rouletteBtn) rouletteBtn.classList.add('hidden');
     } else {
         currentChoresSummary.antiMatches.forEach(item => {
@@ -901,9 +1155,9 @@ function renderChoresSummaryUI() {
             let statusHtml = `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-black/[0.04] dark:bg-white/10 text-[#86868B] font-semibold whitespace-nowrap">Offen</span>`;
 
             if (item.assignedTo === 'p1') {
-                statusHtml = `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-black/[0.06] dark:bg-white/15 text-slate-700 dark:text-neutral-200 font-semibold whitespace-nowrap">${t.choresAssignedToP1}</span>`;
+                statusHtml = `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-black/[0.06] dark:bg-white/15 text-slate-700 dark:text-neutral-200 font-semibold whitespace-nowrap">Muss ${p1Name} machen</span>`;
             } else if (item.assignedTo === 'p2') {
-                statusHtml = `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-[#0071E3] text-white font-semibold whitespace-nowrap">${t.choresAssignedToP2}</span>`;
+                statusHtml = `<span class="text-[10px] px-2.5 py-0.5 rounded-full bg-[#0071E3] text-white font-semibold whitespace-nowrap">Musst DU (${p2Name}) machen</span>`;
             }
 
             const row = document.createElement('div');
@@ -956,17 +1210,19 @@ function shareChoresPlanViaWhatsApp() {
     }
 
     const t = I18N[currentLang];
-    const lines = [t.waChoresSummaryHeader, ""];
+    const p1Name = partnerSenderName || "Partner 1";
+    const p2Name = getUserProfile().name;
+    const lines = [t.waChoresSummaryHeader, `Beteiligte: ${p1Name} & ${p2Name}`, ""];
 
     currentChoresSummary.voluntary.forEach(item => {
         const title = item.card.title[currentLang] || item.card.title.de;
-        const who = item.owner === 'p1' ? t.choresPlayer1 : (item.owner === 'p2' ? t.choresPlayer2 : t.choresBothWant);
+        const who = item.owner === 'p1' ? p1Name : (item.owner === 'p2' ? p2Name : t.choresBothWant);
         lines.push(`✅ ${item.card.emoji} *${title}*: ${who}`);
     });
 
     currentChoresSummary.antiMatches.forEach(item => {
         const title = item.card.title[currentLang] || item.card.title.de;
-        const who = item.assignedTo === 'p1' ? t.choresPlayer1 : t.choresPlayer2;
+        const who = item.assignedTo === 'p1' ? p1Name : p2Name;
         lines.push(`🎲 ${item.card.emoji} *${title}* (Ausgelost): ${who}`);
     });
 
@@ -987,16 +1243,17 @@ function copyShareLink() {
 
 function shareViaWhatsApp() {
     const url = document.getElementById('share-url-input').value;
-    const t = I18N[currentLang];
-    const text = encodeURIComponent(`${t.waChallengeText}\n${url}`);
+    const myName = getUserProfile().name;
+    const text = encodeURIComponent(`🔥 ${myName} hat 8 Optionen gewählt!\nWisch kurz in 20 Sekunden durch, sonst entscheidet ${myName} allein:\n${url}`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 }
 
 function sendWinnerToPartner() {
     if (!matchedCard) return;
-    const t = I18N[currentLang];
+    const p1Name = partnerSenderName || "Partner 1";
+    const p2Name = getUserProfile().name;
     const title = matchedCard.title[currentLang] || matchedCard.title.de;
-    const text = encodeURIComponent(`${t.waWinnerText} ${matchedCard.emoji} *${title}*!`);
+    const text = encodeURIComponent(`🎉 IT'S A MATCH!\n${p1Name} & ${p2Name} haben sich geeinigt auf: ${matchedCard.emoji} *${title}*!`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 }
 
