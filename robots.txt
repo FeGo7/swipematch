@@ -1,4 +1,6 @@
+# Agreesy – AI & Search Engine Discovery Rules
 User-agent: *
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 Allow: /
 
 Sitemap: https://agreesy.com/sitemap.xml
