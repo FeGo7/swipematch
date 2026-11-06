@@ -1130,21 +1130,52 @@ function revealMatchScreen(card) {
 
     const actionBtn = document.getElementById('winner-action-btn');
     const actionText = document.getElementById('winner-action-text');
-    if (actionBtn && actionText) {
-        const isFood = deck && deck.category === 'food';
-        const isEntertainment = deck && deck.category === 'entertainment';
+    const secondaryBtn = document.getElementById('winner-secondary-deal-btn');
+    const secondaryText = document.getElementById('winner-secondary-deal-text');
 
-        if (isFood) {
-            const foodQuery = encodeURIComponent(card.title.de || card.title.en || 'Essen');
-            actionBtn.href = `https://www.lieferando.de/lieferservice/essen/${foodQuery}`;
-            actionText.innerText = `${card.title[currentLang] || card.title.de} bei Lieferando suchen`;
-        } else if (isEntertainment) {
-            const filmQuery = encodeURIComponent(card.title.de || card.title.en || 'Film');
-            actionBtn.href = `https://www.amazon.de/s?k=${filmQuery}&i=instant-video&tag=f05b1-21`;
-            actionText.innerText = `${card.title[currentLang] || card.title.de} auf Prime Video ansehen`;
+    if (actionBtn && actionText) {
+        const cat = deck ? deck.category : 'all';
+        const titleStr = card.title[currentLang] || card.title.de || 'Idee';
+        const query = encodeURIComponent(card.title.de || card.title.en || titleStr);
+
+        if (cat === 'food') {
+            actionBtn.href = `https://www.lieferando.de/lieferservice/essen/${query}`;
+            actionText.innerText = `${titleStr} bei Lieferando bestellen`;
+            if (secondaryBtn && secondaryText) {
+                secondaryBtn.href = `https://www.amazon.de/s?k=${query}+zutaten+kochbuch&tag=f05b1-21`;
+                secondaryText.innerText = `Zutaten & Koch-Sets für ${titleStr} (Amazon)`;
+                secondaryBtn.classList.remove('hidden');
+            }
+        } else if (cat === 'entertainment') {
+            actionBtn.href = `https://www.amazon.de/s?k=${query}&i=instant-video&tag=f05b1-21`;
+            actionText.innerText = `${titleStr} auf Prime Video streamen`;
+            if (secondaryBtn && secondaryText) {
+                secondaryBtn.href = `https://www.amazon.de/s?k=kino+snack+box+popcorn&tag=f05b1-21`;
+                secondaryText.innerText = `Passende Heimkino-Snackbox bestellen`;
+                secondaryBtn.classList.remove('hidden');
+            }
+        } else if (cat === 'activity') {
+            actionBtn.href = `https://www.getyourguide.de/s/?q=${query}`;
+            actionText.innerText = `${titleStr} – Erlebnisse & Tickets ansehen`;
+            if (secondaryBtn && secondaryText) {
+                secondaryBtn.href = `https://www.amazon.de/s?k=${query}+paar+date+spiel&tag=f05b1-21`;
+                secondaryText.innerText = `Passendes Zubehör & Date-Boxen bei Amazon`;
+                secondaryBtn.classList.remove('hidden');
+            }
+        } else if (cat === 'trips') {
+            actionBtn.href = `https://www.booking.com/searchresults.de.html?ss=${query}`;
+            actionText.innerText = `${titleStr} – Angebote auf Booking.com prüfen`;
+            if (secondaryBtn && secondaryText) {
+                secondaryBtn.href = `https://www.amazon.de/s?k=${query}+reise+geschenk&tag=f05b1-21`;
+                secondaryText.innerText = `Reise-Gadgets & Geschenk-Sets bei Amazon`;
+                secondaryBtn.classList.remove('hidden');
+            }
         } else {
-            actionBtn.href = card.actionUrl || "https://www.google.com";
-            actionText.innerText = card.actionLabel ? (card.actionLabel[currentLang] || card.actionLabel.de) : "Direkt öffnen";
+            actionBtn.href = `https://www.amazon.de/s?k=${query}&tag=f05b1-21`;
+            actionText.innerText = `${titleStr} direkt online entdecken`;
+            if (secondaryBtn) {
+                secondaryBtn.classList.add('hidden');
+            }
         }
     }
 
