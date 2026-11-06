@@ -303,8 +303,18 @@ function detectInitialLanguage() {
     if (saved && I18N[saved]) {
         return saved;
     }
-    const browserLang = (navigator.language || 'de').slice(0, 2).toLowerCase();
-    return I18N[browserLang] ? browserLang : 'de';
+    const candidateLanguages = (navigator.languages && navigator.languages.length)
+        ? navigator.languages
+        : [navigator.language || 'en'];
+
+    for (const lang of candidateLanguages) {
+        if (!lang) continue;
+        const code = lang.slice(0, 2).toLowerCase();
+        if (I18N[code]) {
+            return code;
+        }
+    }
+    return 'en';
 }
 
 /**************************************************************
@@ -450,6 +460,31 @@ function setLang(lang) {
     setText('t-random-pick-btn', t.randomPickBtn);
     setText('t-retry-btn', t.retryBtn);
     setText('t-footer', t.footerText);
+
+    // 3 Primary Hero Scenarios
+    setText('t-hero-food-title', t.heroFoodTitle);
+    setText('t-hero-food-sub', t.heroFoodSub);
+    setText('t-hero-food-btn', t.heroFoodBtn);
+    setText('t-hero-movie-title', t.heroMovieTitle);
+    setText('t-hero-movie-sub', t.heroMovieSub);
+    setText('t-hero-movie-btn', t.heroMovieBtn);
+    setText('t-hero-chores-title', t.heroChoresTitle);
+    setText('t-hero-chores-sub', t.heroChoresSub);
+    setText('t-hero-chores-btn', t.heroChoresBtn);
+    setText('t-all-categories-toggle', t.allCategoriesToggle);
+
+    // Onboarding Profile Modal
+    setText('profile-modal-title', t.onboardingTitle);
+    setText('profile-modal-badge', t.onboardingBadge);
+    setText('profile-modal-sub', t.onboardingSub);
+    setText('profile-alias-label', t.onboardingAliasLabel);
+    setText('profile-reroll-btn-text', t.onboardingRerollBtn);
+    setText('profile-custom-label', t.onboardingCustomLabel);
+    setText('profile-submit-btn-text', t.onboardingSubmitBtn);
+    const profileNameInput = document.getElementById('profile-name-input');
+    if (profileNameInput && t.onboardingPlaceholder) {
+        profileNameInput.placeholder = t.onboardingPlaceholder;
+    }
 
     // Custom Deck Creator Texts
     setText('t-custom-btn-title', t.customDeckBtnTitle);
