@@ -19,23 +19,31 @@ export async function onRequest(context) {
   const accept = context.request.headers.get('Accept') || '';
   const url = new URL(context.request.url);
 
-  // 1. Level 2: API Catalog JSON endpoint
+  // 1. Level 2: API Catalog JSON endpoint (RFC 9727 linkset)
   if (url.pathname === '/.well-known/api-catalog') {
     const catalog = {
-      "link-template": "https://agreesy.com{+path}",
-      "services": [
+      "linkset": [
         {
-          "name": "Agreesy Web App",
-          "description": "Zero-server, privacy-first decision maker for couples and friends.",
-          "documentation": "https://agreesy.com/llms.txt",
-          "entrypoint": "https://agreesy.com/"
+          "anchor": "https://agreesy.com/",
+          "service-desc": [
+            {
+              "href": "https://agreesy.com/llms.txt",
+              "type": "text/markdown"
+            }
+          ],
+          "service-doc": [
+            {
+              "href": "https://agreesy.com/llms.txt",
+              "type": "text/markdown"
+            }
+          ]
         }
       ]
     };
     return new Response(JSON.stringify(catalog, null, 2), {
       status: 200,
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
+        'Content-Type': 'application/linkset+json; charset=utf-8',
         'Cache-Control': 'public, max-age=86400'
       }
     });
@@ -43,7 +51,7 @@ export async function onRequest(context) {
 
   // 2. Level 2: Auth.md for AI Agent login instructions
   if (url.pathname === '/auth.md') {
-    const authMd = `# Authentication & Access Policy for Agreesy\n\n> **Zero Login Required / 100% Public Access**\n\nAgreesy does not require user accounts, passwords, API keys, or OAuth authentication.\nAll features are client-side and free to navigate for humans and AI agents.\n`;
+    const authMd = `# Auth.md\n\n## Authentication & Access Policy for Agreesy\n\n> **Zero Login Required / 100% Public Access**\n\nAgreesy does not require user accounts, passwords, API keys, or OAuth authentication.\nAll features are client-side and free to navigate for humans and AI agents without credentials or tokens.\n`;
     return new Response(authMd, {
       status: 200,
       headers: {

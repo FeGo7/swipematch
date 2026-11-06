@@ -1,11 +1,19 @@
 {
-  "link-template": "https://agreesy.com{+path}",
-  "services": [
+  "linkset": [
     {
-      "name": "Agreesy Web App",
-      "description": "Zero-server, privacy-first decision maker for couples and friends (Food, Movies, Chores, Custom polls).",
-      "documentation": "https://agreesy.com/llms.txt",
-      "entrypoint": "https://agreesy.com/"
+      "anchor": "https://agreesy.com/",
+      "service-desc": [
+        {
+          "href": "https://agreesy.com/llms.txt",
+          "type": "text/markdown"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://agreesy.com/llms.txt",
+          "type": "text/markdown"
+        }
+      ]
     }
   ]
 }
