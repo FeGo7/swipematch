@@ -1577,6 +1577,237 @@ const DECKS = {
                 actionUrl: "https://www.google.com/search?q=erlebnisgeschenke+action+ideen"
             }
         ]
+    },
+
+    // ============================================================
+    // NEUE SAISONALE DECKS: COCKTAILS, VEGGIE & WINTERFILME
+    // ============================================================
+    cocktails: {
+        id: "cocktails",
+        category: "food",
+        mode: "match",
+        icon: "🍸",
+        gradient: "from-amber-500 to-rose-600",
+        title: { de: "Cocktails & Drinks zu zweit", en: "Cocktails & Date Drinks", es: "Cócteles y Copas" },
+        sub: { de: "Welcher Drink startet euren Abend?", en: "Settle on your evening drink in 30s", es: "¿Qué copa nos tomamos hoy?" },
+        cards: [
+            {
+                id: 0, emoji: "🍸", bg: "from-amber-600 to-yellow-800",
+                tag: { de: "Elegant & Wach", en: "Caffeine & Chic", es: "Elegante y con café" },
+                title: { de: "Espresso Martini", en: "Espresso Martini", es: "Espresso Martini" },
+                desc: { de: "Frischer Espresso, Kahlúa und Wodka mit samtiger Crema.", en: "Fresh espresso, coffee liqueur & vodka with a velvety crema.", es: "Espresso recién hecho, licor de café y vodka con espuma cremosa." },
+                actionLabel: { de: "Cocktail-Set & Gläser auf Amazon", en: "Cocktail Shaker Set on Amazon", es: "Set de coctelería en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=cocktail+shaker+set+bar&tag=f05b1-21"
+            },
+            {
+                id: 1, emoji: "🍹", bg: "from-orange-500 to-rose-700",
+                tag: { de: "Spritzig & Italienisch", en: "Bubbly & Italian", es: "Aperitivo italiano" },
+                title: { de: "Aperol Spritz", en: "Aperol Spritz", es: "Aperol Spritz" },
+                desc: { de: "Prosecco, Aperol, Soda und eine saftige Orangenscheibe.", en: "Crisp prosecco, bitter-sweet Aperol, soda & orange slice.", es: "Prosecco, Aperol, soda y una rodaja de naranja fresca." },
+                actionLabel: { de: "Aperol & Gläser auf Amazon", en: "Aperol Spritz Glasses on Amazon", es: "Copas de Aperol en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=aperol+spritz+glaeser+set&tag=f05b1-21"
+            },
+            {
+                id: 2, emoji: "🍋", bg: "from-emerald-600 to-teal-800",
+                tag: { de: "Klassisch & Frisch", en: "Crisp & Botanical", es: "Clásico y fresco" },
+                title: { de: "Gin Tonic mit Gurke oder Beeren", en: "Gin & Tonic", es: "Gin Tonic Premium" },
+                desc: { de: "Guter Gin, eisgekühltes Tonic Water und frische Botanicals.", en: "Premium botanical gin, craft tonic & fresh cucumber or berries.", es: "Ginebra botánica, tónica bien fría y pepino o frutos rojos." },
+                actionLabel: { de: "Premium Gin auf Amazon", en: "Craft Gin on Amazon", es: "Ginebra premium en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=premium+gin+geschenk&tag=f05b1-21"
+            },
+            {
+                id: 3, emoji: "🌿", bg: "from-lime-600 to-emerald-800",
+                tag: { de: "Frische Minze", en: "Zesty & Refreshing", es: "Con lima y menta" },
+                title: { de: "Mojito oder Caipirinha", en: "Mojito or Caipirinha", es: "Mojito o Caipirinha" },
+                desc: { de: "Frische Minze, Limetten, Rohrzucker und zerstoßenes Eis.", en: "Fresh mint, muddled lime, raw sugar and crushed ice.", es: "Menta fresca, lima machacada, azúcar y hielo picado." },
+                actionLabel: { de: "Stößel & Bar-Tools auf Amazon", en: "Muddler & Bar Tools on Amazon", es: "Mortero y accesorios en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=barstoessel+holz+cocktail&tag=f05b1-21"
+            },
+            {
+                id: 4, emoji: "🥃", bg: "from-amber-700 to-orange-950",
+                tag: { de: "Bar-Legende", en: "Bold & Classic", es: "Para sibaritas" },
+                title: { de: "Whiskey Sour oder Old Fashioned", en: "Whiskey Sour or Old Fashioned", es: "Whiskey Sour o Old Fashioned" },
+                desc: { de: "Bourbon, Zitronensaft, Zuckersirup – rund, kraftvoll, perfekt.", en: "Bourbon, fresh lemon, simple syrup and aromatic bitters.", es: "Bourbon, zumo de limón fresco, sirope y bitter aromático." },
+                actionLabel: { de: "Whiskey-Gläser auf Amazon", en: "Whiskey Tumblers on Amazon", es: "Vasos de whisky en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=whiskey+glaeser+set&tag=f05b1-21"
+            },
+            {
+                id: 5, emoji: "🫚", bg: "from-yellow-600 to-amber-900",
+                tag: { de: "Würzig im Kupferbecher", en: "Ginger Kick", es: "En taza de cobre" },
+                title: { de: "Moscow Mule", en: "Moscow Mule", es: "Moscow Mule" },
+                desc: { de: "Wodka, scharfes Ginger Beer, Limette und Gurkenscheibe.", en: "Crisp vodka, spicy ginger beer, fresh lime in a cold copper mug.", es: "Vodka, cerveza de jengibre especiada y lima en taza de cobre." },
+                actionLabel: { de: "Kupferbecher Set auf Amazon", en: "Copper Mugs Set on Amazon", es: "Tazas de cobre en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=kupferbecher+moscow+mule+set&tag=f05b1-21"
+            },
+            {
+                id: 6, emoji: "🍓", bg: "from-rose-500 to-pink-700",
+                tag: { de: "0.0% Alkohol", en: "Zero Proof Mocktail", es: "Sin alcohol" },
+                title: { de: "Fancy Mocktail (Wildberry Spritz 0.0)", en: "Fruity Virgin Mocktail", es: "Mocktail de Frutos Rojos" },
+                desc: { de: "Alkoholfreier Aperitif, Beeren, Tonic und Minze – 100% Genuss.", en: "Botanical non-alcoholic aperitif, wild berries, tonic & mint.", es: "Aperitivo sin alcohol, frutos rojos, tónica y menta fresca." },
+                actionLabel: { de: "Alkoholfreie Spirituosen auf Amazon", en: "Zero-Proof Spirits on Amazon", es: "Bebidas sin alcohol en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=alkoholfreier+gin+aperitif&tag=f05b1-21"
+            },
+            {
+                id: 7, emoji: "🍷", bg: "from-red-800 to-slate-900",
+                tag: { de: "Entspannt auf der Couch", en: "Cozy Wine & Beer", es: "Tranquilo en casa" },
+                title: { de: "Gekühlter Wein, Craft Beer & Knabbereien", en: "Chilled Wine or Craft Beer", es: "Buen Vino o Cerveza Artesana" },
+                desc: { de: "Flasche entkorken, Chips oder Oliven dazu und die Beine hochlegen.", en: "Pop open a favorite bottle, grab some crisps, and relax.", es: "Abrir una buena botella, picar algo y disfrutar del sofá." },
+                actionLabel: { de: "Weinkühler & Zubehör auf Amazon", en: "Wine Cooler on Amazon", es: "Enfriador de vino en Amazon" },
+                actionUrl: "https://www.amazon.de/s?k=weinkuehler+edelstahl&tag=f05b1-21"
+            }
+        ]
+    },
+
+    vegan: {
+        id: "vegan",
+        category: "food",
+        mode: "match",
+        icon: "🥗",
+        gradient: "from-emerald-500 to-teal-700",
+        title: { de: "Veggie & Vegan", en: "Plant-Based & Veggie", es: "Vegano y Vegetariano" },
+        sub: { de: "Pflanzlicher Genuss ohne Diskussion", en: "100% plant-powered meals settled in 30s", es: "Platos ricos a base de plantas" },
+        cards: [
+            {
+                id: 0, emoji: "🍛", bg: "from-amber-600 to-yellow-800",
+                tag: { de: "Wärmend & Cremig", en: "Warm Comfort", es: "Reconfortante" },
+                title: { de: "Kichererbsen-Kokos-Curry", en: "Chickpea Coconut Curry", es: "Curry Cremoso de Garbanzos" },
+                desc: { de: "Kichererbsen, cremige Kokosmilch, Spinat und duftender Basmatireis.", en: "Chickpeas, coconut milk, tender spinach & fragrant basmati rice.", es: "Garbanzos, leche de coco cremosa, espinacas y arroz basmati." },
+                actionLabel: { de: "Veganes Curry Rezept öffnen", en: "Get Vegan Curry Recipe", es: "Ver receta de curry vegano" },
+                actionUrl: "https://www.google.com/search?q=cremiges+kichererbsen+curry+rezept"
+            },
+            {
+                id: 1, emoji: "🌯", bg: "from-emerald-600 to-green-800",
+                tag: { de: "Streetfood Klassiker", en: "Crispy & Fresh", es: "Street Food" },
+                title: { de: "Knuspriger Falafel-Wrap", en: "Crispy Falafel Wrap", es: "Wrap de Falafel Crujiente" },
+                desc: { de: "Goldbraune Falafel, cremige Tahini-Sauce, Gurken und Minze im Fladenbrot.", en: "Golden falafels, velvety tahini, cucumber and mint in warm flatbread.", es: "Falafel dorado, salsa tahini, pepino y menta en pan caliente." },
+                actionLabel: { de: "Falafel bei Lieferando suchen", en: "Order Falafel on Lieferando", es: "Pedir falafel a domicilio" },
+                actionUrl: "https://www.lieferando.de/lieferservice/essen/falafel"
+            },
+            {
+                id: 2, emoji: "🍝", bg: "from-red-600 to-rose-900",
+                tag: { de: "Herzhafte Pasta", en: "Hearty Pasta", es: "Pasta reconfortante" },
+                title: { de: "Linsen-Bolognese / Pasta Ragu", en: "Lentil Bolognese Ragu", es: "Boloñesa de Lentejas" },
+                desc: { de: "Al dente Spaghetti mit aromatischer, herzhafter Linsen-Tomatensauce.", en: "Al dente spaghetti with a rich, slow-simmered savory lentil ragu.", es: "Espaguetis al dente con salsa de tomate y lentejas casera." },
+                actionLabel: { de: "Blitz-Rezept für Linsen-Bolo", en: "Quick Lentil Ragu Recipe", es: "Receta rápida de boloñesa" },
+                actionUrl: "https://www.google.com/search?q=schnelle+linsen+bolognese+rezept"
+            },
+            {
+                id: 3, emoji: "🥗", bg: "from-teal-600 to-cyan-800",
+                tag: { de: "Bunt & Gesund", en: "Clean & Crunchy", es: "Saludable y rico" },
+                title: { de: "Bunte Buddha-Bowl", en: "Crunchy Peanut Buddha Bowl", es: "Buddha Bowl con Cacahuete" },
+                desc: { de: "Quinoa, geröstete Kichererbsen, Avocado, Edamame und Erdnuss-Dressing.", en: "Quinoa, roasted veggies, avocado, edamame and a creamy peanut drizzle.", es: "Quinoa, garbanzos tostados, aguacate, edamame y salsa de cacahuete." },
+                actionLabel: { de: "Bowls bei Lieferando bestellen", en: "Order Bowls on Lieferando", es: "Pedir bowls a domicilio" },
+                actionUrl: "https://www.lieferando.de/lieferservice/essen/bowls"
+            },
+            {
+                id: 4, emoji: "🍕", bg: "from-amber-500 to-red-800",
+                tag: { de: "Pizza Night", en: "Crispy Crust", es: "Pizza vegetal" },
+                title: { de: "Vegane Gemüsepizza oder Trüffel", en: "Plant-Based Artisan Pizza", es: "Pizza Vegana Artesana" },
+                desc: { de: "Dünner Steinofenteig, gegrillte Artischocken, Rucola und veganer Käse.", en: "Stone-baked thin crust, grilled artichokes, wild rocket & vegan melt.", es: "Masa fina, alcachofas a la parrilla, rúcula y queso vegano fundido." },
+                actionLabel: { de: "Vegane Pizza bestellen", en: "Order Vegan Pizza", es: "Pedir pizza vegana" },
+                actionUrl: "https://www.lieferando.de/lieferservice/essen/vegan-pizza"
+            },
+            {
+                id: 5, emoji: "🍜", bg: "from-orange-600 to-yellow-900",
+                tag: { de: "Asiatische Suppe", en: "Steaming Broth", es: "Ramen asiático" },
+                title: { de: "Würzige Tofu-Ramen", en: "Spicy Tofu Ramen", es: "Ramen Picante de Tofu" },
+                desc: { de: "Dampfende Miso-Brühe, knuspriger Räuchertofu, Pak Choi und Sesam.", en: "Rich miso broth, crispy smoked tofu, pak choi, noodles & sesame.", es: "Caldo de miso aromático, tofu crujiente, fideos y pak choi." },
+                actionLabel: { de: "Ramen bei Lieferando suchen", en: "Order Ramen on Lieferando", es: "Pedir ramen a domicilio" },
+                actionUrl: "https://www.lieferando.de/lieferservice/essen/ramen"
+            },
+            {
+                id: 6, emoji: "🥔", bg: "from-orange-500 to-amber-700",
+                tag: { de: "Ofengericht", en: "Baked Comfort", es: "Al horno" },
+                title: { de: "Gefüllte Ofen-Süßkartoffel (Kumpir)", en: "Loaded Sweet Potato", es: "Boniato Relleno al Horno" },
+                desc: { de: "Karamellisierte Süßkartoffel mit Bohnen, Mais, Guacamole und veganem Sauerrahm.", en: "Caramelized baked sweet potato loaded with black beans, guac & corn.", es: "Boniato asado relleno de alubias, maíz, guacamole y crema fresca." },
+                actionLabel: { de: "Kumpir Rezept ansehen", en: "Loaded Sweet Potato Recipe", es: "Ver receta de boniato relleno" },
+                actionUrl: "https://www.google.com/search?q=gefuellte+suesskartoffel+rezept+vegan"
+            },
+            {
+                id: 7, emoji: "🥑", bg: "from-lime-600 to-green-900",
+                tag: { de: "Mexikanisch", en: "Zesty & Spicy", es: "Mexicano" },
+                title: { de: "Mexikanische Burrito-Bowl", en: "Fiesta Burrito Bowl", es: "Burrito Bowl Mexicano" },
+                desc: { de: "Würziger Limetten-Reis, schwarze Bohnen, knusprige Tacos und Pico de Gallo.", en: "Zesty lime rice, black beans, salsa fresca, crispy tortilla crisps & jalapeños.", es: "Arroz con lima, frijoles negros, pico de gallo fresco y nachos crujientes." },
+                actionLabel: { de: "Mexikanisch bei Lieferando suchen", en: "Order Mexican on Lieferando", es: "Pedir comida mexicana" },
+                actionUrl: "https://www.lieferando.de/lieferservice/essen/mexikanisch"
+            }
+        ]
+    },
+
+    wintermovies: {
+        id: "wintermovies",
+        category: "entertainment",
+        mode: "match",
+        icon: "❄️",
+        gradient: "from-cyan-500 to-blue-800",
+        title: { de: "Winter- & Weihnachtsfilme", en: "Holiday & Winter Movies", es: "Películas de Invierno y Navidad" },
+        sub: { de: "Kuscheldecke an: Welcher Filmklassiker läuft?", en: "Cozy movie night classics settled in 30s", es: "Clásicos para una tarde de sofá y manta" },
+        cards: [
+            {
+                id: 0, emoji: "⚡", bg: "from-amber-600 to-slate-900",
+                tag: { de: "Kult-Magie", en: "Hogwarts Nostalgia", es: "Magia y nostalgia" },
+                title: { de: "Harry Potter Marathon", en: "Harry Potter Marathon", es: "Maratón de Harry Potter" },
+                desc: { de: "Schnee über Hogwarts, goldene Kerzen und Nostalgie pur.", en: "Snow falling over Hogwarts, floating candles and pure cozy nostalgia.", es: "Nieve sobre Hogwarts, velas flotantes y pura magia de nuestra infancia." },
+                actionLabel: { de: "Harry Potter auf Prime Video streamen", en: "Stream Harry Potter on Prime Video", es: "Ver Harry Potter en Prime Video" },
+                actionUrl: "https://www.amazon.de/s?k=Harry+Potter+Film&i=instant-video&tag=f05b1-21"
+            },
+            {
+                id: 1, emoji: "🎄", bg: "from-red-600 to-green-800",
+                tag: { de: "Familien-Kult", en: "Holiday Slapstick", es: "Comedia de culto" },
+                title: { de: "Kevin – Allein zu Haus (Home Alone)", en: "Home Alone", es: "Solo en Casa (Home Alone)" },
+                desc: { de: "Geniale Fallen, Lacher garantiert und das Gefühl von damals.", en: "Clever booby traps, holiday spirit, and endless childhood laughs.", es: "Trampas ingeniosas, risas aseguradas y el auténtico espíritu navideño." },
+                actionLabel: { de: "Home Alone auf Prime Video suchen", en: "Stream Home Alone on Prime Video", es: "Ver Solo en Casa en Prime Video" },
+                actionUrl: "https://www.amazon.de/s?k=Kevin+allein+zu+haus&i=instant-video&tag=f05b1-21"
+            },
+            {
+                id: 2, emoji: "❤️", bg: "from-rose-500 to-red-800",
+                tag: { de: "Wohlfühl-RomCom", en: "Cozy Romance", es: "Comedia romántica" },
+                title: { de: "Liebe braucht keine Ferien (The Holiday)", en: "The Holiday or Love Actually", es: "The Holiday (Vacaciones) o Love Actually" },
+                desc: { de: "Ein verschneites englisches Cottage, London und pure Romantik.", en: "Snowy English cottages, roaring fireplaces and warm holiday romance.", es: "Una casita de campo nevada en Inglaterra y mucho romance acogedor." },
+                actionLabel: { de: "The Holiday auf Prime Video streamen", en: "Stream The Holiday on Prime Video", es: "Ver The Holiday en Prime Video" },
+                actionUrl: "https://www.amazon.de/s?k=The+Holiday+Liebe+braucht+keine+Ferien&i=instant-video&tag=f05b1-21"
+            },
+            {
+                id: 3, emoji: "🏢", bg: "from-slate-700 to-red-950",
+                tag: { de: "Weihnachts-Action", en: "Action Legend", es: "Acción mítica" },
+                title: { de: "Stirb Langsam (Die Hard)", en: "Die Hard", es: "Jungla de Cristal (Die Hard)" },
+                desc: { de: "Yippee-ki-yay! Der beste unkonventionelle Weihnachtsfilm aller Zeiten.", en: "Yippee-ki-yay! The ultimate high-stakes holiday action masterpiece.", es: "¡Yippee-ki-yay! La mejor película de acción ambientada en Navidad." },
+                actionLabel: { de: "Die Hard auf Prime Video suchen", en: "Stream Die Hard on Prime Video", es: "Ver Die Hard en Prime Video" },
+                actionUrl: "https://www.amazon.de/s?k=Die+Hard+Stirb+langsam&i=instant-video&tag=f05b1-21"
+            },
+            {
+                id: 4, emoji: "🚂", bg: "from-blue-600 to-cyan-900",
+                tag: { de: "Herzerwärmend", en: "Cozy Animation", es: "Animación preciosa" },
+                title: { de: "Klaus oder Der Polarexpress", en: "Klaus or The Polar Express", es: "Klaus o El Expreso Polar" },
+                desc: { de: "Wunderschön animiert, heiße Schokolade in der Hand und Gänsehaut.", en: "Breathtaking animation, hot cocoa in hand and genuine heartwarming moments.", es: "Animación maravillosa, chocolate caliente en mano y mucha emoción." },
+                actionLabel: { de: "Klaus / Polarexpress ansehen", en: "Stream Polar Express on Prime Video", es: "Ver Expreso Polar en Prime Video" },
+                actionUrl: "https://www.amazon.de/s?k=Polarexpress+Film&i=instant-video&tag=f05b1-21"
+            },
+            {
+                id: 5, emoji: "💡", bg: "from-emerald-600 to-teal-900",
+                tag: { de: "Chaos & Lacher", en: "Hilarious Chaos", es: "Risas garantizadas" },
+                title: { de: "Schöne Bescherung (Griswolds)", en: "National Lampoon's Christmas Vacation", es: "¡Socorro! Ya es Navidad (Griswold)" },
+                desc: { de: "25.000 Lichter, explodierende Truthähne und absoluter Kult-Slapstick.", en: "25,000 holiday lights, turkey disasters and chaotic family humor.", es: "25.000 bombillas navideñas y el caos familiar más divertido del cine." },
+                actionLabel: { de: "Griswolds auf Prime Video suchen", en: "Stream Christmas Vacation", es: "Ver Los Griswold en Prime Video" },
+                actionUrl: "https://www.amazon.de/s?k=Schoene+Bescherung+Griswolds&i=instant-video&tag=f05b1-21"
+            },
+            {
+                id: 6, emoji: "💍", bg: "from-amber-600 to-stone-900",
+                tag: { de: "Episches Abenteuer", en: "Epic Fantasy Binge", es: "Fantasía épica" },
+                title: { de: "Der Herr der Ringe (Lord of the Rings)", en: "Lord of the Rings Marathon", es: "El Señor de los Anillos" },
+                desc: { de: "Über 3 Stunden episches Mittelerde, Auenland-Gemütlichkeit und Kaminfeuer.", en: "Epic Middle-earth journey, cozy Shire vibes and unmatched storytelling.", es: "Una aventura épica, paisajes nevados y una tarde de cine inolvidable." },
+                actionLabel: { de: "Herr der Ringe auf Prime Video streamen", en: "Stream LOTR on Prime Video", es: "Ver El Señor de los Anillos" },
+                actionUrl: "https://www.amazon.de/s?k=Herr+der+Ringe+Trilogie&i=instant-video&tag=f05b1-21"
+            },
+            {
+                id: 7, emoji: "🍫", bg: "from-purple-600 to-rose-900",
+                tag: { de: "Süß & Fantasievoll", en: "Whimsical & Sweet", es: "Dulce y fantasía" },
+                title: { de: "Wonka oder Charlie & die Schokoladenfabrik", en: "Wonka or Charlie & the Chocolate Factory", es: "Wonka o Charlie y la Fábrica de Chocolate" },
+                desc: { de: "Bunte Magie, Musik, fliegende Pralinen und beste Laune.", en: "Colorful magic, flying sweets, heartwarming music and uplifting optimism.", es: "Chocolates voladores, canciones preciosas y pura fantasía para el sofá." },
+                actionLabel: { de: "Wonka auf Prime Video streamen", en: "Stream Wonka on Prime Video", es: "Ver Wonka en Prime Video" },
+                actionUrl: "https://www.amazon.de/s?k=Wonka+Film&i=instant-video&tag=f05b1-21"
+            }
+        ]
     }
 };
 

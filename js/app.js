@@ -628,7 +628,8 @@ function renderDeckList() {
     if (!container) return;
     container.innerHTML = '';
 
-    const allDecks = Object.values(DECKS);
+    // Eindeutige Decks nach deck.id filtern (verhindert Duplikate durch Aliase wie streaming/chores)
+    const allDecks = Array.from(new Map(Object.values(DECKS).map(d => [d.id, d])).values());
 
     const filteredDecks = allDecks.filter(deck => {
         if (deck.id === 'custom' && currentDeckId !== 'custom') return false;
