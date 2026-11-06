@@ -289,6 +289,9 @@ window.addEventListener('DOMContentLoaded', () => {
     // 3. Partner-Herausforderung via Hash prüfen (#m=... oder #c=...)
     checkIncomingChallenge();
 
+    // 3b. Direkter Deck-Start via SEO-Landingpage (?deck=dinner oder #deck=dinner)
+    checkDirectDeckParam();
+
     // 4. Logo initialisieren & Showcase rendern
     if (typeof setActiveLogo === 'function') {
         setActiveLogo(currentLogoId);
@@ -399,6 +402,29 @@ function checkIncomingChallenge() {
 
     renderCategoryFilter();
     renderDeckList();
+}
+
+function checkDirectDeckParam() {
+    const hash = window.location.hash;
+    const search = window.location.search;
+    if (hash && (hash.startsWith('#m=') || hash.startsWith('#c='))) {
+        return; // Partner-Herausforderung hat Vorrang
+    }
+    let targetDeck = null;
+    if (search) {
+        const params = new URLSearchParams(search);
+        targetDeck = params.get('deck');
+    }
+    if (!targetDeck && hash && hash.startsWith('#deck=')) {
+        targetDeck = hash.replace('#deck=', '');
+    }
+    if (targetDeck && DECKS[targetDeck]) {
+        localStorage.setItem('agreesy_profile_initialized', 'true');
+        closeProfileModal();
+        setTimeout(() => {
+            startGame(targetDeck);
+        }, 80);
+    }
 }
 
 /**************************************************************
