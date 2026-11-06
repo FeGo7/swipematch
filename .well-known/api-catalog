@@ -1,0 +1,11 @@
+{
+  "link-template": "https://agreesy.com{+path}",
+  "services": [
+    {
+      "name": "Agreesy Web App",
+      "description": "Zero-server, privacy-first decision maker for couples and friends (Food, Movies, Chores, Custom polls).",
+      "documentation": "https://agreesy.com/llms.txt",
+      "entrypoint": "https://agreesy.com/"
+    }
+  ]
+}

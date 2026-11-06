@@ -19,7 +19,41 @@ export async function onRequest(context) {
   const accept = context.request.headers.get('Accept') || '';
   const url = new URL(context.request.url);
 
-  // If an AI agent explicitly requests Markdown via Content-Negotiation (Accept: text/markdown)
+  // 1. Level 2: API Catalog JSON endpoint
+  if (url.pathname === '/.well-known/api-catalog') {
+    const catalog = {
+      "link-template": "https://agreesy.com{+path}",
+      "services": [
+        {
+          "name": "Agreesy Web App",
+          "description": "Zero-server, privacy-first decision maker for couples and friends.",
+          "documentation": "https://agreesy.com/llms.txt",
+          "entrypoint": "https://agreesy.com/"
+        }
+      ]
+    };
+    return new Response(JSON.stringify(catalog, null, 2), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'public, max-age=86400'
+      }
+    });
+  }
+
+  // 2. Level 2: Auth.md for AI Agent login instructions
+  if (url.pathname === '/auth.md') {
+    const authMd = `# Authentication & Access Policy for Agreesy\n\n> **Zero Login Required / 100% Public Access**\n\nAgreesy does not require user accounts, passwords, API keys, or OAuth authentication.\nAll features are client-side and free to navigate for humans and AI agents.\n`;
+    return new Response(authMd, {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/markdown; charset=utf-8',
+        'Cache-Control': 'public, max-age=86400'
+      }
+    });
+  }
+
+  // 3. Level 1: Markdown Content-Negotiation
   if (
     (url.pathname === '/' || url.pathname === '/index.html') &&
     accept.includes('text/markdown') &&
@@ -35,5 +69,21 @@ export async function onRequest(context) {
     });
   }
 
-  return context.next();
+  // 4. Level 2: Link Headers for Agent Discovery
+  const response = await context.next();
+  if (url.pathname === '/' || url.pathname === '/index.html') {
+    const newHeaders = new Headers(response.headers);
+    newHeaders.append('Link', '<https://agreesy.com/llms.txt>; rel="describedby"');
+    newHeaders.append('Link', '<https://agreesy.com/sitemap.xml>; rel="sitemap"');
+    newHeaders.append('Link', '<https://agreesy.com/.well-known/api-catalog>; rel="service-desc"');
+    newHeaders.append('Link', '<https://agreesy.com/auth.md>; rel="authorisation"');
+
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: newHeaders
+    });
+  }
+
+  return response;
 }
