@@ -1579,3 +1579,8 @@ const DECKS = {
         ]
     }
 };
+
+// Aliases for seamless routing, deep linking, and backwards compatibility:
+DECKS.streaming = DECKS.movie;
+DECKS.chores = DECKS.household;
+
