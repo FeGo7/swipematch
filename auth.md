@@ -1,12 +1,16 @@
 # Auth.md
 
-## Authentication & Access Policy for Agreesy
+## Agent Registration
 
-> **Zero Login Required / 100% Public Access**
+Agreesy is an open, client-side web application. AI agents and automated clients do not need to complete a registration flow or obtain API keys.
 
-Agreesy (https://agreesy.com) does not require user accounts, passwords, API keys, or OAuth authentication.
+- **Registration Type:** Anonymous / Open Access
+- **Registration URL:** https://agreesy.com/
+- **Credentials Required:** None
 
-### Authentication Instructions:
-- **No authentication required:** All features, decision decks, and custom polls are open and run 100% client-side.
-- **State management:** Encoded directly in URL fragments (`#m=...`, `#c=...`).
-- **AI Agent Access:** Autonomous agents are free to navigate and parse `https://agreesy.com/` without credentials or tokens.
+## Authentication
+
+- **Authentication Method:** None (Public Access)
+- **Token Endpoint:** Not required
+- **Scopes:** Public read and interaction
+- **Session State:** Encoded directly into client URL hash fragments (`#m=...`)

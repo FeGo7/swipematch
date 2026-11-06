@@ -49,13 +49,31 @@ export async function onRequest(context) {
     });
   }
 
-  // 2. Level 2: Auth.md for AI Agent login instructions
+  // 2. Level 2: Auth.md for AI Agent login & registration instructions
   if (url.pathname === '/auth.md') {
-    const authMd = `# Auth.md\n\n## Authentication & Access Policy for Agreesy\n\n> **Zero Login Required / 100% Public Access**\n\nAgreesy does not require user accounts, passwords, API keys, or OAuth authentication.\nAll features are client-side and free to navigate for humans and AI agents without credentials or tokens.\n`;
+    const authMd = `# Auth.md\n\n## Agent Registration\n\nAgreesy is an open, client-side web application. AI agents and automated clients do not need to complete a registration flow or obtain API keys.\n\n- **Registration Type:** Anonymous / Open Access\n- **Registration URL:** https://agreesy.com/\n- **Credentials Required:** None\n\n## Authentication\n\n- **Authentication Method:** None (Public Access)\n- **Token Endpoint:** Not required\n- **Scopes:** Public read and interaction\n- **Session State:** Encoded directly into client URL hash fragments (#m=...)\n`;
     return new Response(authMd, {
       status: 200,
       headers: {
         'Content-Type': 'text/markdown; charset=utf-8',
+        'Cache-Control': 'public, max-age=86400'
+      }
+    });
+  }
+
+  // 2b. OAuth Authorization Server Metadata with agent_auth block
+  if (url.pathname === '/.well-known/oauth-authorization-server') {
+    const oauthMeta = {
+      "issuer": "https://agreesy.com",
+      "agent_auth": {
+        "register_uri": "https://agreesy.com/",
+        "identity_types_supported": ["anonymous"]
+      }
+    };
+    return new Response(JSON.stringify(oauthMeta, null, 2), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
         'Cache-Control': 'public, max-age=86400'
       }
     });
