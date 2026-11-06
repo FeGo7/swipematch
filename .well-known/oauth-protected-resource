@@ -1,0 +1,12 @@
+{
+  "resource": "https://agreesy.com/",
+  "authorization_servers": [
+    "https://agreesy.com"
+  ],
+  "scopes_supported": [
+    "public"
+  ],
+  "bearer_methods_supported": [
+    "header"
+  ]
+}

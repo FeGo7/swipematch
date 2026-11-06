@@ -1,16 +1,23 @@
-# Auth.md
+# auth.md
+
+## Overview
+
+Agreesy is a lightweight, client-side decision-making application for couples and groups. AI agents are welcome to navigate, parse content, and reference decision decks.
+
+## Target Audience
+
+This document is for autonomous AI agents, LLM assistants, and automated tools discovering Agreesy services.
 
 ## Agent Registration
 
-Agreesy is an open, client-side web application. AI agents and automated clients do not need to complete a registration flow or obtain API keys.
+- **Registration Method:** Anonymous / Open Access
+- **Registration Endpoint:** `https://agreesy.com/`
+- **Claim URI:** `https://agreesy.com/`
+- **Identity Types Supported:** `anonymous`
+- **Credential Types Supported:** `none`
 
-- **Registration Type:** Anonymous / Open Access
-- **Registration URL:** https://agreesy.com/
-- **Credentials Required:** None
+## Authentication & Credentials
 
-## Authentication
-
-- **Authentication Method:** None (Public Access)
-- **Token Endpoint:** Not required
-- **Scopes:** Public read and interaction
-- **Session State:** Encoded directly into client URL hash fragments (`#m=...`)
+- **Credentials Required:** None (Zero Login Required)
+- **Token Endpoint:** Not applicable (Public client-side app)
+- **State Storage:** Game state is transferred purely via client URL fragments (`#m=...`, `#c=...`).

@@ -51,7 +51,7 @@ export async function onRequest(context) {
 
   // 2. Level 2: Auth.md for AI Agent login & registration instructions
   if (url.pathname === '/auth.md') {
-    const authMd = `# Auth.md\n\n## Agent Registration\n\nAgreesy is an open, client-side web application. AI agents and automated clients do not need to complete a registration flow or obtain API keys.\n\n- **Registration Type:** Anonymous / Open Access\n- **Registration URL:** https://agreesy.com/\n- **Credentials Required:** None\n\n## Authentication\n\n- **Authentication Method:** None (Public Access)\n- **Token Endpoint:** Not required\n- **Scopes:** Public read and interaction\n- **Session State:** Encoded directly into client URL hash fragments (#m=...)\n`;
+    const authMd = `# auth.md\n\n## Overview\nAgreesy is a lightweight, client-side decision-making application for couples and groups. AI agents are welcome to navigate, parse content, and reference decision decks.\n\n## Target Audience\nThis document is for autonomous AI agents, LLM assistants, and automated tools discovering Agreesy services.\n\n## Agent Registration\n- **Registration Method:** Anonymous / Open Access\n- **Registration Endpoint:** https://agreesy.com/\n- **Claim URI:** https://agreesy.com/\n- **Identity Types Supported:** anonymous\n- **Credential Types Supported:** none\n\n## Authentication & Credentials\n- **Credentials Required:** None (Zero Login Required)\n- **Token Endpoint:** Not applicable (Public client-side app)\n- **State Storage:** Game state is transferred purely via client URL fragments (#m=..., #c=...).\n`;
     return new Response(authMd, {
       status: 200,
       headers: {
@@ -61,13 +61,47 @@ export async function onRequest(context) {
     });
   }
 
-  // 2b. OAuth Authorization Server Metadata with agent_auth block
+  // 2b. OAuth Protected Resource Metadata (PRM)
+  if (url.pathname === '/.well-known/oauth-protected-resource') {
+    const prm = {
+      "resource": "https://agreesy.com/",
+      "authorization_servers": [
+        "https://agreesy.com"
+      ],
+      "scopes_supported": [
+        "public"
+      ],
+      "bearer_methods_supported": [
+        "header"
+      ]
+    };
+    return new Response(JSON.stringify(prm, null, 2), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'public, max-age=86400'
+      }
+    });
+  }
+
+  // 2c. OAuth Authorization Server Metadata with agent_auth block
   if (url.pathname === '/.well-known/oauth-authorization-server') {
     const oauthMeta = {
       "issuer": "https://agreesy.com",
+      "authorization_endpoint": "https://agreesy.com/",
+      "token_endpoint": "https://agreesy.com/",
       "agent_auth": {
+        "skill": "https://agreesy.com/auth.md",
         "register_uri": "https://agreesy.com/",
-        "identity_types_supported": ["anonymous"]
+        "claim_uri": "https://agreesy.com/",
+        "identity_types_supported": [
+          "anonymous"
+        ],
+        "anonymous": {
+          "credential_types_supported": [
+            "none"
+          ]
+        }
       }
     };
     return new Response(JSON.stringify(oauthMeta, null, 2), {
@@ -103,6 +137,8 @@ export async function onRequest(context) {
     newHeaders.append('Link', '<https://agreesy.com/sitemap.xml>; rel="sitemap"');
     newHeaders.append('Link', '<https://agreesy.com/.well-known/api-catalog>; rel="service-desc"');
     newHeaders.append('Link', '<https://agreesy.com/auth.md>; rel="authorisation"');
+    newHeaders.append('Link', '<https://agreesy.com/.well-known/oauth-protected-resource>; rel="oauth-protected-resource"');
+    newHeaders.append('Link', '<https://agreesy.com/.well-known/oauth-authorization-server>; rel="oauth-authorization-server"');
 
     return new Response(response.body, {
       status: response.status,

@@ -1,0 +1,18 @@
+{
+  "issuer": "https://agreesy.com",
+  "authorization_endpoint": "https://agreesy.com/",
+  "token_endpoint": "https://agreesy.com/",
+  "agent_auth": {
+    "skill": "https://agreesy.com/auth.md",
+    "register_uri": "https://agreesy.com/",
+    "claim_uri": "https://agreesy.com/",
+    "identity_types_supported": [
+      "anonymous"
+    ],
+    "anonymous": {
+      "credential_types_supported": [
+        "none"
+      ]
+    }
+  }
+}
