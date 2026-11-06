@@ -791,10 +791,12 @@ function registerCustomDeckInMemory(rawTitle, mode, optionsArray) {
 }
 
 function startCustomDeck() {
-    const rawTitle = document.getElementById('custom-deck-title').value;
+    // Carmack Sanity Check: Truncate to avoid exploding WhatsApp 2048-char URL boundary
+    const rawTitle = (document.getElementById('custom-deck-title').value || '').trim().slice(0, 60);
     const rawOptions = Array.from(document.querySelectorAll('.custom-opt-input'))
-        .map(el => el.value.trim())
-        .filter(Boolean);
+        .map(el => el.value.trim().slice(0, 60))
+        .filter(Boolean)
+        .slice(0, 8);
 
     if (rawOptions.length < 2) {
         const firstEmpty = document.querySelector('.custom-opt-input');
@@ -1165,6 +1167,11 @@ function revealMatchScreen(card) {
     showScreen('screen-match');
     playMatchChime();
 
+    // Jony Ive Feedback: Haptic Feedback auf Smartphones
+    if ('vibrate' in navigator) {
+        try { navigator.vibrate([40, 60, 140]); } catch (e) {}
+    }
+
     if (typeof confetti === 'function') {
         confetti({
             particleCount: 70,
@@ -1176,7 +1183,8 @@ function revealMatchScreen(card) {
     const deck = DECKS[currentDeckId];
     const winnerCardEl = document.getElementById('winner-card');
     if (winnerCardEl) {
-        winnerCardEl.className = "w-full rounded-[16px] p-6 mb-5 flex flex-col items-start text-left surface";
+        // Warmer Magie-Glow auf der Sieger-Karte
+        winnerCardEl.className = "w-full rounded-[16px] p-6 mb-5 flex flex-col items-start text-left surface border-[#E05A3A]/40 shadow-[0_0_35px_-5px_rgba(224,90,58,0.25)] transition-all";
     }
     document.getElementById('winner-emoji').innerHTML = card.emoji || getCategoryLineIcon(deck ? deck.category : 'all');
     document.getElementById('winner-title').innerText = card.title[currentLang] || card.title.de;
@@ -1377,6 +1385,11 @@ function renderChoresSummaryUI() {
 
 function resolveChoresAntiMatches() {
     if (!currentChoresSummary.antiMatches.length) return;
+
+    // MrBeast / Haptic Roulette Vibration
+    if ('vibrate' in navigator) {
+        try { navigator.vibrate([60, 40, 60, 40, 160]); } catch (e) {}
+    }
 
     let nextPlayer = Math.random() < 0.5 ? 'p1' : 'p2';
     const indices = currentChoresSummary.antiMatches.map((_, idx) => idx).sort(() => Math.random() - 0.5);
