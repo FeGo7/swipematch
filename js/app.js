@@ -440,7 +440,7 @@ function setLang(lang) {
         langBtnLabel.innerText = lang.toUpperCase();
     }
 
-    ['de', 'en', 'es'].forEach(code => {
+    ['de', 'en', 'es', 'fr', 'it'].forEach(code => {
         const opt = document.getElementById(`lang-opt-${code}`);
         if (opt) {
             if (code === lang) {
