@@ -299,6 +299,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // 5. Touch-Gesten für mobiles Wischen
     initTouchSwipe();
+
+    // 6. PWA Installation Handler (OS-spezifisch)
+    initPwaInstall();
 });
 
 function detectInitialLanguage() {
@@ -539,6 +542,23 @@ function setLang(lang) {
     setText('btn-chores-roulette', t.choresRouletteBtn);
     setText('t-chores-share-wa', t.choresShareWaBtn);
     setText('t-chores-back-btn', t.retryBtn);
+
+    // PWA Install Texts
+    setText('t-pwa-banner-title', t.pwaBannerTitle);
+    setText('t-pwa-banner-sub', t.pwaBannerSub);
+    setText('t-pwa-banner-btn', t.pwaBannerBtn);
+    setText('t-footer-pwa', t.pwaFooterBtn);
+    setText('pwa-modal-title', t.pwaModalTitle);
+    setText('pwa-modal-sub', t.pwaModalSub);
+    setHtml('pwa-ios-step1', t.pwaIosStep1);
+    setHtml('pwa-ios-step2', t.pwaIosStep2);
+    setHtml('pwa-ios-step3', t.pwaIosStep3);
+    setText('pwa-android-btn-text', t.pwaAndroidBtn);
+    setHtml('pwa-android-step1', t.pwaAndroidStep1);
+    setHtml('pwa-android-step2', t.pwaAndroidStep2);
+    setText('pwa-desktop-btn-text', t.pwaDesktopBtn);
+    setHtml('pwa-desktop-step1', t.pwaDesktopStep1);
+    setText('pwa-modal-close-btn', t.pwaCloseBtn);
 
     renderCategoryFilter();
     renderDeckList();
@@ -1632,4 +1652,162 @@ function openLegalModal(type) {
 function closeLegalModal() {
     const modal = document.getElementById('modal-legal');
     if (modal) modal.classList.add('hidden');
+}
+
+/**************************************************************
+ * 12. PWA INSTALLATION CONTROLLER (OS-Tailored UX)
+ **************************************************************/
+let deferredPwaPrompt = null;
+let currentPwaTab = 'ios';
+
+function isRunningStandalone() {
+    return (window.matchMedia('(display-mode: standalone)').matches) ||
+           (window.navigator.standalone === true) ||
+           document.referrer.includes('android-app://');
+}
+
+function detectUserPlatform() {
+    const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+    if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+        return 'ios';
+    }
+    if (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) {
+        return 'ios';
+    }
+    if (/android/i.test(ua)) {
+        return 'android';
+    }
+    return 'desktop';
+}
+
+function initPwaInstall() {
+    if (isRunningStandalone()) {
+        const footerBtn = document.getElementById('footer-pwa-btn');
+        if (footerBtn) footerBtn.classList.add('hidden');
+        return;
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPwaPrompt = e;
+        updatePwaDirectInstallButtons(true);
+        checkAndShowPwaBanner();
+    });
+
+    window.addEventListener('appinstalled', () => {
+        deferredPwaPrompt = null;
+        dismissPwaBanner(true);
+        const footerBtn = document.getElementById('footer-pwa-btn');
+        if (footerBtn) footerBtn.classList.add('hidden');
+    });
+
+    setTimeout(() => {
+        checkAndShowPwaBanner();
+    }, 2500);
+}
+
+function checkAndShowPwaBanner() {
+    if (isRunningStandalone()) return;
+    const dismissedAt = localStorage.getItem('agreesy_pwa_dismissed');
+    if (dismissedAt) {
+        const diffDays = (Date.now() - parseInt(dismissedAt, 10)) / (1000 * 60 * 60 * 24);
+        if (diffDays < 7) {
+            return;
+        }
+    }
+    const banner = document.getElementById('pwa-install-banner');
+    if (banner) {
+        banner.classList.remove('hidden');
+    }
+}
+
+function dismissPwaBanner(permanent) {
+    const banner = document.getElementById('pwa-install-banner');
+    if (banner) banner.classList.add('hidden');
+    localStorage.setItem('agreesy_pwa_dismissed', Date.now().toString());
+}
+
+function handlePwaInstallClick() {
+    if (deferredPwaPrompt) {
+        triggerNativeInstallPrompt();
+    } else {
+        openPwaModal();
+    }
+}
+
+function triggerNativeInstallPrompt() {
+    if (!deferredPwaPrompt) {
+        openPwaModal();
+        return;
+    }
+    deferredPwaPrompt.prompt();
+    deferredPwaPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+            dismissPwaBanner(true);
+            closePwaModal();
+        }
+        deferredPwaPrompt = null;
+        updatePwaDirectInstallButtons(false);
+    });
+}
+
+function updatePwaDirectInstallButtons(available) {
+    const androidBtn = document.getElementById('pwa-android-install-direct-btn');
+    const desktopBtn = document.getElementById('pwa-desktop-install-direct-btn');
+    if (androidBtn) {
+        if (available) {
+            androidBtn.classList.remove('hidden');
+            androidBtn.classList.add('flex');
+        } else {
+            androidBtn.classList.add('hidden');
+            androidBtn.classList.remove('flex');
+        }
+    }
+    if (desktopBtn) {
+        if (available) {
+            desktopBtn.classList.remove('hidden');
+            desktopBtn.classList.add('flex');
+        } else {
+            desktopBtn.classList.add('hidden');
+            desktopBtn.classList.remove('flex');
+        }
+    }
+}
+
+function openPwaModal(forcedTab) {
+    const modal = document.getElementById('modal-pwa-install');
+    if (!modal) return;
+    
+    const targetTab = forcedTab || detectUserPlatform();
+    switchPwaTab(targetTab);
+    updatePwaDirectInstallButtons(!!deferredPwaPrompt);
+    modal.classList.remove('hidden');
+}
+
+function closePwaModal() {
+    const modal = document.getElementById('modal-pwa-install');
+    if (modal) modal.classList.add('hidden');
+}
+
+function switchPwaTab(tab) {
+    currentPwaTab = tab;
+    const tabs = ['ios', 'android', 'desktop'];
+    tabs.forEach(t => {
+        const btn = document.getElementById(`pwa-tab-${t}`);
+        const content = document.getElementById(`pwa-content-${t}`);
+        if (btn) {
+            if (t === tab) {
+                btn.className = "flex-1 py-1.5 rounded-[8px] text-[12px] font-semibold text-center transition-all surface text-primary-role shadow-sm border border-[var(--border)]";
+            } else {
+                btn.className = "flex-1 py-1.5 rounded-[8px] text-[12px] font-medium text-center transition-all text-secondary-role hover:text-primary-role";
+            }
+        }
+        if (content) {
+            if (t === tab) {
+                content.classList.remove('hidden');
+            } else {
+                content.classList.add('hidden');
+            }
+        }
+    });
 }
