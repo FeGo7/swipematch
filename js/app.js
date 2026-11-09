@@ -305,6 +305,12 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function detectInitialLanguage() {
+    const search = window.location.search;
+    if (search) {
+        const p = new URLSearchParams(search);
+        const l = p.get('lang');
+        if (l && I18N[l.toLowerCase()]) return l.toLowerCase();
+    }
     const saved = localStorage.getItem('syncswipe_lang');
     if (saved && I18N[saved]) {
         return saved;

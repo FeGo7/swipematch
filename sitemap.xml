@@ -3,110 +3,344 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://agreesy.com/</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://agreesy.com/what-to-eat.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/what-to-eat.html"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/was-kochen-heute.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/que-cenar-hoy.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/que-manger-ce-soir.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cosa-mangiare-stasera.html"/>
   </url>
   <url>
     <loc>https://agreesy.com/was-kochen-heute.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/was-kochen-heute.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/what-to-eat.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/was-kochen-heute.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/que-cenar-hoy.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/que-manger-ce-soir.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cosa-mangiare-stasera.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/que-cenar-hoy.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/what-to-eat.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/was-kochen-heute.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/que-cenar-hoy.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/que-manger-ce-soir.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cosa-mangiare-stasera.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/que-manger-ce-soir.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/what-to-eat.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/was-kochen-heute.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/que-cenar-hoy.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/que-manger-ce-soir.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cosa-mangiare-stasera.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/cosa-mangiare-stasera.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/what-to-eat.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/was-kochen-heute.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/que-cenar-hoy.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/que-manger-ce-soir.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cosa-mangiare-stasera.html"/>
   </url>
   <url>
     <loc>https://agreesy.com/what-to-watch.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/what-to-watch.html"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/film-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/que-pelicula-ver.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/quel-film-regarder.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/quale-film-vedere.html"/>
   </url>
   <url>
     <loc>https://agreesy.com/film-entscheiden.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/film-entscheiden.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/what-to-watch.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/film-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/que-pelicula-ver.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/quel-film-regarder.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/quale-film-vedere.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/que-pelicula-ver.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/what-to-watch.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/film-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/que-pelicula-ver.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/quel-film-regarder.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/quale-film-vedere.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/quel-film-regarder.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/what-to-watch.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/film-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/que-pelicula-ver.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/quel-film-regarder.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/quale-film-vedere.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/quale-film-vedere.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/what-to-watch.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/film-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/que-pelicula-ver.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/quel-film-regarder.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/quale-film-vedere.html"/>
   </url>
   <url>
     <loc>https://agreesy.com/split-chores.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/split-chores.html"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/aufgaben-aufteilen.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/repartir-tareas-del-hogar.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/repartition-des-taches-menageres.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/divisione-faccende-domestiche.html"/>
   </url>
   <url>
     <loc>https://agreesy.com/aufgaben-aufteilen.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/aufgaben-aufteilen.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/split-chores.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/aufgaben-aufteilen.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/repartir-tareas-del-hogar.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/repartition-des-taches-menageres.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/divisione-faccende-domestiche.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/repartir-tareas-del-hogar.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/split-chores.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/aufgaben-aufteilen.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/repartir-tareas-del-hogar.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/repartition-des-taches-menageres.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/divisione-faccende-domestiche.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/repartition-des-taches-menageres.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/split-chores.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/aufgaben-aufteilen.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/repartir-tareas-del-hogar.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/repartition-des-taches-menageres.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/divisione-faccende-domestiche.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/divisione-faccende-domestiche.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/split-chores.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/aufgaben-aufteilen.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/repartir-tareas-del-hogar.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/repartition-des-taches-menageres.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/divisione-faccende-domestiche.html"/>
   </url>
   <url>
     <loc>https://agreesy.com/vegan-food-decider.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/vegan-food-decider.html"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/veganes-essen-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/comida-vegana-decisor.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/manger-vegetarien-ce-soir.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cena-vegana-vegetariana.html"/>
   </url>
   <url>
     <loc>https://agreesy.com/veganes-essen-entscheiden.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/veganes-essen-entscheiden.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/vegan-food-decider.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/veganes-essen-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/comida-vegana-decisor.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/manger-vegetarien-ce-soir.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cena-vegana-vegetariana.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/comida-vegana-decisor.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/vegan-food-decider.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/veganes-essen-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/comida-vegana-decisor.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/manger-vegetarien-ce-soir.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cena-vegana-vegetariana.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/manger-vegetarien-ce-soir.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/vegan-food-decider.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/veganes-essen-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/comida-vegana-decisor.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/manger-vegetarien-ce-soir.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cena-vegana-vegetariana.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/cena-vegana-vegetariana.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/vegan-food-decider.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/veganes-essen-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/comida-vegana-decisor.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/manger-vegetarien-ce-soir.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cena-vegana-vegetariana.html"/>
   </url>
   <url>
     <loc>https://agreesy.com/cocktail-picker.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/cocktail-picker.html"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/cocktails-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/cocteles-en-pareja.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/cocktails-en-amoureux.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cocktail-per-due.html"/>
   </url>
   <url>
     <loc>https://agreesy.com/cocktails-entscheiden.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/cocktails-entscheiden.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/cocktail-picker.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/cocktails-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/cocteles-en-pareja.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/cocktails-en-amoureux.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cocktail-per-due.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/cocteles-en-pareja.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/cocktail-picker.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/cocktails-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/cocteles-en-pareja.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/cocktails-en-amoureux.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cocktail-per-due.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/cocktails-en-amoureux.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/cocktail-picker.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/cocktails-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/cocteles-en-pareja.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/cocktails-en-amoureux.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cocktail-per-due.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/cocktail-per-due.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/cocktail-picker.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/cocktails-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/cocteles-en-pareja.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/cocktails-en-amoureux.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/cocktail-per-due.html"/>
   </url>
   <url>
     <loc>https://agreesy.com/holiday-movies.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/holiday-movies.html"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/weihnachtsfilme-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/peliculas-de-navidad.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/films-de-noel-hiver.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/film-di-natale-inverno.html"/>
   </url>
   <url>
     <loc>https://agreesy.com/weihnachtsfilme-entscheiden.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/weihnachtsfilme-entscheiden.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/holiday-movies.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/weihnachtsfilme-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/peliculas-de-navidad.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/films-de-noel-hiver.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/film-di-natale-inverno.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/peliculas-de-navidad.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/holiday-movies.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/weihnachtsfilme-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/peliculas-de-navidad.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/films-de-noel-hiver.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/film-di-natale-inverno.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/films-de-noel-hiver.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/holiday-movies.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/weihnachtsfilme-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/peliculas-de-navidad.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/films-de-noel-hiver.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/film-di-natale-inverno.html"/>
+  </url>
+  <url>
+    <loc>https://agreesy.com/film-di-natale-inverno.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://agreesy.com/holiday-movies.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://agreesy.com/weihnachtsfilme-entscheiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://agreesy.com/peliculas-de-navidad.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://agreesy.com/films-de-noel-hiver.html"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://agreesy.com/film-di-natale-inverno.html"/>
   </url>
   <url>
     <loc>https://agreesy.com/guides.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
 </urlset>

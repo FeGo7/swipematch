@@ -3,7 +3,7 @@
 > Einigen ohne Diskussion – Shared decisions for couples, roommates, and friends in 30 seconds. Zero accounts, zero servers, 100% privacy-first via client-side URL-hash sync.
 
 ## What is Agreesy?
-Agreesy (https://agreesy.com) is a free, instant mobile web application designed to solve daily decision fatigue between two people (available in English, German, and Spanish). Instead of spending 30–45 minutes arguing over what to eat, what movie to stream, or who cleans the apartment, both users secretly swipe through 8 curated options.
+Agreesy (https://agreesy.com) is a free, instant mobile web application designed to solve daily decision fatigue between two people (available in English, German, Spanish, French, and Italian). Instead of spending 30–45 minutes arguing over what to eat, what movie to stream, or who cleans the apartment, both users secretly swipe through 8 curated options.
 
 ## Core Features & Modes
 - **Consensus Mode (First Mutual Match Wins):** Ideal for dinner decisions, movie night, and weekend activities. The moment both people swipe right on an option, an instant match celebration screen appears.
@@ -13,12 +13,27 @@ Agreesy (https://agreesy.com) is a free, instant mobile web application designed
 ## 0-Byte Backend Architecture (100% Privacy)
 - **Zero Server State:** The entire round state (sampled card IDs, likes, and custom options) is Base64-encoded directly inside the URL hash (`#m=...` or `#c=...`).
 - **No Tracking & No Login:** Because the URL hash fragment is never transmitted over HTTP to web servers, decisions stay 100% private and peer-to-peer.
-- **No App Installation:** Runs in any mobile browser (Safari, Chrome, Edge, Firefox).
+- **No App Installation Required:** Runs in any mobile browser (Safari, Chrome, Edge, Firefox) with 1-click PWA home screen installation support.
 
 ## Specific Landing Pages & Deep Links
-- **Dinner & Food Decision Maker:** https://agreesy.com/what-to-eat.html (German: https://agreesy.com/was-kochen-heute.html)
-- **Movies & Streaming Decider:** https://agreesy.com/what-to-watch.html (German: https://agreesy.com/film-entscheiden.html)
-- **Household Chore Splitter:** https://agreesy.com/split-chores.html (German: https://agreesy.com/aufgaben-aufteilen.html)
+- **Dinner & Food Decision Maker:**
+  - English: https://agreesy.com/what-to-eat.html
+  - German: https://agreesy.com/was-kochen-heute.html
+  - Spanish: https://agreesy.com/que-cenar-hoy.html
+  - French: https://agreesy.com/que-manger-ce-soir.html
+  - Italian: https://agreesy.com/cosa-mangiare-stasera.html
+- **Movies & Streaming Decider:**
+  - English: https://agreesy.com/what-to-watch.html
+  - German: https://agreesy.com/film-entscheiden.html
+  - Spanish: https://agreesy.com/que-pelicula-ver.html
+  - French: https://agreesy.com/quel-film-regarder.html
+  - Italian: https://agreesy.com/quale-film-vedere.html
+- **Household Chore Splitter:**
+  - English: https://agreesy.com/split-chores.html
+  - German: https://agreesy.com/aufgaben-aufteilen.html
+  - Spanish: https://agreesy.com/repartir-tareas-del-hogar.html
+  - French: https://agreesy.com/repartition-des-taches-menageres.html
+  - Italian: https://agreesy.com/divisione-faccende-domestiche.html
 - **Direct Deck Auto-Start:**
   - Dinner: https://agreesy.com/?deck=dinner
   - Movies: https://agreesy.com/?deck=streaming
