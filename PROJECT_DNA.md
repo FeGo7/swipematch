@@ -224,7 +224,7 @@ Für das Entwickler- und Produkt-Team gliedert sich die weitere Roadmap in 4 pri
 
 ### Meilenstein 4: Performance-Härtung & Monetarisierungs-Hooks (Aktiviert & Live)
 - [x] **Tailwind Build-Step & Carmack Zero-Bloat PWA:** Runtime `cdn.tailwindcss.com` abgelöst durch statisch vorkompiliertes `css/style.min.css` (41 KB), PWA `manifest.json` und cache-first `sw.js` Service Worker aktiv.
-- [x] **Skimlinks Automated Affiliate Integration:** Skimlinks-Script (`https://s.skimresources.com/js/312295X1800881.skimlinks.js`) in `index.html` eingebunden. Wandelt ausgehende Klicks zu Lieferando, UberEats, OpenTable clientseitig on-the-fly in vergütete Affiliate-Weiterleitungen um.
+- [x] **Skimlinks Automated Affiliate Integration:** Skimlinks-Script (`https://s.skimresources.com/js/312561X1801158.skimlinks.js`) in `index.html` eingebunden. Wandelt ausgehende Klicks zu Lieferando, UberEats, OpenTable clientseitig on-the-fly in vergütete Affiliate-Weiterleitungen um.
 - [x] **Direkte Amazon Partner-ID (`f05b1-21`):** In `js/decks.js` für 100 % Provisionsmarge ohne Aggregator-Abzug integriert:
   - *Spiele & Konsolen (`gaming`):* Catan, Exit-Games, Kartenspiele, Lego Botanicals direkt verlinkt.
   - *Geschenke & Gadgets (`gifts`):* Trending Gadgets, Instax Sofortbildkameras, Bestseller.
