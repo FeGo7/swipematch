@@ -476,8 +476,15 @@ function setLang(lang) {
     setText('t-p2-badge', t.p2Badge);
     setText('t-p2-title', t.p2Title);
     setText('t-p2-sub', t.p2Sub);
-    setText('t-nope-hint', t.nopeHint);
-    setText('t-like-hint', t.likeHint);
+    const isChoresActive = currentDeckId && DECKS[currentDeckId] && DECKS[currentDeckId].mode === 'chores';
+    setText('t-nope-hint', `← ${isChoresActive ? t.choreNopeHint : t.nopeHint}`);
+    setText('t-like-hint', `${isChoresActive ? t.choreLikeHint : t.likeHint} →`);
+    setText('t-btn-swipe-no', isChoresActive ? t.swipeChoreBtnNo : t.swipeBtnNo);
+    setText('t-btn-swipe-yes', isChoresActive ? t.swipeChoreBtnYes : t.swipeBtnYes);
+    const btnSwipeNoBtn = document.getElementById('btn-swipe-no');
+    const btnSwipeYesBtn = document.getElementById('btn-swipe-yes');
+    if (btnSwipeNoBtn) btnSwipeNoBtn.setAttribute('aria-label', isChoresActive ? t.swipeChoreBtnNo : t.swipeBtnNo);
+    if (btnSwipeYesBtn) btnSwipeYesBtn.setAttribute('aria-label', isChoresActive ? t.swipeChoreBtnYes : t.swipeBtnYes);
     setText('t-share-title', t.shareTitle);
     setText('t-share-sub', t.shareSub);
     setText('t-share-link-label', t.shareLinkLabel);
@@ -975,6 +982,15 @@ function renderCurrentCard() {
         nopeHintEl.innerText = `← ${isChoresMode ? t.choreNopeHint : t.nopeHint}`;
         likeHintEl.innerText = `${isChoresMode ? t.choreLikeHint : t.likeHint} →`;
     }
+
+    const btnNoSpan = document.getElementById('t-btn-swipe-no');
+    const btnYesSpan = document.getElementById('t-btn-swipe-yes');
+    if (btnNoSpan) btnNoSpan.innerText = isChoresMode ? t.swipeChoreBtnNo : t.swipeBtnNo;
+    if (btnYesSpan) btnYesSpan.innerText = isChoresMode ? t.swipeChoreBtnYes : t.swipeBtnYes;
+    const btnNoEl = document.getElementById('btn-swipe-no');
+    const btnYesEl = document.getElementById('btn-swipe-yes');
+    if (btnNoEl) btnNoEl.setAttribute('aria-label', isChoresMode ? t.swipeChoreBtnNo : t.swipeBtnNo);
+    if (btnYesEl) btnYesEl.setAttribute('aria-label', isChoresMode ? t.swipeChoreBtnYes : t.swipeBtnYes);
 
     const cardEl = document.getElementById('active-card');
     if (cardEl) {
