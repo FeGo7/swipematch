@@ -1026,7 +1026,7 @@ function renderCurrentCard() {
         cardEl.style.transform = '';
         cardEl.style.transition = '';
         cardEl.style.opacity = '1';
-        cardEl.className = "w-full h-[360px] rounded-[16px] p-6 flex flex-col justify-between items-start text-left surface relative z-10 overflow-hidden card-enter";
+        cardEl.className = "w-full h-[390px] rounded-[18px] p-6 flex flex-col justify-between items-center text-center surface relative z-10 overflow-hidden card-enter";
     }
 
     const stackNextEl = document.getElementById('stack-next-card');
@@ -1041,7 +1041,25 @@ function renderCurrentCard() {
     }
 
     document.getElementById('card-tag').innerText = card.tag[currentLang] || card.tag.de;
-    document.getElementById('card-emoji').innerHTML = card.emoji || getCategoryLineIcon(deck.category);
+
+    // Microsoft Fluent 3D Image Rendering (Centered with Ambient Glow)
+    const imgEl = document.getElementById('card-image');
+    const emojiEl = document.getElementById('card-emoji');
+    const fluentFileName = (typeof FLUENT_EMOJI_MAP !== 'undefined' && card.emoji) ? FLUENT_EMOJI_MAP[card.emoji] : null;
+
+    if (fluentFileName && imgEl) {
+        imgEl.src = `options_gallery/images/${fluentFileName}`;
+        imgEl.alt = card.title[currentLang] || card.title.de || '';
+        imgEl.classList.remove('hidden');
+        if (emojiEl) emojiEl.classList.add('hidden');
+    } else {
+        if (imgEl) imgEl.classList.add('hidden');
+        if (emojiEl) {
+            emojiEl.innerText = card.emoji || '✨';
+            emojiEl.classList.remove('hidden');
+        }
+    }
+
     document.getElementById('card-title').innerText = card.title[currentLang] || card.title.de;
     document.getElementById('card-desc').innerText = card.desc[currentLang] || card.desc.de;
 }
@@ -1259,10 +1277,28 @@ function revealMatchScreen(card) {
     const deck = DECKS[currentDeckId];
     const winnerCardEl = document.getElementById('winner-card');
     if (winnerCardEl) {
-        // Warmer Magie-Glow auf der Sieger-Karte
-        winnerCardEl.className = "w-full rounded-[16px] p-6 mb-5 flex flex-col items-start text-left surface border-[#E05A3A]/40 shadow-[0_0_35px_-5px_rgba(224,90,58,0.25)] transition-all";
+        // Warmer Magie-Glow auf der zentrierten Sieger-Karte
+        winnerCardEl.className = "w-full rounded-[18px] p-6 mb-5 flex flex-col items-center text-center surface border-[#E05A3A]/40 shadow-[0_0_35px_-5px_rgba(224,90,58,0.25)] transition-all";
     }
-    document.getElementById('winner-emoji').innerHTML = card.emoji || getCategoryLineIcon(deck ? deck.category : 'all');
+
+    // Microsoft Fluent 3D Image Rendering for Winner Card
+    const winnerImgEl = document.getElementById('winner-image');
+    const winnerEmojiEl = document.getElementById('winner-emoji');
+    const fluentWinnerFile = (typeof FLUENT_EMOJI_MAP !== 'undefined' && card.emoji) ? FLUENT_EMOJI_MAP[card.emoji] : null;
+
+    if (fluentWinnerFile && winnerImgEl) {
+        winnerImgEl.src = `options_gallery/images/${fluentWinnerFile}`;
+        winnerImgEl.alt = card.title[currentLang] || card.title.de || '';
+        winnerImgEl.classList.remove('hidden');
+        if (winnerEmojiEl) winnerEmojiEl.classList.add('hidden');
+    } else {
+        if (winnerImgEl) winnerImgEl.classList.add('hidden');
+        if (winnerEmojiEl) {
+            winnerEmojiEl.innerText = card.emoji || '✨';
+            winnerEmojiEl.classList.remove('hidden');
+        }
+    }
+
     document.getElementById('winner-title').innerText = card.title[currentLang] || card.title.de;
     document.getElementById('winner-desc').innerText = card.desc[currentLang] || card.desc.de;
 

@@ -1,0 +1,570 @@
+{
+  "🍝": [
+    "Spaghetti",
+    "spaghetti_3d.png"
+  ],
+  "🍕": [
+    "Pizza",
+    "pizza_3d.png"
+  ],
+  "🍣": [
+    "Sushi",
+    "sushi_3d.png"
+  ],
+  "🌮": [
+    "Taco",
+    "taco_3d.png"
+  ],
+  "🍔": [
+    "Hamburger",
+    "hamburger_3d.png"
+  ],
+  "🍜": [
+    "Steaming bowl",
+    "steaming_bowl_3d.png"
+  ],
+  "🥗": [
+    "Green salad",
+    "green_salad_3d.png"
+  ],
+  "🍳": [
+    "Cooking",
+    "cooking_3d.png"
+  ],
+  "🥟": [
+    "Dumpling",
+    "dumpling_3d.png"
+  ],
+  "🥙": [
+    "Stuffed flatbread",
+    "stuffed_flatbread_3d.png"
+  ],
+  "🍛": [
+    "Curry rice",
+    "curry_rice_3d.png"
+  ],
+  "🥔": [
+    "Potato",
+    "potato_3d.png"
+  ],
+  "🥧": [
+    "Pie",
+    "pie_3d.png"
+  ],
+  "🧀": [
+    "Cheese wedge",
+    "cheese_wedge_3d.png"
+  ],
+  "🍲": [
+    "Pot of food",
+    "pot_of_food_3d.png"
+  ],
+  "🌿": [
+    "Herb",
+    "herb_3d.png"
+  ],
+  "🧆": [
+    "Falafel",
+    "falafel_3d.png"
+  ],
+  "🥞": [
+    "Pancakes",
+    "pancakes_3d.png"
+  ],
+  "🥖": [
+    "Baguette bread",
+    "baguette_bread_3d.png"
+  ],
+  "🎃": [
+    "Jack-o-lantern",
+    "jack-o-lantern_3d.png"
+  ],
+  "🐟": [
+    "Fish",
+    "fish_3d.png"
+  ],
+  "🍷": [
+    "Wine glass",
+    "wine_glass_3d.png"
+  ],
+  "🥢": [
+    "Chopsticks",
+    "chopsticks_3d.png"
+  ],
+  "🍗": [
+    "Poultry leg",
+    "poultry_leg_3d.png"
+  ],
+  "🌯": [
+    "Burrito",
+    "burrito_3d.png"
+  ],
+  "🫒": [
+    "Olive",
+    "olive_3d.png"
+  ],
+  "🍖": [
+    "Meat on bone",
+    "meat_on_bone_3d.png"
+  ],
+  "🌱": [
+    "Seedling",
+    "seedling_3d.png"
+  ],
+  "🥘": [
+    "Shallow pan of food",
+    "shallow_pan_of_food_3d.png"
+  ],
+  "🍚": [
+    "Cooked rice",
+    "cooked_rice_3d.png"
+  ],
+  "🧄": [
+    "Garlic",
+    "garlic_3d.png"
+  ],
+  "🥜": [
+    "Peanuts",
+    "peanuts_3d.png"
+  ],
+  "🥪": [
+    "Sandwich",
+    "sandwich_3d.png"
+  ],
+  "🥣": [
+    "Bowl with spoon",
+    "bowl_with_spoon_3d.png"
+  ],
+  "🍻": [
+    "Clinking beer mugs",
+    "clinking_beer_mugs_3d.png"
+  ],
+  "🍸": [
+    "Cocktail glass",
+    "cocktail_glass_3d.png"
+  ],
+  "🍾": [
+    "Bottle with popping cork",
+    "bottle_with_popping_cork_3d.png"
+  ],
+  "🏠": [
+    "House",
+    "house_3d.png"
+  ],
+  "🌇": [
+    "Sunset",
+    "sunset_3d.png"
+  ],
+  "🍺": [
+    "Beer mug",
+    "beer_mug_3d.png"
+  ],
+  "🍊": [
+    "Tangerine",
+    "tangerine_3d.png"
+  ],
+  "🍀": [
+    "Four leaf clover",
+    "four_leaf_clover_3d.png"
+  ],
+  "🎤": [
+    "Microphone",
+    "microphone_3d.png"
+  ],
+  "🍋": [
+    "Lemon",
+    "lemon_3d.png"
+  ],
+  "☕": [
+    "Hot beverage",
+    "hot_beverage_3d.png"
+  ],
+  "🕵️‍♂️": [
+    "Magnifying glass tilted left",
+    "magnifying_glass_tilted_left_3d.png"
+  ],
+  "😂": [
+    "Face with tears of joy",
+    "face_with_tears_of_joy_3d.png"
+  ],
+  "🔪": [
+    "Kitchen knife",
+    "kitchen_knife_3d.png"
+  ],
+  "🚀": [
+    "Rocket",
+    "rocket_3d.png"
+  ],
+  "🍿": [
+    "Popcorn",
+    "popcorn_3d.png"
+  ],
+  "👻": [
+    "Ghost",
+    "ghost_3d.png"
+  ],
+  "🕵️‍♀️": [
+    "Magnifying glass tilted left",
+    "magnifying_glass_tilted_left_3d.png"
+  ],
+  "✨": [
+    "Sparkles",
+    "sparkles_3d.png"
+  ],
+  "💘": [
+    "Heart with arrow",
+    "heart_with_arrow_3d.png"
+  ],
+  "🌍": [
+    "Globe with meridians",
+    "globe_with_meridians_3d.png"
+  ],
+  "🏦": [
+    "Bank",
+    "bank_3d.png"
+  ],
+  "🏆": [
+    "Trophy",
+    "trophy_3d.png"
+  ],
+  "🏔️": [
+    "Snow-capped mountain",
+    "snow-capped_mountain_3d.png"
+  ],
+  "🎬": [
+    "Clapper board",
+    "clapper_board_3d.png"
+  ],
+  "⏳": [
+    "Hourglass done",
+    "hourglass_done_3d.png"
+  ],
+  "🛋️": [
+    "Couch and lamp",
+    "couch_and_lamp_3d.png"
+  ],
+  "🌀": [
+    "Cyclone",
+    "cyclone_3d.png"
+  ],
+  "🏝️": [
+    "Desert island",
+    "desert_island_3d.png"
+  ],
+  "👑": [
+    "Crown",
+    "crown_3d.png"
+  ],
+  "🚓": [
+    "Police car",
+    "police_car_3d.png"
+  ],
+  "🐉": [
+    "Dragon",
+    "dragon_3d.png"
+  ],
+  "👨‍🍳": [
+    "Kitchen knife",
+    "kitchen_knife_3d.png"
+  ],
+  "🛸": [
+    "Flying saucer",
+    "flying_saucer_3d.png"
+  ],
+  "🏎️": [
+    "Racing car",
+    "racing_car_3d.png"
+  ],
+  "🎌": [
+    "Crossed flags",
+    "crossed_flags_3d.png"
+  ],
+  "🏖️": [
+    "Beach with umbrella",
+    "beach_with_umbrella_3d.png"
+  ],
+  "🤝": [
+    "Handshake",
+    "handshake_3d.png"
+  ],
+  "🃏": [
+    "Joker",
+    "joker_3d.png"
+  ],
+  "🧠": [
+    "Brain",
+    "brain_3d.png"
+  ],
+  "♟️": [
+    "Chess pawn",
+    "chess_pawn_3d.png"
+  ],
+  "🕵️": [
+    "Magnifying glass tilted left",
+    "magnifying_glass_tilted_left_3d.png"
+  ],
+  "🎉": [
+    "Party popper",
+    "party_popper_3d.png"
+  ],
+  "🔦": [
+    "Flashlight",
+    "flashlight_3d.png"
+  ],
+  "💬": [
+    "Speech balloon",
+    "speech_balloon_3d.png"
+  ],
+  "🧩": [
+    "Puzzle piece",
+    "puzzle_piece_3d.png"
+  ],
+  "🎲": [
+    "Game die",
+    "game_die_3d.png"
+  ],
+  "🍽️": [
+    "Fork and knife with plate",
+    "fork_and_knife_with_plate_3d.png"
+  ],
+  "🛍️": [
+    "Shopping bags",
+    "shopping_bags_3d.png"
+  ],
+  "🚴": [
+    "Bicycle",
+    "person_biking_3d.png"
+  ],
+  "🧖": [
+    "Hot springs",
+    "person_in_steamy_room_3d.png"
+  ],
+  "🖼️": [
+    "Framed picture",
+    "framed_picture_3d.png"
+  ],
+  "🚗": [
+    "Automobile",
+    "automobile_3d.png"
+  ],
+  "🧺": [
+    "Basket",
+    "basket_3d.png"
+  ],
+  "🧁": [
+    "Cupcake",
+    "cupcake_3d.png"
+  ],
+  "🌳": [
+    "Deciduous tree",
+    "deciduous_tree_3d.png"
+  ],
+  "🥐": [
+    "Croissant",
+    "croissant_3d.png"
+  ],
+  "🎱": [
+    "Pool 8 ball",
+    "pool_8_ball_3d.png"
+  ],
+  "🎟️": [
+    "Admission tickets",
+    "admission_tickets_3d.png"
+  ],
+  "🏡": [
+    "House with garden",
+    "house_with_garden_3d.png"
+  ],
+  "🍦": [
+    "Soft ice cream",
+    "soft_ice_cream_3d.png"
+  ],
+  "🧗": [
+    "Mountain",
+    "person_climbing_3d.png"
+  ],
+  "🌅": [
+    "Sunrise",
+    "sunrise_3d.png"
+  ],
+  "🧖‍♀️": [
+    "Hot springs",
+    "woman_in_steamy_room_3d.png"
+  ],
+  "🕯️": [
+    "Candle",
+    "candle_3d.png"
+  ],
+  "⛳": [
+    "Flag in hole",
+    "flag_in_hole_3d.png"
+  ],
+  "🎭": [
+    "Performing arts",
+    "performing_arts_3d.png"
+  ],
+  "🌌": [
+    "Milky way",
+    "milky_way_3d.png"
+  ],
+  "⛺": [
+    "Camping",
+    "camping_3d.png"
+  ],
+  "🛒": [
+    "Shopping cart",
+    "shopping_cart_3d.png"
+  ],
+  "🧹": [
+    "Broom",
+    "broom_3d.png"
+  ],
+  "🗑️": [
+    "Wastebasket",
+    "wastebasket_3d.png"
+  ],
+  "🫧": [
+    "Bubbles",
+    "bubbles_3d.png"
+  ],
+  "🛏️": [
+    "Bed",
+    "bed_3d.png"
+  ],
+  "🪴": [
+    "Seedling",
+    "seedling_3d.png"
+  ],
+  "🧊": [
+    "Ice",
+    "ice_3d.png"
+  ],
+  "📦": [
+    "Package",
+    "package_3d.png"
+  ],
+  "🏃‍♂️": [
+    "Running shoe",
+    "man_running_3d.png"
+  ],
+  "🔔": [
+    "Bell",
+    "bell_3d.png"
+  ],
+  "📞": [
+    "Telephone receiver",
+    "telephone_receiver_3d.png"
+  ],
+  "🐕": [
+    "Dog",
+    "dog_3d.png"
+  ],
+  "🥡": [
+    "Takeout box",
+    "takeout_box_3d.png"
+  ],
+  "⛽": [
+    "Fuel pump",
+    "fuel_pump_3d.png"
+  ],
+  "🔌": [
+    "Electric plug",
+    "electric_plug_3d.png"
+  ],
+  "🏛️": [
+    "Classical building",
+    "classical_building_3d.png"
+  ],
+  "🚐": [
+    "Minibus",
+    "minibus_3d.png"
+  ],
+  "🌲": [
+    "Evergreen tree",
+    "evergreen_tree_3d.png"
+  ],
+  "🎿": [
+    "Skis",
+    "skis_3d.png"
+  ],
+  "🎫": [
+    "Ticket",
+    "ticket_3d.png"
+  ],
+  "🧳": [
+    "Luggage",
+    "luggage_3d.png"
+  ],
+  "🎧": [
+    "Headphone",
+    "headphone_3d.png"
+  ],
+  "💆‍♀️": [
+    "Lotus",
+    "lotus_3d.png"
+  ],
+  "🎨": [
+    "Artist palette",
+    "artist_palette_3d.png"
+  ],
+  "📸": [
+    "Camera with flash",
+    "camera_with_flash_3d.png"
+  ],
+  "🪂": [
+    "Parachute",
+    "parachute_3d.png"
+  ],
+  "🍹": [
+    "Tropical drink",
+    "tropical_drink_3d.png"
+  ],
+  "🥃": [
+    "Tumbler glass",
+    "tumbler_glass_3d.png"
+  ],
+  "🫚": [
+    "Ginger root",
+    "ginger_root_3d.png"
+  ],
+  "🍓": [
+    "Strawberry",
+    "strawberry_3d.png"
+  ],
+  "🥑": [
+    "Avocado",
+    "avocado_3d.png"
+  ],
+  "⚡": [
+    "High voltage",
+    "high_voltage_3d.png"
+  ],
+  "🎄": [
+    "Christmas tree",
+    "christmas_tree_3d.png"
+  ],
+  "❤️": [
+    "Red heart",
+    "red_heart_3d.png"
+  ],
+  "🏢": [
+    "Office building",
+    "office_building_3d.png"
+  ],
+  "🚂": [
+    "Locomotive",
+    "locomotive_3d.png"
+  ],
+  "💡": [
+    "Light bulb",
+    "light_bulb_3d.png"
+  ],
+  "💍": [
+    "Ring",
+    "ring_3d.png"
+  ],
+  "🍫": [
+    "Chocolate bar",
+    "chocolate_bar_3d.png"
+  ]
+}

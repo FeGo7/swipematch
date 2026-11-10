@@ -1,5 +1,5 @@
 // Agreesy Service Worker (Network-First for 100% instant UI updates, Cache for offline)
-const CACHE_NAME = 'agreesy-v25';
+const CACHE_NAME = 'agreesy-v26';
 const ASSETS = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const ASSETS = [
   './js/app.js',
   './js/decks.js',
   './js/i18n.js',
+  './js/fluent_map.js',
   './js/logos.js',
   './js/theme.js'
 ];

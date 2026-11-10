@@ -498,9 +498,9 @@
 
         <!-- Card Stack -->
         <div class="relative w-full flex items-center justify-center my-4">
-            <div id="stack-next-card" class="w-full h-[360px] rounded-[16px] surface absolute z-0 pointer-events-none transition-[transform,opacity] duration-200" style="transform: translateY(8px) scale(0.96); opacity: 0.5;"></div>
+            <div id="stack-next-card" class="w-full h-[390px] rounded-[18px] surface absolute z-0 pointer-events-none transition-[transform,opacity] duration-200" style="transform: translateY(8px) scale(0.96); opacity: 0.5;"></div>
 
-            <div id="active-card" class="w-full h-[360px] rounded-[16px] p-6 flex flex-col justify-between items-start text-left surface relative z-10 overflow-hidden card-enter">
+            <div id="active-card" class="w-full h-[390px] rounded-[18px] p-6 flex flex-col justify-between items-center text-center surface relative z-10 overflow-hidden card-enter">
                 <div class="w-full flex items-center justify-between">
                     <span id="card-tag" class="text-[12px] font-medium text-secondary-role px-2.5 py-1 rounded-[6px] surface-raised">
                         Kategorie
@@ -510,13 +510,16 @@
                     </span>
                 </div>
 
-                <div class="my-auto w-full py-2">
-                    <div id="card-emoji" class="text-3xl mb-4 w-14 h-14 rounded-[14px] surface-raised flex items-center justify-center text-primary-role">
+                <div class="my-auto w-full flex flex-col items-center justify-center py-2">
+                    <div id="card-visual-wrapper" class="relative w-24 h-24 mb-3 flex items-center justify-center">
+                        <div class="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(224,90,58,0.18)_0%,rgba(0,0,0,0)_70%)] pointer-events-none"></div>
+                        <img id="card-image" src="" alt="" class="w-20 h-20 object-contain drop-shadow-[0_8px_18px_rgba(0,0,0,0.35)] relative z-10 transition-transform duration-200">
+                        <span id="card-emoji" class="text-5xl hidden relative z-10"></span>
                     </div>
-                    <h2 id="card-title" class="text-[24px] font-semibold tracking-tight leading-snug mb-2 text-primary-role">
+                    <h2 id="card-title" class="text-[22px] font-semibold tracking-tight leading-snug mb-1.5 text-primary-role max-w-[280px]">
                         Option
                     </h2>
-                    <p id="card-desc" class="text-[14px] text-secondary-role leading-relaxed">
+                    <p id="card-desc" class="text-[13.5px] text-secondary-role leading-relaxed max-w-[290px]">
                         Beschreibung
                     </p>
                 </div>
@@ -622,10 +625,14 @@
         <p class="text-[13px] text-secondary-role mb-5" id="winner-parties">Person 1 & Person 2</p>
 
         <!-- Winner Card (The One Bright Moment on Screen) -->
-        <div id="winner-card" class="w-full rounded-[16px] p-6 mb-5 flex flex-col items-start text-left surface border-[#16A34A]/30">
-            <div id="winner-emoji" class="text-3xl mb-4 w-14 h-14 rounded-[14px] surface-raised flex items-center justify-center"></div>
-            <h3 id="winner-title" class="text-[22px] font-semibold tracking-tight text-primary-role mb-1.5">Auswahl</h3>
-            <p id="winner-desc" class="text-[14px] text-secondary-role leading-relaxed">Beschreibung</p>
+        <div id="winner-card" class="w-full rounded-[18px] p-6 mb-5 flex flex-col items-center text-center surface border-[#16A34A]/30">
+            <div class="relative w-24 h-24 mb-3 flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(224,90,58,0.22)_0%,rgba(0,0,0,0)_70%)] pointer-events-none"></div>
+                <img id="winner-image" src="" alt="" class="w-20 h-20 object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.45)] relative z-10">
+                <span id="winner-emoji" class="text-5xl hidden relative z-10"></span>
+            </div>
+            <h3 id="winner-title" class="text-[22px] font-semibold tracking-tight text-primary-role mb-1.5 max-w-[280px]">Auswahl</h3>
+            <p id="winner-desc" class="text-[14px] text-secondary-role leading-relaxed max-w-[290px]">Beschreibung</p>
         </div>
 
         <div class="w-full space-y-2.5">
@@ -902,16 +909,17 @@
         </div>
     </div>
 
-    <!-- Modular Scripts mit Cache-Bust v25 -->
-    <script src="js/theme.js?v=25"></script>
-    <script src="js/i18n.js?v=25"></script>
-    <script src="js/decks.js?v=25"></script>
-    <script src="js/logos.js?v=25"></script>
-    <script src="js/app.js?v=25"></script>
+    <!-- Modular Scripts mit Cache-Bust v26 -->
+    <script src="js/theme.js?v=26"></script>
+    <script src="js/i18n.js?v=26"></script>
+    <script src="js/fluent_map.js?v=26"></script>
+    <script src="js/decks.js?v=26"></script>
+    <script src="js/logos.js?v=26"></script>
+    <script src="js/app.js?v=26"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=14')
+                navigator.serviceWorker.register('./sw.js?v=15')
                     .then(reg => {
                         reg.update();
                     })
