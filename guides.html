@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" class="dark">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,111 +8,253 @@
     <link rel="canonical" href="https://agreesy.com/guides.html">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #242832;
-            color: #E8ECF2;
-            background-image: radial-gradient(ellipse 90% 50% at 50% -10%, rgba(240, 113, 83, 0.11), rgba(56, 152, 255, 0.05) 45%, transparent 75%);
+        :root {
+            --bg: #F5F6FA;
+            --bg-top-wash: radial-gradient(ellipse 95% 32% at 65% 0%, rgba(253, 224, 210, 0.55) 0%, rgba(232, 229, 248, 0.35) 48%, transparent 85%);
+            --surface: #FFFFFF;
+            --surface-raised: #F2F3F8;
+            --border: rgba(24, 24, 28, 0.07);
+            --border-strong: #D4D4D8;
+            --text-primary: #18181C;
+            --text-secondary: #686973;
+            --text-muted: #9899A3;
+            --ring-coral: #E26D6D;
+            --ring-amber: #DDA067;
+            --ring-blue: #6C9AE5;
+            --ring-green: #58C27D;
+            --shadow-card: 0 4px 20px -2px rgba(20, 20, 26, 0.05), 0 1px 3px rgba(20, 20, 26, 0.03);
         }
+
+        html.dark {
+            --bg: #171921;
+            --bg-top-wash: radial-gradient(ellipse 95% 34% at 65% 0%, rgba(229, 120, 120, 0.16) 0%, rgba(118, 162, 234, 0.12) 48%, transparent 85%);
+            --surface: #242834;
+            --surface-raised: #303545;
+            --border: rgba(255, 255, 255, 0.12);
+            --border-strong: #484E63;
+            --text-primary: #F7F8FA;
+            --text-secondary: #B4B8C5;
+            --text-muted: #858A99;
+            --ring-coral: #F08080;
+            --ring-amber: #EBB37C;
+            --ring-blue: #82ADF0;
+            --ring-green: #6AD38F;
+            --shadow-card: 0 8px 24px -4px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Plus Jakarta Sans", system-ui, sans-serif;
+            background-color: var(--bg);
+            background-image: var(--bg-top-wash);
+            background-repeat: no-repeat;
+            color: var(--text-primary);
+            transition: background-color 0.22s ease-out, color 0.22s ease-out;
+            -webkit-font-smoothing: antialiased;
+        }
+
         .surface {
-            background-color: #2E3340;
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            box-shadow: 0 4px 20px -2px rgba(10, 12, 18, 0.25);
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-card);
+        }
+
+        .surface-raised {
+            background-color: var(--surface-raised);
+            border: 1px solid var(--border);
+        }
+
+        .btn-primary {
+            background-color: var(--text-primary);
+            color: var(--bg);
+            border: 1.35px solid var(--text-primary);
+            transition: transform 0.12s ease-out, opacity 0.15s ease-out;
+        }
+        .btn-primary:hover {
+            opacity: 0.92;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1.35px solid var(--border-strong);
+            transition: background-color 0.15s ease-out, border-color 0.15s ease-out;
+        }
+        .btn-secondary:hover {
+            background-color: var(--surface-raised);
         }
     </style>
 </head>
-<body class="min-h-screen px-6 py-6 max-w-2xl mx-auto flex flex-col justify-between">
+<body class="min-h-screen px-4 py-4 max-w-[540px] mx-auto flex flex-col justify-between">
     <div>
-        <header class="flex items-center justify-between mb-8">
+        <header class="flex items-center justify-between h-11 mb-6">
             <a href="/" class="flex items-center gap-2">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="9.2" cy="12" r="5.5" stroke="#E8ECF2" stroke-width="2.1"/>
-                    <circle cx="14.8" cy="12" r="5.5" stroke="#F07153" stroke-width="2.1"/>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <circle cx="9.5" cy="12" r="6.5" stroke="currentColor" stroke-width="2.2"/>
+                    <circle cx="14.5" cy="12" r="6.5" stroke="currentColor" stroke-width="2.2" stroke-opacity="0.45"/>
                 </svg>
-                <span class="font-semibold text-[17px] tracking-tight">agreesy<span class="text-[#F07153]">.</span></span>
+                <span class="font-extrabold text-[21px] tracking-[-0.035em]">Agreesy</span>
             </a>
-            <a href="/" class="px-3 py-1.5 rounded-lg bg-[#383E4E] hover:bg-[#444B5E] text-xs font-medium transition-colors">
-                ← Zur Entscheidungs-App
-            </a>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleTheme()" id="theme-toggle-btn" class="w-8 h-8 rounded-full surface flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors" aria-label="Darstellung wechseln">
+                </button>
+                <a href="/" id="g-back-btn" class="px-3.5 h-8 rounded-full surface text-[12.5px] font-bold inline-flex items-center gap-1.5 hover:bg-[var(--surface-raised)] transition-colors">
+                    ← Zurück
+                </a>
+            </div>
         </header>
 
-        <div class="mb-7">
-            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-[#F07153]/15 text-[#F48265] border border-[#F07153]/25">Guides &amp; Empfehlungen</span>
-            <h1 class="text-2xl font-semibold tracking-tight mt-3 mb-2">Ideen &amp; Partner für eure gemeinsame Entscheidung</h1>
-            <p class="text-sm text-[#A9B1C1] leading-relaxed">
-                Sobald ihr euch auf Agreesy in 30 Sekunden geeinigt habt, findet ihr hier die passenden Dienste für Lieferessen, Kochboxen, Streaming, Erlebnisse und Wochenend-Trips.
+        <div class="mb-6">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full surface text-[11.5px] font-bold text-[var(--text-secondary)] mb-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-green)]"></span>
+                <span id="g-badge">Partner &amp; Ideen</span>
+            </div>
+            <h1 id="g-title" class="text-[26px] font-extrabold tracking-[-0.03em] leading-[1.15] mb-2">
+                Passende Ideen für eure Wahl
+            </h1>
+            <p id="g-sub" class="text-[14px] text-[var(--text-secondary)] leading-relaxed">
+                Sobald ihr euch in 30 Sekunden geeinigt habt, findet ihr hier direkt die passenden Dienste für Lieferessen, Kochboxen, Streaming und Kurztrips.
             </p>
         </div>
 
-        <div class="space-y-4 mb-8">
+        <div class="space-y-3.5 mb-8">
             <!-- 1. Food & Delivery -->
-            <section class="surface rounded-2xl p-5">
-                <div class="text-xs font-semibold text-[#F48265] uppercase tracking-wider mb-1">Hunger &amp; Essen</div>
-                <h2 class="text-lg font-semibold mb-1.5">Lieferdienst bestellen oder frisch zu zweit kochen</h2>
-                <p class="text-xs text-[#A9B1C1] mb-4 leading-relaxed">
-                    Keine Lust auf Abwasch nach der Arbeit? Bestellt euer Match-Gericht direkt bei eurem Lieblings-Lieferdienst oder lasst euch die frischen Zutaten als Kochbox nach Hause liefern.
+            <section class="surface rounded-[24px] p-5">
+                <div class="flex items-center gap-3.5 mb-3">
+                    <div class="w-14 h-14 rounded-[15px] surface-raised flex items-center justify-center shrink-0">
+                        <img src="options_gallery/images/spaghetti_3d.png" alt="Essen" class="w-9 h-9 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.14)]">
+                    </div>
+                    <div>
+                        <div class="inline-flex items-center gap-1.5 text-[11.5px] font-bold text-[var(--text-secondary)] mb-0.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-coral)]"></span>
+                            <span id="g-s1-tag">Hunger &amp; Essen</span>
+                        </div>
+                        <h2 id="g-s1-title" class="text-[17px] font-extrabold tracking-[-0.02em] leading-snug">
+                            Bestellen oder frisch zu zweit kochen
+                        </h2>
+                    </div>
+                </div>
+                <p id="g-s1-desc" class="text-[13px] text-[var(--text-secondary)] mb-4 leading-relaxed">
+                    Bestellt euer Match-Gericht direkt beim Lieferdienst oder lasst euch die frischen Zutaten als Kochbox nach Hause liefern.
                 </p>
-                <div class="flex flex-wrap gap-2.5">
-                    <a href="https://www.lieferando.de/" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-[#F07153]/15 hover:bg-[#F07153]/25 text-[#F48265] border border-[#F07153]/25 text-xs font-medium transition-colors">
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.lieferando.de/" target="_blank" rel="noopener" id="g-s1-btn1" class="px-4 py-2 rounded-full btn-primary text-[12.5px] font-bold">
                         Bei Lieferando bestellen →
                     </a>
-                    <a href="https://www.hellofresh.de/" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-[#383E4E] hover:bg-[#454C60] text-white text-xs font-medium transition-colors">
-                        HelloFresh Kochboxen entdecken →
+                    <a href="https://www.hellofresh.de/" target="_blank" rel="noopener" id="g-s1-btn2" class="px-4 py-2 rounded-full btn-secondary text-[12.5px] font-bold">
+                        HelloFresh Kochboxen →
                     </a>
-                    <a href="https://www.amazon.de/s?k=kochbuch+paare+schnelle+rezepte&tag=f05b1-21" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-[#383E4E] hover:bg-[#454C60] text-white text-xs font-medium transition-colors">
-                        Beliebte Paar-Kochbücher &amp; Küchenhelfer (Amazon) →
+                    <a href="https://www.amazon.de/s?k=kochbuch+paare+schnelle+rezepte&tag=f05b1-21" target="_blank" rel="noopener" id="g-s1-btn3" class="px-4 py-2 rounded-full btn-secondary text-[12.5px] font-bold">
+                        Paar-Kochbücher &amp; Sets (Amazon) →
                     </a>
                 </div>
             </section>
 
             <!-- 2. Movies & Streaming -->
-            <section class="surface rounded-2xl p-5">
-                <div class="text-xs font-semibold text-[#66B2FF] uppercase tracking-wider mb-1">Film &amp; Couch</div>
-                <h2 class="text-lg font-semibold mb-1.5">Heimkino-Abend &amp; Streaming-Highlights</h2>
-                <p class="text-xs text-[#A9B1C1] mb-4 leading-relaxed">
-                    Wenn eure Wahl auf Thriller, Comedy, Sci-Fi oder Feelgood-Kino gefallen ist, könnt ihr aktuelle Highlights direkt abrufen oder euren Filmabend mit einer Kino-Snackbox abrunden.
+            <section class="surface rounded-[24px] p-5">
+                <div class="flex items-center gap-3.5 mb-3">
+                    <div class="w-14 h-14 rounded-[15px] surface-raised flex items-center justify-center shrink-0">
+                        <img src="options_gallery/images/clapper_board_3d.png" alt="Streaming" class="w-9 h-9 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.14)]">
+                    </div>
+                    <div>
+                        <div class="inline-flex items-center gap-1.5 text-[11.5px] font-bold text-[var(--text-secondary)] mb-0.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-amber)]"></span>
+                            <span id="g-s2-tag">Film &amp; Couch</span>
+                        </div>
+                        <h2 id="g-s2-title" class="text-[17px] font-extrabold tracking-[-0.02em] leading-snug">
+                            Heimkino-Abend &amp; Streaming
+                        </h2>
+                    </div>
+                </div>
+                <p id="g-s2-desc" class="text-[13px] text-[var(--text-secondary)] mb-4 leading-relaxed">
+                    Wenn eure Wahl auf Thriller, Comedy, Sci-Fi oder Serie gefallen ist, könnt ihr aktuelle Highlights direkt streamen oder mit einer Kino-Snackbox abrunden.
                 </p>
-                <div class="flex flex-wrap gap-2.5">
-                    <a href="https://www.amazon.de/gp/video/storefront?tag=f05b1-21" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-[#3898FF]/15 hover:bg-[#3898FF]/25 text-[#66B2FF] border border-[#3898FF]/25 text-xs font-medium transition-colors">
-                        Filme &amp; Serien auf Prime Video →
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.amazon.de/gp/video/storefront?tag=f05b1-21" target="_blank" rel="noopener" id="g-s2-btn1" class="px-4 py-2 rounded-full btn-primary text-[12.5px] font-bold">
+                        Prime Video Highlights →
                     </a>
-                    <a href="https://www.amazon.de/s?k=kino+snack+box+popcorn+geschenkset&tag=f05b1-21" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-[#383E4E] hover:bg-[#454C60] text-white text-xs font-medium transition-colors">
-                        Heimkino-Snackboxen &amp; Popcorn-Sets →
+                    <a href="https://www.amazon.de/s?k=kino+snack+box+popcorn+geschenkset&tag=f05b1-21" target="_blank" rel="noopener" id="g-s2-btn2" class="px-4 py-2 rounded-full btn-secondary text-[12.5px] font-bold">
+                        Heimkino-Snackboxen →
                     </a>
                 </div>
             </section>
 
             <!-- 3. Date Night, Activities & Trips -->
-            <section class="surface rounded-2xl p-5">
-                <div class="text-xs font-semibold text-[#4ADE80] uppercase tracking-wider mb-1">Date-Night, Erlebnisse &amp; Kurztrips</div>
-                <h2 class="text-lg font-semibold mb-1.5">Gemeinsame Unternehmungen am Wochenende</h2>
-                <p class="text-xs text-[#A9B1C1] mb-4 leading-relaxed">
-                    Von spontanen Städtetrips und Wellness-Wochenenden bis hin zu Escape-Rooms, Konzerten und besonderen Erlebnissen für zwei Personen.
+            <section class="surface rounded-[24px] p-5">
+                <div class="flex items-center gap-3.5 mb-3">
+                    <div class="w-14 h-14 rounded-[15px] surface-raised flex items-center justify-center shrink-0">
+                        <img src="options_gallery/images/admission_tickets_3d.png" alt="Erlebnisse" class="w-9 h-9 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.14)]">
+                    </div>
+                    <div>
+                        <div class="inline-flex items-center gap-1.5 text-[11.5px] font-bold text-[var(--text-secondary)] mb-0.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-blue)]"></span>
+                            <span id="g-s3-tag">Erlebnisse &amp; Kurztrips</span>
+                        </div>
+                        <h2 id="g-s3-title" class="text-[17px] font-extrabold tracking-[-0.02em] leading-snug">
+                            Unternehmungen am Wochenende
+                        </h2>
+                    </div>
+                </div>
+                <p id="g-s3-desc" class="text-[13px] text-[var(--text-secondary)] mb-4 leading-relaxed">
+                    Von spontanen Städtetrips und Wellness-Wochenenden bis hin zu Escape-Rooms, Konzerten und Date-Night-Spielen.
                 </p>
-                <div class="flex flex-wrap gap-2.5">
-                    <a href="https://www.getyourguide.de/" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-[#22C55E]/15 hover:bg-[#22C55E]/25 text-[#4ADE80] border border-[#22C55E]/25 text-xs font-medium transition-colors">
-                        Aktivitäten &amp; Touren bei GetYourGuide →
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.getyourguide.de/" target="_blank" rel="noopener" id="g-s3-btn1" class="px-4 py-2 rounded-full btn-primary text-[12.5px] font-bold">
+                        Erlebnisse bei GetYourGuide →
                     </a>
-                    <a href="https://www.booking.com/" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-[#383E4E] hover:bg-[#454C60] text-white text-xs font-medium transition-colors">
-                        Wochenend-Hotels bei Booking.com →
+                    <a href="https://www.booking.com/" target="_blank" rel="noopener" id="g-s3-btn2" class="px-4 py-2 rounded-full btn-secondary text-[12.5px] font-bold">
+                        Hotels bei Booking.com →
                     </a>
-                    <a href="https://www.eventim.de/" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-[#383E4E] hover:bg-[#454C60] text-white text-xs font-medium transition-colors">
-                        Tickets &amp; Live-Events bei Eventim →
+                    <a href="https://www.eventim.de/" target="_blank" rel="noopener" id="g-s3-btn3" class="px-4 py-2 rounded-full btn-secondary text-[12.5px] font-bold">
+                        Tickets bei Eventim →
                     </a>
-                    <a href="https://www.amazon.de/s?k=spiele+fuer+paare+date+night&tag=f05b1-21" target="_blank" rel="noopener" class="px-3.5 py-2 rounded-xl bg-[#383E4E] hover:bg-[#454C60] text-white text-xs font-medium transition-colors">
-                        Spiele für Paare &amp; Date-Night-Boxen →
+                    <a href="https://www.amazon.de/s?k=spiele+fuer+paare+date+night&tag=f05b1-21" target="_blank" rel="noopener" id="g-s3-btn4" class="px-4 py-2 rounded-full btn-secondary text-[12.5px] font-bold">
+                        Spiele für Paare (Amazon) →
                     </a>
                 </div>
             </section>
         </div>
     </div>
 
-    <footer class="pt-4 pb-2 border-t border-white/10 text-xs text-[#7F889A] flex flex-wrap items-center justify-between gap-2">
-        <div>* Hinweis: Einige Links auf dieser Seite sind Partner-/Affiliate-Links (u. a. Amazon PartnerNet &amp; Skimlinks). Für euch entstehen keine Mehrkosten.</div>
-        <a href="/" class="text-[#E8ECF2] hover:underline">Zurück zu agreesy.com</a>
+    <footer class="pt-4 pb-2 border-t border-[var(--border)] text-[11.5px] text-[var(--text-muted)] flex flex-wrap items-center justify-between gap-2">
+        <div id="g-footer-note">* Hinweis: Einige Links sind Partner-Links (u. a. Amazon &amp; Skimlinks). Für euch entstehen keine Mehrkosten.</div>
+        <a href="/" id="g-footer-back" class="font-bold text-[var(--text-primary)] hover:underline">← Agreesy</a>
     </footer>
+
+    <script src="js/theme.js?v=29"></script>
+    <script>
+        (function initGuidesI18n() {
+            const lang = localStorage.getItem('syncswipe_lang') || 'de';
+            if (lang === 'en') {
+                document.getElementById('g-back-btn').textContent = '← Back';
+                document.getElementById('g-badge').textContent = 'Partners & Ideas';
+                document.getElementById('g-title').textContent = 'Matching ideas for your pick';
+                document.getElementById('g-sub').textContent = 'Once you both agree in 30 seconds, explore matching delivery services, meal kits, streaming highlights, and weekend getaways.';
+                document.getElementById('g-s1-tag').textContent = 'Food & Dinner';
+                document.getElementById('g-s1-title').textContent = 'Order delivery or cook fresh together';
+                document.getElementById('g-s1-desc').textContent = 'Order your matched dish right to your door or get fresh ingredients delivered as a meal kit.';
+                document.getElementById('g-s1-btn1').textContent = 'Order food delivery →';
+                document.getElementById('g-s1-btn2').textContent = 'HelloFresh Meal Kits →';
+                document.getElementById('g-s1-btn3').textContent = 'Couple Cookbooks & Kits (Amazon) →';
+                document.getElementById('g-s2-tag').textContent = 'Movies & Couch';
+                document.getElementById('g-s2-title').textContent = 'Movie Night & Streaming';
+                document.getElementById('g-s2-desc').textContent = 'Whether you matched on thriller, comedy, sci-fi, or a new series, stream top picks directly or grab a movie snack box.';
+                document.getElementById('g-s2-btn1').textContent = 'Prime Video Highlights →';
+                document.getElementById('g-s2-btn2').textContent = 'Movie Night Snack Boxes →';
+                document.getElementById('g-s3-tag').textContent = 'Activities & Getaways';
+                document.getElementById('g-s3-title').textContent = 'Weekend Plans & Date Nights';
+                document.getElementById('g-s3-desc').textContent = 'From spontaneous city trips and spa weekends to escape rooms, live shows, and date night games.';
+                document.getElementById('g-s3-btn1').textContent = 'Activities on GetYourGuide →';
+                document.getElementById('g-s3-btn2').textContent = 'Hotels on Booking.com →';
+                document.getElementById('g-s3-btn3').textContent = 'Live Tickets on Eventim →';
+                document.getElementById('g-s3-btn4').textContent = 'Couple Games (Amazon) →';
+                document.getElementById('g-footer-note').textContent = '* Note: Some links are affiliate partner links. There is no extra cost to you.';
+            }
+            if (typeof setTheme === 'function' && typeof getPreferredTheme === 'function') {
+                setTheme(getPreferredTheme());
+            }
+        })();
+    </script>
 
     <!-- AWIN Publisher MasterTag (Convert-a-Link & Bounceless Tracking for Publisher 3146790) -->
     <script src="https://www.dwin2.com/pub.3146790.min.js" async="defer"></script>
