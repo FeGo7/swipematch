@@ -1002,7 +1002,7 @@ function renderCurrentCard() {
     const modePill = document.getElementById('game-mode-pill');
     if (modePill) {
         modePill.innerText = isChoresMode ? t.modeChoreBadge : (deck.title[currentLang] || deck.title.de);
-        modePill.className = "font-sans text-[12px] text-muted-role";
+        modePill.className = "font-sans text-[11.5px] font-bold text-primary-role";
     }
 
     const nopeHintEl = document.getElementById('t-nope-hint');
@@ -1026,7 +1026,7 @@ function renderCurrentCard() {
         cardEl.style.transform = '';
         cardEl.style.transition = '';
         cardEl.style.opacity = '1';
-        cardEl.className = "w-full h-[390px] rounded-[18px] p-6 flex flex-col justify-between items-center text-center surface relative z-10 overflow-hidden card-enter";
+        cardEl.className = "w-full rounded-[28px] surface relative z-10 overflow-hidden card-enter flex flex-col text-left";
     }
 
     const stackNextEl = document.getElementById('stack-next-card');
@@ -1062,6 +1062,7 @@ function renderCurrentCard() {
 
     document.getElementById('card-title').innerText = card.title[currentLang] || card.title.de;
     document.getElementById('card-desc').innerText = card.desc[currentLang] || card.desc.de;
+    updateHeroRoundCardUI();
 }
 
 /**************************************************************
@@ -1277,8 +1278,7 @@ function revealMatchScreen(card) {
     const deck = DECKS[currentDeckId];
     const winnerCardEl = document.getElementById('winner-card');
     if (winnerCardEl) {
-        // Warmer Magie-Glow auf der zentrierten Sieger-Karte
-        winnerCardEl.className = "w-full rounded-[18px] p-6 mb-5 flex flex-col items-center text-center surface border-[#E05A3A]/40 shadow-[0_0_35px_-5px_rgba(224,90,58,0.25)] transition-all";
+        winnerCardEl.className = "w-full rounded-[24px] p-6 mb-5 flex flex-col items-center text-center surface transition-all";
     }
 
     // Microsoft Fluent 3D Image Rendering for Winner Card
@@ -1592,16 +1592,73 @@ function simulatePartnerRightHere() {
     showScreen('screen-home');
 }
 
+function handleHeroCardClick() {
+    if (currentDeckId && activeRoundCards.length > 0 && currentCardIndex < activeRoundCards.length) {
+        showScreen('screen-game');
+        renderCurrentCard();
+        startTimer();
+    } else {
+        startGame(currentDeckId || 'dinner');
+    }
+}
+
+function updateHeroRoundCardUI() {
+    const badgeEl = document.getElementById('t-badge');
+    const titleEl = document.getElementById('t-hero-title');
+    const subEl = document.getElementById('t-hero-sub');
+    const ctaEl = document.getElementById('hero-cta-text');
+    const ringEl = document.getElementById('hero-ring-circle');
+    const imgEl = document.getElementById('hero-ring-img');
+    const t = I18N[currentLang] || I18N.de;
+
+    const hasActiveRound = currentDeckId && DECKS[currentDeckId] && activeRoundCards.length > 0 && currentCardIndex < activeRoundCards.length;
+    if (hasActiveRound) {
+        const deck = DECKS[currentDeckId];
+        const card = activeRoundCards[currentCardIndex] || activeRoundCards[0];
+        const num = currentCardIndex + 1;
+        const total = activeRoundCards.length;
+        const remaining = total - num + 1;
+
+        if (badgeEl) badgeEl.innerText = `Aktive Runde · Karte ${num} von ${total}`;
+        if (titleEl) titleEl.innerText = deck.title[currentLang] || deck.title.de;
+        if (subEl) subEl.innerText = `Noch ${remaining} Karten offen · Einigen ohne Diskussion`;
+        if (ctaEl) ctaEl.innerText = num === 1 ? 'Runde jetzt starten' : 'Runde fortsetzen';
+
+        if (ringEl) {
+            const circumference = 207;
+            const offset = circumference - (num / Math.max(1, total)) * circumference;
+            ringEl.setAttribute('stroke-dashoffset', Math.round(offset));
+        }
+
+        if (imgEl && card && typeof FLUENT_EMOJI_MAP !== 'undefined' && card.emoji && FLUENT_EMOJI_MAP[card.emoji]) {
+            imgEl.src = `options_gallery/images/${FLUENT_EMOJI_MAP[card.emoji]}`;
+        }
+    } else {
+        if (badgeEl) badgeEl.innerText = t.badge;
+        if (titleEl) titleEl.innerHTML = t.heroTitle;
+        if (subEl) subEl.innerText = t.heroSub;
+        if (ctaEl) ctaEl.innerText = currentLang === 'de' ? 'Abendessen-Runde starten' : (t.customStartBtn || 'Start round');
+        if (ringEl) ringEl.setAttribute('stroke-dashoffset', '175');
+        if (imgEl) imgEl.src = 'options_gallery/images/spaghetti_3d.png';
+    }
+}
+
 function resetToHome() {
     clearInterval(timerInterval);
-    partnerLikes = null;
-    partnerRoundCardIds = null;
-    currentDeckId = null;
-    activeRoundCards = [];
-    window.history.replaceState(null, null, window.location.pathname);
+    const gameScreen = document.getElementById('screen-game');
+    const wasInGame = gameScreen && !gameScreen.classList.contains('hidden');
+
+    if (!wasInGame) {
+        partnerLikes = null;
+        partnerRoundCardIds = null;
+        currentDeckId = null;
+        activeRoundCards = [];
+        window.history.replaceState(null, null, window.location.pathname);
+    }
     const banner = document.getElementById('p2-welcome-banner');
     if (banner) banner.classList.add('hidden');
     renderDeckList();
+    updateHeroRoundCardUI();
     showScreen('screen-home');
 }
 

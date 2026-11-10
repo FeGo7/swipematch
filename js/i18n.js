@@ -13,8 +13,8 @@ const CATEGORIES = [
 
 const I18N = {
     de: {
-        badge: "Gemeinsam entscheiden in 30 Sekunden",
-        heroTitle: "Einigen ohne <span class=\"text-[#E05A3A] dark:text-[#F48265]\">Diskussion</span>",
+        badge: "Schnellstart · 8 Karten in 30 Sek.",
+        heroTitle: "Einigen ohne Diskussion",
         heroSub: "Jeder wählt für sich aus acht Vorschlägen. Am Ende zählt nur, was ihr beide wollt",
         p2Badge: "Einladung aktiv",
         p2Title: "Dein Gegenüber hat bereits gewählt",
@@ -148,8 +148,8 @@ const I18N = {
         pwaCloseBtn: "Schließen"
     },
     en: {
-        badge: "Shared decisions in 30 seconds",
-        heroTitle: "Agree without the <span class=\"text-[#E05A3A] dark:text-[#F48265]\">debate</span>",
+        badge: "Quickstart · 8 cards in 30 sec.",
+        heroTitle: "Agree without the debate",
         heroSub: "Each person secretly picks from eight options. Only what you both want comes through",
         p2Badge: "Invite active",
         p2Title: "Your partner has already chosen",
@@ -283,8 +283,8 @@ const I18N = {
         pwaCloseBtn: "Close"
     },
     es: {
-        badge: "Decisiones compartidas en 30 segundos",
-        heroTitle: "De acuerdo sin <span class=\"text-[#E05A3A] dark:text-[#F48265]\">debatir</span>",
+        badge: "Inicio rápido · 8 cartas en 30 s",
+        heroTitle: "De acuerdo sin debatir",
         heroSub: "Cada persona elige en privado entre ocho opciones. Solo cuenta lo que ambos queréis",
         p2Badge: "Invitación activa",
         p2Title: "La otra persona ya ha elegido",
@@ -418,8 +418,8 @@ const I18N = {
         pwaCloseBtn: "Cerrar"
     },
     fr: {
-        badge: "Prendre une décision ensemble en 30 secondes",
-        heroTitle: "S'accorder sans <span class=\"text-[#E05A3A] dark:text-[#F48265]\">débat</span>",
+        badge: "Accès rapide · 8 cartes en 30 s",
+        heroTitle: "S'accorder sans débat",
         heroSub: "Chacun choisit secrètement parmi 8 options. Seul ce que vous voulez tous les deux apparaît",
         p2Badge: "Invitation active",
         p2Title: "Votre partenaire a déjà fait ses choix",
@@ -553,8 +553,8 @@ const I18N = {
         pwaCloseBtn: "Fermer"
     },
     it: {
-        badge: "Decidere insieme in 30 secondi",
-        heroTitle: "Mettersi d'accordo senza <span class=\"text-[#E05A3A] dark:text-[#F48265]\">discussioni</span>",
+        badge: "Avvio rapido · 8 carte in 30 s",
+        heroTitle: "Mettersi d'accordo senza discussioni",
         heroSub: "Ognuno sceglie in privato tra 8 proposte. Conta solo ciò che volete entrambi",
         p2Badge: "Invito attivo",
         p2Title: "La tua dolce metà ha già scelto",

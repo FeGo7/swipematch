@@ -6,14 +6,11 @@ const ICON_SUN = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" st
 const ICON_MOON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`;
 
 function getPreferredTheme() {
-    const savedTheme = localStorage.getItem('syncswipe_theme');
+    const savedTheme = localStorage.getItem('agreesy_calai_theme');
     if (savedTheme === 'light' || savedTheme === 'dark') {
         return savedTheme;
     }
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-        return 'light';
-    }
-    return 'dark';
+    return 'light';
 }
 
 function setTheme(theme) {
@@ -36,7 +33,7 @@ function setTheme(theme) {
         }
     }
 
-    localStorage.setItem('syncswipe_theme', theme);
+    localStorage.setItem('agreesy_calai_theme', theme);
 }
 
 function toggleTheme() {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" class="dark">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -106,56 +106,68 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --bg: #F5F5F7;
+            --bg: #F5F6FA;
+            --bg-top-wash: radial-gradient(ellipse 95% 32% at 65% 0%, rgba(253, 224, 210, 0.55) 0%, rgba(232, 229, 248, 0.35) 48%, transparent 85%);
             --surface: #FFFFFF;
-            --surface-raised: #EFEFF2;
-            --border: rgba(24, 24, 27, 0.07);
-            --border-strong: rgba(24, 24, 27, 0.14);
-            --text-primary: #18181B;
-            --text-secondary: #52525B;
-            --text-muted: #71717A;
-            --accent: #E05A3A;
-            --positive: #16A34A;
+            --surface-raised: #F2F3F8;
+            --border: rgba(24, 24, 28, 0.07);
+            --border-strong: #D4D4D8;
+            --text-primary: #18181C;
+            --text-secondary: #686973;
+            --text-muted: #9899A3;
+            --accent: #18181C;
+            --positive: #58C27D;
+            --ring-track: #ECECF2;
+            --ring-coral: #E26D6D;
+            --ring-amber: #DDA067;
+            --ring-blue: #6C9AE5;
+            --ring-green: #58C27D;
+            --stage-bg: linear-gradient(180deg, #ECEEF4 0%, #E2E5EE 100%);
+            --callout-bg: rgba(255, 255, 255, 0.92);
+            --shadow-card: 0 4px 20px -2px rgba(20, 20, 26, 0.05), 0 1px 3px rgba(20, 20, 26, 0.03);
+            --shadow-float: 0 12px 28px -6px rgba(20, 20, 26, 0.16);
         }
 
         html.dark {
-            --bg: #242832;
-            --surface: #2E3340;
-            --surface-raised: #383E4E;
-            --border: rgba(255, 255, 255, 0.09);
-            --border-strong: rgba(255, 255, 255, 0.16);
-            --text-primary: #E8ECF2;
-            --text-secondary: #A9B1C1;
-            --text-muted: #7F889A;
-            --accent: #F07153;
-            --positive: #34D399;
+            --bg: #171921;
+            --bg-top-wash: radial-gradient(ellipse 95% 34% at 65% 0%, rgba(229, 120, 120, 0.16) 0%, rgba(118, 162, 234, 0.12) 48%, transparent 85%);
+            --surface: #242834;
+            --surface-raised: #303545;
+            --border: rgba(255, 255, 255, 0.12);
+            --border-strong: #484E63;
+            --text-primary: #F7F8FA;
+            --text-secondary: #B4B8C5;
+            --text-muted: #858A99;
+            --accent: #F7F8FA;
+            --positive: #6AD38F;
+            --ring-track: #353A4B;
+            --ring-coral: #F08080;
+            --ring-amber: #EBB37C;
+            --ring-blue: #82ADF0;
+            --ring-green: #6AD38F;
+            --stage-bg: linear-gradient(180deg, #282C3A 0%, #1F222E 100%);
+            --callout-bg: rgba(36, 40, 52, 0.92);
+            --shadow-card: 0 8px 24px -4px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            --shadow-float: 0 14px 32px -6px rgba(0, 0, 0, 0.55);
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Plus Jakarta Sans", system-ui, sans-serif;
             background-color: var(--bg);
+            background-image: var(--bg-top-wash);
+            background-repeat: no-repeat;
             color: var(--text-primary);
             overflow-x: hidden;
             user-select: none;
             -webkit-user-select: none;
-            transition: background-color 0.2s ease-out, color 0.2s ease-out;
+            transition: background-color 0.22s ease-out, color 0.22s ease-out;
             -webkit-font-smoothing: antialiased;
-        }
-
-        html.dark body {
-            background-image:
-                radial-gradient(ellipse 90% 50% at 50% -10%, rgba(240, 113, 83, 0.11), rgba(56, 152, 255, 0.05) 45%, transparent 75%);
         }
 
         .surface {
             background-color: var(--surface);
             border: 1px solid var(--border);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-        }
-
-        html.dark .surface,
-        html.dark .row-card {
-            box-shadow: 0 4px 20px -2px rgba(10, 12, 18, 0.25);
+            box-shadow: var(--shadow-card);
         }
 
         .surface-raised {
@@ -171,41 +183,87 @@
         .text-primary-role { color: var(--text-primary); }
         .text-secondary-role { color: var(--text-secondary); }
         .text-muted-role { color: var(--text-muted); }
-        .text-accent-role { color: var(--accent); }
+        .text-accent-role { color: var(--text-primary); }
 
         .btn-primary {
             background-color: var(--text-primary);
             color: var(--bg);
-            transition: background-color 0.15s ease-out, transform 0.1s ease-out;
+            border: 1.35px solid var(--text-primary);
+            transition: transform 0.12s ease-out, opacity 0.15s ease-out;
         }
         .btn-primary:hover {
             opacity: 0.92;
         }
         .btn-primary:active {
-            transform: scale(0.99);
+            transform: scale(0.975);
         }
 
         .btn-secondary {
-            background-color: var(--surface);
+            background-color: transparent;
             color: var(--text-primary);
-            border: 1px solid var(--border-strong);
-            transition: background-color 0.15s ease-out, border-color 0.15s ease-out, transform 0.1s ease-out;
+            border: 1.35px solid var(--border-strong);
+            transition: background-color 0.15s ease-out, border-color 0.15s ease-out, transform 0.12s ease-out;
         }
         .btn-secondary:hover {
             background-color: var(--surface-raised);
         }
         .btn-secondary:active {
-            transform: scale(0.99);
+            transform: scale(0.975);
         }
 
         .row-card {
             background-color: var(--surface);
             border: 1px solid var(--border);
-            transition: background-color 0.15s ease-out, border-color 0.15s ease-out;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.15s ease-out, border-color 0.15s ease-out;
         }
         .row-card:hover {
-            background-color: var(--surface-raised);
+            transform: translateY(-1px);
             border-color: var(--border-strong);
+        }
+        .row-card:active {
+            transform: scale(0.988);
+        }
+
+        .ring-svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        .ring-bg {
+            fill: none;
+            stroke: var(--ring-track);
+            stroke-width: 6.5;
+        }
+        .ring-fg {
+            fill: none;
+            stroke-width: 6.5;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.35s ease;
+        }
+
+        .fab-plus {
+            position: fixed;
+            bottom: 24px;
+            right: max(20px, calc(50% - 196px));
+            width: 52px;
+            height: 52px;
+            border-radius: 999px;
+            background: var(--text-primary);
+            color: var(--bg);
+            border: none;
+            box-shadow: var(--shadow-float);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: 400;
+            cursor: pointer;
+            z-index: 30;
+            transition: transform 0.15s ease;
+        }
+        .fab-plus:hover {
+            transform: scale(1.05);
         }
 
         .card-enter {
@@ -241,55 +299,55 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between items-center px-6 py-5 max-w-md mx-auto relative">
+<body class="min-h-screen flex flex-col justify-between items-center px-4 py-4 max-w-[420px] mx-auto relative">
 
-    <!-- Top Navigation (Quiet Chrome, 4px Grid) -->
-    <header class="w-full flex justify-between items-center h-9 z-20">
+    <!-- Top Navigation (Cal AI iOS App Bar) -->
+    <header class="w-full flex justify-between items-center h-11 z-20">
         <div class="flex items-center gap-2 cursor-pointer" onclick="resetToHome()">
-            <div id="header-logo-icon" onclick="event.stopPropagation(); cycleNextLogo();" title="Marke wechseln" class="w-5 h-5 flex items-center justify-center text-primary-role">
+            <div id="header-logo-icon" onclick="event.stopPropagation(); cycleNextLogo();" title="Marke wechseln" class="w-6 h-6 flex items-center justify-center text-primary-role">
                 <!-- Flache Vektor-Glyphe aus js/logos.js -->
             </div>
-            <span class="font-semibold text-[17px] tracking-tight text-primary-role">
-                agreesy<span class="text-[#F07153]">.</span>
+            <span class="font-extrabold text-[21px] tracking-[-0.035em] text-primary-role">
+                Agreesy
             </span>
         </div>
 
         <div class="flex items-center gap-2">
-            <!-- Profile / Codename -->
-            <button onclick="openProfileModal()" id="user-profile-btn" class="surface rounded-[8px] px-2.5 h-8 text-xs font-medium flex items-center gap-2 transition-colors hover:bg-[var(--surface-raised)] text-secondary-role" title="Name anpassen">
-                <span id="user-profile-dot" class="w-2 h-2 rounded-full bg-[#E05A3A]"></span>
+            <!-- Profile / Codename Pill (Cal AI Streak Pill style) -->
+            <button onclick="openProfileModal()" id="user-profile-btn" class="surface rounded-full px-3 h-8 text-[12.5px] font-bold flex items-center gap-2 transition-colors hover:bg-[var(--surface-raised)] text-primary-role" title="Name anpassen">
+                <span id="user-profile-dot" class="w-2 h-2 rounded-full bg-[#58C27D]"></span>
                 <span id="user-profile-name">Titan</span>
             </button>
 
             <!-- Dark / Light Mode Toggle -->
-            <button onclick="toggleTheme()" id="theme-toggle-btn" class="w-8 h-8 rounded-[8px] surface flex items-center justify-center text-secondary-role hover:text-primary-role transition-colors" aria-label="Darstellung wechseln">
+            <button onclick="toggleTheme()" id="theme-toggle-btn" class="w-8 h-8 rounded-full surface flex items-center justify-center text-secondary-role hover:text-primary-role transition-colors" aria-label="Darstellung wechseln">
             </button>
 
             <!-- Language Dropdown -->
             <div class="relative" id="lang-dropdown-wrapper">
-                <button onclick="toggleLangMenu(event)" id="lang-btn" class="surface rounded-[8px] px-2.5 h-8 text-xs font-mono font-normal flex items-center gap-1.5 text-secondary-role hover:text-primary-role transition-colors">
+                <button onclick="toggleLangMenu(event)" id="lang-btn" class="surface rounded-full px-2.5 h-8 text-xs font-semibold flex items-center gap-1 text-secondary-role hover:text-primary-role transition-colors">
                     <span id="lang-btn-label">DE</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                 </button>
 
-                <div id="lang-menu" class="hidden absolute right-0 mt-2 w-36 surface rounded-[12px] p-1.5 z-50 space-y-0.5">
-                    <button onclick="selectLang('de')" class="w-full text-left px-2.5 py-2 rounded-[8px] text-xs font-medium flex items-center justify-between transition-colors hover:bg-[var(--surface-raised)]" id="lang-opt-de">
+                <div id="lang-menu" class="hidden absolute right-0 mt-2 w-36 surface rounded-[16px] p-1.5 z-50 space-y-0.5">
+                    <button onclick="selectLang('de')" class="w-full text-left px-2.5 py-2 rounded-[10px] text-xs font-medium flex items-center justify-between transition-colors hover:bg-[var(--surface-raised)]" id="lang-opt-de">
                         <span>Deutsch</span>
                         <span class="text-[11px] text-muted-role font-mono">DE</span>
                     </button>
-                    <button onclick="selectLang('en')" class="w-full text-left px-2.5 py-2 rounded-[8px] text-xs font-medium flex items-center justify-between transition-colors hover:bg-[var(--surface-raised)]" id="lang-opt-en">
+                    <button onclick="selectLang('en')" class="w-full text-left px-2.5 py-2 rounded-[10px] text-xs font-medium flex items-center justify-between transition-colors hover:bg-[var(--surface-raised)]" id="lang-opt-en">
                         <span>English</span>
                         <span class="text-[11px] text-muted-role font-mono">EN</span>
                     </button>
-                    <button onclick="selectLang('es')" class="w-full text-left px-2.5 py-2 rounded-[8px] text-xs font-medium flex items-center justify-between transition-colors hover:bg-[var(--surface-raised)]" id="lang-opt-es">
+                    <button onclick="selectLang('es')" class="w-full text-left px-2.5 py-2 rounded-[10px] text-xs font-medium flex items-center justify-between transition-colors hover:bg-[var(--surface-raised)]" id="lang-opt-es">
                         <span>Español</span>
                         <span class="text-[11px] text-muted-role font-mono">ES</span>
                     </button>
-                    <button onclick="selectLang('fr')" class="w-full text-left px-2.5 py-2 rounded-[8px] text-xs font-medium flex items-center justify-between transition-colors hover:bg-[var(--surface-raised)]" id="lang-opt-fr">
+                    <button onclick="selectLang('fr')" class="w-full text-left px-2.5 py-2 rounded-[10px] text-xs font-medium flex items-center justify-between transition-colors hover:bg-[var(--surface-raised)]" id="lang-opt-fr">
                         <span>Français</span>
                         <span class="text-[11px] text-muted-role font-mono">FR</span>
                     </button>
-                    <button onclick="selectLang('it')" class="w-full text-left px-2.5 py-2 rounded-[8px] text-xs font-medium flex items-center justify-between transition-colors hover:bg-[var(--surface-raised)]" id="lang-opt-it">
+                    <button onclick="selectLang('it')" class="w-full text-left px-2.5 py-2 rounded-[10px] text-xs font-medium flex items-center justify-between transition-colors hover:bg-[var(--surface-raised)]" id="lang-opt-it">
                         <span>Italiano</span>
                         <span class="text-[11px] text-muted-role font-mono">IT</span>
                     </button>
@@ -298,92 +356,176 @@
         </div>
     </header>
 
-    <!-- SCREEN 1: HOME / DECK SELECTION -->
-    <main id="screen-home" class="w-full flex-1 flex flex-col justify-start pt-6 pb-4">
-        <div class="mb-6" id="home-hero-text">
-            <h1 class="text-[28px] font-semibold tracking-tight text-primary-role leading-[1.18] mb-2" id="t-hero-title">
-                Einigen ohne <span class="text-[#E05A3A]">Diskussion</span>
-            </h1>
-            <p class="text-[14px] text-secondary-role leading-relaxed" id="t-hero-sub">
-                Jeder wählt für sich aus acht Vorschlägen. Am Ende zählt nur, was ihr beide wollt
-            </p>
+    <!-- SCREEN 1: HOME / CAL AI DASHBOARD -->
+    <main id="screen-home" class="w-full flex-1 flex flex-col justify-start pt-4 pb-6">
+
+        <!-- Cal AI Top Hero Card: Aktive Runde / Schnellstart -->
+        <section onclick="handleHeroCardClick()" class="w-full rounded-[24px] p-5 row-card flex items-center justify-between gap-3.5 mb-3 cursor-pointer text-left" id="home-hero-text">
+            <div class="min-w-0 flex-1">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full surface-raised text-[11px] font-bold text-secondary-role mb-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-green)]"></span>
+                    <span id="t-badge">Schnellstart · 8 Karten in 30 Sek.</span>
+                </div>
+                <h1 class="text-[22px] font-extrabold tracking-[-0.03em] text-primary-role leading-[1.15] mb-1" id="t-hero-title">
+                    Einigen ohne Diskussion
+                </h1>
+                <p class="text-[12.5px] text-secondary-role leading-snug mb-2.5" id="t-hero-sub">
+                    Jeder wählt für sich aus acht Vorschlägen. Am Ende zählt nur, was ihr beide wollt
+                </p>
+                <div class="inline-flex items-center gap-1 text-[13px] font-bold text-primary-role">
+                    <span id="hero-cta-text">Runde jetzt starten</span>
+                    <span>→</span>
+                </div>
+            </div>
+
+            <div class="w-[82px] h-[82px] relative flex items-center justify-center shrink-0">
+                <svg class="ring-svg" viewBox="0 0 80 80">
+                    <circle class="ring-bg" cx="40" cy="40" r="33"></circle>
+                    <circle class="ring-fg" id="hero-ring-circle" cx="40" cy="40" r="33" stroke="var(--text-primary)" stroke-dasharray="207" stroke-dashoffset="175"></circle>
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <img id="hero-ring-img" src="options_gallery/images/spaghetti_3d.png" alt="Abendessen" class="w-9 h-9 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]">
+                </div>
+            </div>
+        </section>
+
+        <!-- Cal AI 3-Column Macro Grid (Essen · Streaming · Haushalt) -->
+        <section class="w-full grid grid-cols-3 gap-2.5 mb-6">
+            <!-- Macro 1: Essen -->
+            <button onclick="startGame('dinner')" class="rounded-[20px] p-3.5 row-card flex flex-col justify-between text-left">
+                <div>
+                    <div class="text-[16px] font-extrabold tracking-[-0.025em] text-primary-role leading-tight mb-0.5">Essen</div>
+                    <div class="text-[11.5px] font-medium text-secondary-role mb-3">8 Vorschläge</div>
+                </div>
+                <div class="w-[58px] h-[58px] mx-auto relative flex items-center justify-center">
+                    <svg class="ring-svg" viewBox="0 0 60 60">
+                        <circle class="ring-bg" cx="30" cy="30" r="24"></circle>
+                        <circle class="ring-fg" cx="30" cy="30" r="24" stroke="var(--ring-coral)" stroke-dasharray="150" stroke-dashoffset="38"></circle>
+                    </svg>
+                    <img src="options_gallery/images/pizza_3d.png" alt="Essen" class="w-[26px] h-[26px] object-contain absolute drop-shadow-[0_2px_5px_rgba(0,0,0,0.14)]">
+                </div>
+            </button>
+
+            <!-- Macro 2: Streaming -->
+            <button onclick="startGame('streaming')" class="rounded-[20px] p-3.5 row-card flex flex-col justify-between text-left">
+                <div>
+                    <div class="text-[16px] font-extrabold tracking-[-0.025em] text-primary-role leading-tight mb-0.5">Streaming</div>
+                    <div class="text-[11.5px] font-medium text-secondary-role mb-3">8 Genres</div>
+                </div>
+                <div class="w-[58px] h-[58px] mx-auto relative flex items-center justify-center">
+                    <svg class="ring-svg" viewBox="0 0 60 60">
+                        <circle class="ring-bg" cx="30" cy="30" r="24"></circle>
+                        <circle class="ring-fg" cx="30" cy="30" r="24" stroke="var(--ring-amber)" stroke-dasharray="150" stroke-dashoffset="55"></circle>
+                    </svg>
+                    <img src="options_gallery/images/popcorn_3d.png" alt="Streaming" class="w-[26px] h-[26px] object-contain absolute drop-shadow-[0_2px_5px_rgba(0,0,0,0.14)]">
+                </div>
+            </button>
+
+            <!-- Macro 3: Haushalt -->
+            <button onclick="startGame('chores')" class="rounded-[20px] p-3.5 row-card flex flex-col justify-between text-left">
+                <div>
+                    <div class="text-[16px] font-extrabold tracking-[-0.025em] text-primary-role leading-tight mb-0.5">Haushalt</div>
+                    <div class="text-[11.5px] font-medium text-secondary-role mb-3">Fair teilen</div>
+                </div>
+                <div class="w-[58px] h-[58px] mx-auto relative flex items-center justify-center">
+                    <svg class="ring-svg" viewBox="0 0 60 60">
+                        <circle class="ring-bg" cx="30" cy="30" r="24"></circle>
+                        <circle class="ring-fg" cx="30" cy="30" r="24" stroke="var(--ring-blue)" stroke-dasharray="150" stroke-dashoffset="45"></circle>
+                    </svg>
+                    <img src="options_gallery/images/broom_3d.png" alt="Haushalt" class="w-[26px] h-[26px] object-contain absolute drop-shadow-[0_2px_5px_rgba(0,0,0,0.14)]">
+                </div>
+            </button>
+        </section>
+
+        <!-- Section Header ("Direkt starten") -->
+        <div class="w-full flex items-center justify-between px-0.5 mb-3">
+            <h2 class="text-[17px] font-extrabold tracking-[-0.025em] text-primary-role">Direkt starten</h2>
+            <button onclick="openCustomDeckModal()" class="text-[12.5px] font-semibold text-secondary-role hover:text-primary-role transition-colors">
+                + Eigene Runde
+            </button>
         </div>
 
-        <!-- 3 Primary Scenarios (Soft Tinted Surfaces + Harmonious Action Pills) -->
-        <div class="w-full flex flex-col gap-2.5 mb-6">
+        <!-- 3 Primary Scenarios (Cal AI "Recently uploaded" Horizontal Feed Cards) -->
+        <div class="w-full flex flex-col gap-2.5 mb-4">
             <!-- 1. Essen -->
-            <button onclick="startGame('dinner')" class="w-full p-4 rounded-[14px] row-card text-left flex items-center justify-between group">
-                <div class="flex items-center gap-3.5">
-                    <div class="w-11 h-11 rounded-[10px] bg-[#E05A3A]/12 dark:bg-[#E86A4B]/15 text-[#D94E2E] dark:text-[#F48265] flex items-center justify-center shrink-0">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
-                    </div>
-                    <div>
-                        <div class="font-semibold text-[15px] text-primary-role leading-snug" id="t-hero-food-title">
+            <button onclick="startGame('dinner')" class="w-full p-2.5 rounded-[20px] row-card text-left flex items-center gap-3.5 group">
+                <div class="w-[70px] h-[70px] rounded-[15px] surface-raised flex items-center justify-center shrink-0">
+                    <img src="options_gallery/images/spaghetti_3d.png" alt="Essen" class="w-11 h-11 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.14)]">
+                </div>
+                <div class="flex-1 min-w-0 pr-1">
+                    <div class="flex items-center justify-between gap-2 mb-0.5">
+                        <div class="font-bold text-[15px] tracking-[-0.015em] text-primary-role truncate" id="t-hero-food-title">
                             Hunger & Essen
                         </div>
-                        <p class="text-[13px] text-secondary-role leading-snug mt-0.5" id="t-hero-food-sub">
-                            Kochen, bestellen oder essen gehen
-                        </p>
+                        <span class="text-[11px] font-semibold text-secondary-role surface-raised px-2 py-0.5 rounded-full shrink-0" id="t-hero-food-btn">~30s</span>
                     </div>
-                </div>
-                <div class="px-3 py-1.5 rounded-[8px] bg-[#E05A3A]/10 dark:bg-[#E86A4B]/15 text-[#D04829] dark:text-[#F48265] border border-[#E05A3A]/20 dark:border-[#E86A4B]/25 group-hover:bg-[#E05A3A]/18 dark:group-hover:bg-[#E86A4B]/25 transition-colors text-xs font-medium shrink-0 flex items-center gap-1">
-                    <span id="t-hero-food-btn">Starten</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    <p class="text-[13px] font-medium text-secondary-role truncate mb-1.5" id="t-hero-food-sub">
+                        Kochen, bestellen oder essen gehen
+                    </p>
+                    <div class="flex items-center gap-3 text-[11.5px] font-medium text-secondary-role">
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-coral)]"></span>Kochen</span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-amber)]"></span>Bestellen</span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-blue)]"></span>8 Ideen</span>
+                    </div>
                 </div>
             </button>
 
             <!-- 2. Film & Serie -->
-            <button onclick="startGame('streaming')" class="w-full p-4 rounded-[14px] row-card text-left flex items-center justify-between group">
-                <div class="flex items-center gap-3.5">
-                    <div class="w-11 h-11 rounded-[10px] bg-[#0071E3]/12 dark:bg-[#3898FF]/15 text-[#0066CC] dark:text-[#66B2FF] flex items-center justify-center shrink-0">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg>
-                    </div>
-                    <div>
-                        <div class="font-semibold text-[15px] text-primary-role leading-snug" id="t-hero-movie-title">
+            <button onclick="startGame('streaming')" class="w-full p-2.5 rounded-[20px] row-card text-left flex items-center gap-3.5 group">
+                <div class="w-[70px] h-[70px] rounded-[15px] surface-raised flex items-center justify-center shrink-0">
+                    <img src="options_gallery/images/clapper_board_3d.png" alt="Film & Couch" class="w-11 h-11 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.14)]">
+                </div>
+                <div class="flex-1 min-w-0 pr-1">
+                    <div class="flex items-center justify-between gap-2 mb-0.5">
+                        <div class="font-bold text-[15px] tracking-[-0.015em] text-primary-role truncate" id="t-hero-movie-title">
                             Film & Couch
                         </div>
-                        <p class="text-[13px] text-secondary-role leading-snug mt-0.5" id="t-hero-movie-sub">
-                            Filme, Serien und Genres für heute Abend
-                        </p>
+                        <span class="text-[11px] font-semibold text-secondary-role surface-raised px-2 py-0.5 rounded-full shrink-0" id="t-hero-movie-btn">~30s</span>
                     </div>
-                </div>
-                <div class="px-3 py-1.5 rounded-[8px] bg-[#0071E3]/10 dark:bg-[#3898FF]/15 text-[#0066CC] dark:text-[#66B2FF] border border-[#0071E3]/20 dark:border-[#3898FF]/25 group-hover:bg-[#0071E3]/18 dark:group-hover:bg-[#3898FF]/25 transition-colors text-xs font-medium shrink-0 flex items-center gap-1">
-                    <span id="t-hero-movie-btn">Starten</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    <p class="text-[13px] font-medium text-secondary-role truncate mb-1.5" id="t-hero-movie-sub">
+                        Filme, Serien und Genres für heute Abend
+                    </p>
+                    <div class="flex items-center gap-3 text-[11.5px] font-medium text-secondary-role">
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-amber)]"></span>Blockbuster</span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-blue)]"></span>Serie</span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-green)]"></span>Doku</span>
+                    </div>
                 </div>
             </button>
 
             <!-- 3. Haushalt & Aufgaben -->
-            <button onclick="startGame('chores')" class="w-full p-4 rounded-[14px] row-card text-left flex items-center justify-between group">
-                <div class="flex items-center gap-3.5">
-                    <div class="w-11 h-11 rounded-[10px] bg-[#16A34A]/12 dark:bg-[#22C55E]/15 text-[#15803D] dark:text-[#4ADE80] flex items-center justify-center shrink-0">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-                    </div>
-                    <div>
-                        <div class="font-semibold text-[15px] text-primary-role leading-snug" id="t-hero-chores-title">
+            <button onclick="startGame('chores')" class="w-full p-2.5 rounded-[20px] row-card text-left flex items-center gap-3.5 group">
+                <div class="w-[70px] h-[70px] rounded-[15px] surface-raised flex items-center justify-center shrink-0">
+                    <img src="options_gallery/images/bed_3d.png" alt="Haushalt" class="w-11 h-11 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.14)]">
+                </div>
+                <div class="flex-1 min-w-0 pr-1">
+                    <div class="flex items-center justify-between gap-2 mb-0.5">
+                        <div class="font-bold text-[15px] tracking-[-0.015em] text-primary-role truncate" id="t-hero-chores-title">
                             Aufgaben aufteilen
                         </div>
-                        <p class="text-[13px] text-secondary-role leading-snug mt-0.5" id="t-hero-chores-sub">
-                            Haushalt und Erledigungen fair klären
-                        </p>
+                        <span class="text-[11px] font-semibold text-secondary-role surface-raised px-2 py-0.5 rounded-full shrink-0" id="t-hero-chores-btn">50/50</span>
                     </div>
-                </div>
-                <div class="px-3 py-1.5 rounded-[8px] bg-[#16A34A]/10 dark:bg-[#22C55E]/15 text-[#15803D] dark:text-[#4ADE80] border border-[#16A34A]/20 dark:border-[#22C55E]/25 group-hover:bg-[#16A34A]/18 dark:group-hover:bg-[#22C55E]/25 transition-colors text-xs font-medium shrink-0 flex items-center gap-1">
-                    <span id="t-hero-chores-btn">Aufteilen</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    <p class="text-[13px] font-medium text-secondary-role truncate mb-1.5" id="t-hero-chores-sub">
+                        Haushalt und Erledigungen fair klären
+                    </p>
+                    <div class="flex items-center gap-3 text-[11.5px] font-medium text-secondary-role">
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-blue)]"></span>Küche</span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-coral)]"></span>Wäsche</span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-green)]"></span>Anti-Match</span>
+                    </div>
                 </div>
             </button>
         </div>
 
-        <!-- Custom Poll Action + More Decks -->
-        <div class="w-full flex flex-col gap-2">
-            <button onclick="openCustomDeckModal()" class="w-full px-4 py-3.5 rounded-[12px] row-card flex items-center justify-between text-left">
+        <!-- Custom Poll Action + All 17 Decks Accordion -->
+        <div class="w-full flex flex-col gap-2.5">
+            <button onclick="openCustomDeckModal()" class="w-full px-4 py-3.5 rounded-[20px] row-card flex items-center justify-between text-left">
                 <div class="flex items-center gap-3.5">
-                    <div class="w-5 h-5 flex items-center justify-center text-accent-role shrink-0">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                    <div class="w-9 h-9 rounded-[12px] surface-raised flex items-center justify-center text-primary-role shrink-0">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                     </div>
                     <div>
-                        <div class="font-medium text-[14px] text-primary-role" id="t-custom-btn-title">
+                        <div class="font-bold text-[14px] text-primary-role" id="t-custom-btn-title">
                             Eigene Abstimmung erstellen
                         </div>
                         <p class="text-[12px] text-secondary-role mt-0.5" id="t-custom-btn-sub">
@@ -391,18 +533,18 @@
                         </p>
                     </div>
                 </div>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-muted-role shrink-0"><path d="m9 18 6-6-6-6"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="text-muted-role shrink-0"><path d="m9 18 6-6-6-6"/></svg>
             </button>
 
-            <details class="w-full rounded-[12px] surface px-4 py-3 text-left group">
-                <summary class="cursor-pointer list-none flex items-center justify-between text-[13px] font-medium text-secondary-role hover:text-primary-role">
-                    <span class="flex items-center gap-3.5">
+            <details class="w-full rounded-[20px] surface px-4 py-3.5 text-left group">
+                <summary class="cursor-pointer list-none flex items-center justify-between text-[13.5px] font-bold text-secondary-role hover:text-primary-role">
+                    <span class="flex items-center gap-3">
                         <span class="w-5 h-5 flex items-center justify-center text-muted-role">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
                         </span>
-                        <span id="t-all-categories-toggle">Alle Themenbereiche anzeigen</span>
+                        <span id="t-all-categories-toggle">Alle 17 Themenbereiche anzeigen</span>
                     </span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-muted-role group-open:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="text-muted-role group-open:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
                 </summary>
                 
                 <div class="mt-3 pt-3 border-t border-[var(--border)] space-y-3">
@@ -413,6 +555,9 @@
                 </div>
             </details>
         </div>
+
+        <!-- Cal AI Floating Circular + FAB -->
+        <button onclick="openCustomDeckModal()" class="fab-plus" title="Eigene Abstimmung erstellen" aria-label="Eigene Abstimmung erstellen">+</button>
     </main>
 
     <!-- SCREEN 1B: CUSTOM QUICK-DECK CREATOR -->
@@ -466,79 +611,92 @@
         </div>
     </main>
 
-    <!-- SCREEN 2: SWIPE ARENA (With Agreesy Signature Convergence Detail) -->
-    <main id="screen-game" class="w-full flex-1 flex flex-col justify-between items-center pt-3 pb-2 hidden">
-        <div class="w-full space-y-3">
+    <!-- SCREEN 2: SWIPE ARENA (Cal AI Nutrition Sheet Layout) -->
+    <main id="screen-game" class="w-full flex-1 flex flex-col justify-between items-center pt-2 pb-2 hidden">
+        <div class="w-full space-y-2">
             <!-- Player 2 Context Banner -->
-            <div id="p2-live-indicator" class="hidden w-full py-2 px-3 rounded-[8px] surface-raised text-secondary-role text-[12px] font-medium flex items-center justify-between">
+            <div id="p2-live-indicator" class="hidden w-full py-2 px-3.5 rounded-full surface text-secondary-role text-[12px] font-semibold flex items-center justify-between">
                 <span id="p2-live-text">Dein Gegenüber hat vorgelegt</span>
-                <span class="w-1.5 h-1.5 rounded-full bg-[#E05A3A]"></span>
+                <span class="w-2 h-2 rounded-full bg-[var(--ring-green)]"></span>
             </div>
 
-            <div class="flex justify-between items-center text-[12px] font-mono tabular-nums text-secondary-role">
-                <div class="flex items-center gap-2">
-                    <span id="game-progress-text">01 / 08</span>
-                    <span class="text-muted-role">·</span>
-                    <span id="game-mode-pill" class="font-sans text-muted-role">Auswahl</span>
-                </div>
-                <div class="flex items-center gap-1.5 text-secondary-role">
-                    <span id="timer-display">30</span><span>s</span>
-                </div>
-            </div>
-
-            <!-- SIGNATURE DETAIL: Two Convergence Dots moving toward center as cards progress -->
-            <div class="w-full h-4 flex items-center relative">
-                <div class="w-full h-[1px] bg-[var(--border-strong)] relative">
-                    <div id="timer-bar" class="h-[1px] bg-[var(--text-muted)] transition-colors duration-300" style="width: 100%"></div>
-                </div>
-                <div id="sig-dot-left" class="w-2 h-2 rounded-full bg-[var(--text-primary)] absolute transition-[left] duration-300 ease-out" style="left: 0%"></div>
-                <div id="sig-dot-right" class="w-2 h-2 rounded-full bg-[#E05A3A] absolute transition-[right] duration-300 ease-out" style="right: 0%"></div>
+            <!-- Hidden legacy convergence hooks so JS stays 100% error-free -->
+            <div class="hidden">
+                <div id="sig-dot-left"></div>
+                <div id="sig-dot-right"></div>
+                <span id="card-index-mono">01</span>
             </div>
         </div>
 
-        <!-- Card Stack -->
-        <div class="relative w-full flex items-center justify-center my-4">
-            <div id="stack-next-card" class="w-full h-[390px] rounded-[18px] surface absolute z-0 pointer-events-none transition-[transform,opacity] duration-200" style="transform: translateY(8px) scale(0.96); opacity: 0.5;"></div>
+        <!-- Card Stack (Cal AI Visual Stage + Sheet Card) -->
+        <div class="relative w-full flex items-center justify-center my-2">
+            <div id="stack-next-card" class="w-full h-[430px] rounded-[28px] surface absolute z-0 pointer-events-none transition-[transform,opacity] duration-200" style="transform: translateY(8px) scale(0.96); opacity: 0.45;"></div>
 
-            <div id="active-card" class="w-full h-[390px] rounded-[18px] p-6 flex flex-col justify-between items-center text-center surface relative z-10 overflow-hidden card-enter">
-                <div class="w-full flex items-center justify-between">
-                    <span id="card-tag" class="text-[12px] font-medium text-secondary-role px-2.5 py-1 rounded-[6px] surface-raised">
-                        Kategorie
-                    </span>
-                    <span id="card-index-mono" class="text-[12px] font-mono tabular-nums text-muted-role">
-                        01
-                    </span>
-                </div>
+            <div id="active-card" class="w-full rounded-[28px] surface relative z-10 overflow-hidden card-enter flex flex-col text-left">
+                <!-- Upper Visual Stage with Floating Callout Pills -->
+                <div class="w-full h-[188px] relative flex items-center justify-center overflow-hidden border-b border-[var(--border)]" style="background: var(--stage-bg);">
+                    <!-- Top-Left Floating Callout Pill -->
+                    <div class="absolute top-3.5 left-3.5 px-3 py-1.5 rounded-full text-[11.5px] font-bold text-primary-role inline-flex items-center gap-1.5 border border-[var(--border)] shadow-sm backdrop-blur-md" style="background: var(--callout-bg);">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-coral)]"></span>
+                        <span id="card-tag">Kategorie</span>
+                    </div>
 
-                <div class="my-auto w-full flex flex-col items-center justify-center py-2">
-                    <div id="card-visual-wrapper" class="relative w-24 h-24 mb-3 flex items-center justify-center">
-                        <div class="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(224,90,58,0.18)_0%,rgba(0,0,0,0)_70%)] pointer-events-none"></div>
-                        <img id="card-image" src="" alt="" class="w-20 h-20 object-contain drop-shadow-[0_8px_18px_rgba(0,0,0,0.35)] relative z-10 transition-transform duration-200">
+                    <!-- Centered 3D Artwork -->
+                    <div id="card-visual-wrapper" class="relative w-28 h-28 flex items-center justify-center">
+                        <img id="card-image" src="" alt="" class="w-24 h-24 object-contain drop-shadow-[0_14px_24px_rgba(0,0,0,0.2)] relative z-10 transition-transform duration-200">
                         <span id="card-emoji" class="text-5xl hidden relative z-10"></span>
                     </div>
-                    <h2 id="card-title" class="text-[22px] font-semibold tracking-tight leading-snug mb-1.5 text-primary-role max-w-[280px]">
-                        Option
-                    </h2>
-                    <p id="card-desc" class="text-[13.5px] text-secondary-role leading-relaxed max-w-[290px]">
-                        Beschreibung
-                    </p>
+
+                    <!-- Bottom-Right Floating Callout Pill -->
+                    <div class="absolute bottom-3.5 right-3.5 px-3 py-1.5 rounded-full text-[11.5px] font-bold text-primary-role inline-flex items-center gap-1.5 border border-[var(--border)] shadow-sm backdrop-blur-md" style="background: var(--callout-bg);">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-green)]"></span>
+                        <span id="game-mode-pill">Auswahl</span>
+                    </div>
                 </div>
 
-                <div class="w-full flex justify-between items-center text-[12px] font-medium text-muted-role pt-3 border-t border-[var(--border)]">
-                    <span id="t-nope-hint">← Nee, kein Bock</span>
-                    <span id="t-like-hint" class="text-[#16A34A]">Geil! →</span>
+                <!-- Lower Sheet Content -->
+                <div class="p-5 flex flex-col justify-between flex-1">
+                    <div>
+                        <div class="flex items-start justify-between gap-3 mb-2">
+                            <h2 id="card-title" class="text-[21px] font-extrabold tracking-[-0.03em] leading-[1.2] text-primary-role">
+                                Option
+                            </h2>
+                            <div class="px-3 py-1 rounded-full border border-[var(--border-strong)] text-[12px] font-bold tabular-nums text-primary-role shrink-0" id="game-progress-text">
+                                01 / 08
+                            </div>
+                        </div>
+                        <p id="card-desc" class="text-[13.5px] text-secondary-role leading-relaxed mb-4">
+                            Beschreibung
+                        </p>
+                    </div>
+
+                    <!-- Cal AI Progress / Timer Bar Card -->
+                    <div class="w-full rounded-[16px] surface-raised p-3 mb-3">
+                        <div class="flex items-center justify-between text-[11.5px] font-bold mb-1.5">
+                            <span class="text-secondary-role">Runden-Zeit</span>
+                            <span class="text-primary-role tabular-nums"><span id="timer-display">30</span>s</span>
+                        </div>
+                        <div class="w-full h-1.5 rounded-full overflow-hidden" style="background: var(--ring-track);">
+                            <div id="timer-bar" class="h-full rounded-full transition-all duration-300" style="width: 100%; background: var(--ring-green);"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-full flex justify-between items-center text-[11.5px] font-semibold text-muted-role pt-1">
+                        <span id="t-nope-hint">← Nee, kein Bock</span>
+                        <span id="t-like-hint" class="text-primary-role">Geil! →</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Decision Controls (Nested Radii 10px, Clean Line Icons) -->
+        <!-- Cal AI Signature Bottom Button Pair: Outline Pill Left, Solid Monochrome Pill Right -->
         <div class="w-full grid grid-cols-2 gap-3 pb-1">
-            <button onclick="handleSwipe(false)" id="btn-swipe-no" class="h-12 rounded-[10px] btn-secondary flex items-center justify-center gap-2 text-[14px] font-medium" aria-label="Nee, kein Bock">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            <button onclick="handleSwipe(false)" id="btn-swipe-no" class="h-[50px] rounded-full btn-secondary flex items-center justify-center gap-2 text-[14.5px] font-bold" aria-label="Nee, kein Bock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 <span id="t-btn-swipe-no">Nee, kein Bock</span>
             </button>
-            <button onclick="handleSwipe(true)" id="btn-swipe-yes" class="h-12 rounded-[10px] bg-[#16A34A] hover:bg-[#15803D] text-white transition-colors flex items-center justify-center gap-2 text-[14px] font-medium" aria-label="Geil!">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <button onclick="handleSwipe(true)" id="btn-swipe-yes" class="h-[50px] rounded-full btn-primary flex items-center justify-center gap-2 text-[14.5px] font-bold" aria-label="Geil!">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
                 <span id="t-btn-swipe-yes">Geil!</span>
             </button>
         </div>
@@ -546,61 +704,61 @@
 
     <!-- SCREEN 3: PLAYER 1 DONE -> SHARE LINK -->
     <main id="screen-share" class="w-full flex-1 flex flex-col justify-center items-start text-left my-4 hidden">
-        <div class="w-10 h-10 rounded-[10px] surface-raised text-primary-role flex items-center justify-center mb-4">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <div class="w-11 h-11 rounded-[14px] surface-raised text-primary-role flex items-center justify-center mb-4">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
         </div>
-        <h2 class="text-[22px] font-medium tracking-tight text-primary-role mb-1.5" id="t-share-title">Deine Auswahl steht</h2>
+        <h2 class="text-[24px] font-extrabold tracking-[-0.03em] text-primary-role mb-1.5" id="t-share-title">Deine Auswahl steht</h2>
         <p class="text-[14px] text-secondary-role mb-6 leading-relaxed" id="t-share-sub">
             Teile den Link mit deinem Gegenüber. Sobald beide durch sind, seht ihr eure Übereinstimmung
         </p>
 
-        <div class="w-full surface rounded-[12px] p-4 mb-4">
-            <label for="share-url-input" class="block text-[12px] text-secondary-role font-medium mb-2" id="t-share-link-label">Einladungslink</label>
-            <input id="share-url-input" type="text" readonly class="w-full surface-raised text-[12px] text-primary-role font-mono p-3 rounded-[8px] focus:outline-none" value="">
+        <div class="w-full surface rounded-[20px] p-4 mb-4">
+            <label for="share-url-input" class="block text-[12px] text-secondary-role font-semibold mb-2" id="t-share-link-label">Einladungslink</label>
+            <input id="share-url-input" type="text" readonly class="w-full surface-raised text-[12px] text-primary-role font-mono p-3 rounded-[12px] focus:outline-none" value="">
         </div>
 
         <div class="w-full space-y-2.5">
-            <button onclick="shareViaWhatsApp()" class="w-full h-11 rounded-[10px] btn-primary font-medium text-[14px] flex items-center justify-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+            <button onclick="shareViaWhatsApp()" class="w-full h-12 rounded-full btn-primary font-bold text-[14.5px] flex items-center justify-center gap-2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
                 <span id="t-wa-btn">Per WhatsApp teilen</span>
             </button>
 
-            <button onclick="copyShareLink()" id="copy-btn" class="w-full h-11 rounded-[10px] btn-secondary font-medium text-[13px] flex items-center justify-center gap-2">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            <button onclick="copyShareLink()" id="copy-btn" class="w-full h-12 rounded-full btn-secondary font-bold text-[13.5px] flex items-center justify-center gap-2">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                 <span id="t-copy-btn">Link kopieren</span>
             </button>
         </div>
 
-        <button onclick="simulatePartnerRightHere()" class="mt-5 text-[13px] text-secondary-role hover:text-primary-role underline underline-offset-4">
+        <button onclick="simulatePartnerRightHere()" class="mt-5 text-[13px] font-semibold text-secondary-role hover:text-primary-role underline underline-offset-4">
             <span id="t-pass-phone">Gerät direkt weitergeben</span>
         </button>
     </main>
 
     <!-- SCREEN 3B: PLAYER 1 SELECTED 0 LIKES (FALL A) -->
     <main id="screen-p1-zero" class="w-full flex-1 flex flex-col justify-center items-start text-left my-4 hidden">
-        <div class="w-10 h-10 rounded-[10px] surface-raised text-secondary-role flex items-center justify-center mb-4">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+        <div class="w-11 h-11 rounded-[14px] surface-raised text-secondary-role flex items-center justify-center mb-4">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
         </div>
-        <h2 class="text-[22px] font-medium tracking-tight text-primary-role mb-1.5" id="t-p1zero-title">Noch nichts Passendes dabei</h2>
+        <h2 class="text-[24px] font-extrabold tracking-[-0.03em] text-primary-role mb-1.5" id="t-p1zero-title">Noch nichts Passendes dabei</h2>
         <p class="text-[14px] text-secondary-role mb-5 leading-relaxed" id="t-p1zero-sub">
             Du hast bisher keine Karte ausgewählt. Zieh acht frische Vorschläge oder ergänze eine eigene Idee für diese Runde
         </p>
 
-        <button onclick="startFreshShuffleRound()" class="w-full h-11 rounded-[10px] btn-primary font-medium text-[14px] mb-4 flex items-center justify-center gap-2">
+        <button onclick="startFreshShuffleRound()" class="w-full h-12 rounded-full btn-primary font-bold text-[14.5px] mb-4 flex items-center justify-center gap-2">
             <span id="t-p1zero-fresh-btn">Acht neue Vorschläge ziehen</span>
         </button>
 
-        <div class="w-full surface rounded-[12px] p-4 mb-3">
-            <label for="p1-custom-idea-input" class="block text-[12px] text-secondary-role font-medium mb-2" id="t-p1zero-idea-label">
+        <div class="w-full surface rounded-[20px] p-4 mb-3">
+            <label for="p1-custom-idea-input" class="block text-[12px] text-secondary-role font-semibold mb-2" id="t-p1zero-idea-label">
                 Eigene Idee in diese Runde einfügen
             </label>
-            <input id="p1-custom-idea-input" type="text" maxlength="60" placeholder="z.B. Lieblings-Italiener, Sushi, ein Film" class="w-full surface-raised text-[13px] text-primary-role px-3.5 py-2.5 rounded-[8px] focus:outline-none focus:border-[var(--text-secondary)] mb-2.5">
-            <button onclick="injectPlayer1CustomIdea()" class="w-full h-10 rounded-[8px] btn-secondary font-medium text-[13px]">
+            <input id="p1-custom-idea-input" type="text" maxlength="60" placeholder="z.B. Lieblings-Italiener, Sushi, ein Film" class="w-full surface-raised text-[13px] text-primary-role px-3.5 py-2.5 rounded-[12px] focus:outline-none focus:border-[var(--text-secondary)] mb-2.5">
+            <button onclick="injectPlayer1CustomIdea()" class="w-full h-11 rounded-full btn-secondary font-bold text-[13px]">
                 <span id="t-p1zero-inject-btn">Idee einfügen und Link erstellen</span>
             </button>
         </div>
 
-        <button onclick="resetToHome()" class="w-full py-2.5 text-[13px] text-secondary-role hover:text-primary-role transition-colors text-center">
+        <button onclick="resetToHome()" class="w-full py-2.5 text-[13px] font-semibold text-secondary-role hover:text-primary-role transition-colors text-center">
             <span id="t-p1zero-back-btn">Zurück zur Übersicht</span>
         </button>
     </main>
@@ -609,50 +767,48 @@
     <div id="screen-suspense" class="fixed inset-0 z-40 bg-[var(--bg)] hidden flex flex-col items-center justify-center p-6 text-center">
         <div class="flex items-center gap-1.5 mb-4">
             <span class="w-2.5 h-2.5 rounded-full bg-[var(--text-primary)]"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-[#E05A3A]"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[var(--ring-green)]"></span>
         </div>
-        <h3 class="text-[18px] font-medium tracking-tight text-primary-role mb-1" id="t-matching-title">Abgleich läuft</h3>
+        <h3 class="text-[18px] font-extrabold tracking-tight text-primary-role mb-1" id="t-matching-title">Abgleich läuft</h3>
         <p class="text-[13px] text-secondary-role" id="t-matching-sub">Gemeinsame Auswahl wird ausgewertet</p>
     </div>
 
     <!-- SCREEN 4: SHARED DECISION (WINNER SCREEN) -->
     <main id="screen-match" class="w-full flex-1 flex flex-col justify-center items-start text-left my-4 hidden">
-        <div class="flex items-center gap-2 text-[12px] font-medium text-[#349B6B] mb-1.5">
-            <span class="w-2 h-2 rounded-full bg-[#349B6B]"></span>
+        <div class="inline-flex items-center gap-2 text-[12px] font-bold text-primary-role surface-raised px-3 py-1 rounded-full mb-2">
+            <span class="w-2 h-2 rounded-full bg-[var(--ring-green)]"></span>
             <span id="t-match-badge">Übereinstimmung</span>
         </div>
-        <h2 class="text-[24px] font-medium tracking-tight text-primary-role mb-0.5" id="t-match-title">Gemeinsame Wahl</h2>
+        <h2 class="text-[26px] font-extrabold tracking-[-0.03em] text-primary-role mb-0.5" id="t-match-title">Gemeinsame Wahl</h2>
         <p class="text-[13px] text-secondary-role mb-5" id="winner-parties">Person 1 & Person 2</p>
 
-        <!-- Winner Card (The One Bright Moment on Screen) -->
-        <div id="winner-card" class="w-full rounded-[18px] p-6 mb-5 flex flex-col items-center text-center surface border-[#16A34A]/30">
+        <!-- Winner Card -->
+        <div id="winner-card" class="w-full rounded-[24px] p-6 mb-5 flex flex-col items-center text-center surface">
             <div class="relative w-24 h-24 mb-3 flex items-center justify-center">
-                <div class="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(224,90,58,0.22)_0%,rgba(0,0,0,0)_70%)] pointer-events-none"></div>
-                <img id="winner-image" src="" alt="" class="w-20 h-20 object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.45)] relative z-10">
+                <img id="winner-image" src="" alt="" class="w-20 h-20 object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.22)] relative z-10">
                 <span id="winner-emoji" class="text-5xl hidden relative z-10"></span>
             </div>
-            <h3 id="winner-title" class="text-[22px] font-semibold tracking-tight text-primary-role mb-1.5 max-w-[280px]">Auswahl</h3>
+            <h3 id="winner-title" class="text-[22px] font-extrabold tracking-[-0.025em] text-primary-role mb-1.5 max-w-[280px]">Auswahl</h3>
             <p id="winner-desc" class="text-[14px] text-secondary-role leading-relaxed max-w-[290px]">Beschreibung</p>
         </div>
 
         <div class="w-full space-y-2.5">
-            <!-- Monte & Hormozi Action Button: Big, Unmissable, High-Intent Call to Action -->
-            <a id="winner-action-btn" href="#" target="_blank" rel="noopener" class="w-full h-12 py-3 px-4 rounded-[12px] bg-[#E05A3A] hover:bg-[#F07153] text-white font-semibold text-[15px] flex items-center justify-center gap-2 shadow-lg shadow-[#E05A3A]/25 transition-all transform active:scale-95">
+            <a id="winner-action-btn" href="#" target="_blank" rel="noopener" class="w-full h-12 py-3 px-4 rounded-full btn-primary font-bold text-[14.5px] flex items-center justify-center gap-2">
                 <span id="winner-action-text">Direkt öffnen</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
             </a>
 
-            <a id="winner-secondary-deal-btn" href="#" target="_blank" rel="noopener" class="w-full h-10 rounded-[10px] surface-raised hover:bg-[#383E4E] text-primary-role font-medium text-[13px] flex items-center justify-center gap-2 transition-colors">
+            <a id="winner-secondary-deal-btn" href="#" target="_blank" rel="noopener" class="w-full h-11 rounded-full surface-raised text-primary-role font-semibold text-[13px] flex items-center justify-center gap-2 transition-colors">
                 <span id="winner-secondary-deal-text">Passende Bestseller &amp; Zutaten ansehen</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
             </a>
 
-            <button onclick="sendWinnerToPartner()" class="w-full h-11 rounded-[10px] btn-secondary font-medium text-[13px] flex items-center justify-center gap-2">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+            <button onclick="sendWinnerToPartner()" class="w-full h-12 rounded-full btn-secondary font-bold text-[13.5px] flex items-center justify-center gap-2">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
                 <span id="t-notify-partner">Ergebnis per WhatsApp teilen</span>
             </button>
 
-            <button onclick="continueSwiping()" id="btn-continue-swiping" class="w-full py-2.5 text-[13px] font-normal text-secondary-role hover:text-primary-role transition-colors text-center">
+            <button onclick="continueSwiping()" id="btn-continue-swiping" class="w-full py-2.5 text-[13px] font-semibold text-secondary-role hover:text-primary-role transition-colors text-center">
                 Weitere Karten vergleichen
             </button>
         </div>
@@ -909,17 +1065,17 @@
         </div>
     </div>
 
-    <!-- Modular Scripts mit Cache-Bust v26 -->
-    <script src="js/theme.js?v=26"></script>
-    <script src="js/i18n.js?v=26"></script>
-    <script src="js/fluent_map.js?v=26"></script>
-    <script src="js/decks.js?v=26"></script>
-    <script src="js/logos.js?v=26"></script>
-    <script src="js/app.js?v=26"></script>
+    <!-- Modular Scripts mit Cache-Bust v27 -->
+    <script src="js/theme.js?v=27"></script>
+    <script src="js/i18n.js?v=27"></script>
+    <script src="js/fluent_map.js?v=27"></script>
+    <script src="js/decks.js?v=27"></script>
+    <script src="js/logos.js?v=27"></script>
+    <script src="js/app.js?v=27"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=15')
+                navigator.serviceWorker.register('./sw.js?v=16')
                     .then(reg => {
                         reg.update();
                     })
