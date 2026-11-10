@@ -98,6 +98,19 @@
             <div class="flex items-center gap-2">
                 <button onclick="toggleTheme()" id="theme-toggle-btn" class="w-8 h-8 rounded-full surface flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors" aria-label="Darstellung wechseln">
                 </button>
+                <div class="relative" id="g-lang-wrapper">
+                    <button onclick="toggleGuidesLangMenu(event)" id="g-lang-btn" class="surface rounded-full px-2.5 h-8 text-xs font-semibold flex items-center gap-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+                        <span id="g-lang-label">DE</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div id="g-lang-menu" class="hidden absolute right-0 mt-2 w-36 surface rounded-[16px] p-1.5 z-50 space-y-0.5">
+                        <button onclick="setGuidesLang('de')" class="w-full text-left px-2.5 py-2 rounded-[10px] text-xs font-medium flex items-center justify-between hover:bg-[var(--surface-raised)]"><span>Deutsch</span><span class="text-[11px] font-mono opacity-60">DE</span></button>
+                        <button onclick="setGuidesLang('en')" class="w-full text-left px-2.5 py-2 rounded-[10px] text-xs font-medium flex items-center justify-between hover:bg-[var(--surface-raised)]"><span>English</span><span class="text-[11px] font-mono opacity-60">EN</span></button>
+                        <button onclick="setGuidesLang('es')" class="w-full text-left px-2.5 py-2 rounded-[10px] text-xs font-medium flex items-center justify-between hover:bg-[var(--surface-raised)]"><span>Español</span><span class="text-[11px] font-mono opacity-60">ES</span></button>
+                        <button onclick="setGuidesLang('fr')" class="w-full text-left px-2.5 py-2 rounded-[10px] text-xs font-medium flex items-center justify-between hover:bg-[var(--surface-raised)]"><span>Français</span><span class="text-[11px] font-mono opacity-60">FR</span></button>
+                        <button onclick="setGuidesLang('it')" class="w-full text-left px-2.5 py-2 rounded-[10px] text-xs font-medium flex items-center justify-between hover:bg-[var(--surface-raised)]"><span>Italiano</span><span class="text-[11px] font-mono opacity-60">IT</span></button>
+                    </div>
+                </div>
                 <a href="/" id="g-back-btn" class="px-3.5 h-8 rounded-full surface text-[12.5px] font-bold inline-flex items-center gap-1.5 hover:bg-[var(--surface-raised)] transition-colors">
                     ← Zurück
                 </a>
@@ -223,33 +236,184 @@
 
     <script src="js/theme.js?v=29"></script>
     <script>
-        (function initGuidesI18n() {
-            const lang = localStorage.getItem('syncswipe_lang') || 'de';
-            if (lang === 'en') {
-                document.getElementById('g-back-btn').textContent = '← Back';
-                document.getElementById('g-badge').textContent = 'Partners & Ideas';
-                document.getElementById('g-title').textContent = 'Matching ideas for your pick';
-                document.getElementById('g-sub').textContent = 'Once you both agree in 30 seconds, explore matching delivery services, meal kits, streaming highlights, and weekend getaways.';
-                document.getElementById('g-s1-tag').textContent = 'Food & Dinner';
-                document.getElementById('g-s1-title').textContent = 'Order delivery or cook fresh together';
-                document.getElementById('g-s1-desc').textContent = 'Order your matched dish right to your door or get fresh ingredients delivered as a meal kit.';
-                document.getElementById('g-s1-btn1').textContent = 'Order food delivery →';
-                document.getElementById('g-s1-btn2').textContent = 'HelloFresh Meal Kits →';
-                document.getElementById('g-s1-btn3').textContent = 'Couple Cookbooks & Kits (Amazon) →';
-                document.getElementById('g-s2-tag').textContent = 'Movies & Couch';
-                document.getElementById('g-s2-title').textContent = 'Movie Night & Streaming';
-                document.getElementById('g-s2-desc').textContent = 'Whether you matched on thriller, comedy, sci-fi, or a new series, stream top picks directly or grab a movie snack box.';
-                document.getElementById('g-s2-btn1').textContent = 'Prime Video Highlights →';
-                document.getElementById('g-s2-btn2').textContent = 'Movie Night Snack Boxes →';
-                document.getElementById('g-s3-tag').textContent = 'Activities & Getaways';
-                document.getElementById('g-s3-title').textContent = 'Weekend Plans & Date Nights';
-                document.getElementById('g-s3-desc').textContent = 'From spontaneous city trips and spa weekends to escape rooms, live shows, and date night games.';
-                document.getElementById('g-s3-btn1').textContent = 'Activities on GetYourGuide →';
-                document.getElementById('g-s3-btn2').textContent = 'Hotels on Booking.com →';
-                document.getElementById('g-s3-btn3').textContent = 'Live Tickets on Eventim →';
-                document.getElementById('g-s3-btn4').textContent = 'Couple Games (Amazon) →';
-                document.getElementById('g-footer-note').textContent = '* Note: Some links are affiliate partner links. There is no extra cost to you.';
+        const GUIDES_I18N = {
+            de: {
+                back: '← Zurück',
+                badge: 'Partner & Ideen',
+                title: 'Passende Ideen für eure Wahl',
+                sub: 'Sobald ihr euch in 30 Sekunden geeinigt habt, findet ihr hier direkt die passenden Dienste für Lieferessen, Kochboxen, Streaming und Kurztrips.',
+                s1Tag: 'Hunger & Essen',
+                s1Title: 'Bestellen oder frisch zu zweit kochen',
+                s1Desc: 'Bestellt euer Match-Gericht direkt beim Lieferdienst oder lasst euch die frischen Zutaten als Kochbox nach Hause liefern.',
+                s1Btn1: 'Bei Lieferando bestellen →',
+                s1Btn2: 'HelloFresh Kochboxen →',
+                s1Btn3: 'Paar-Kochbücher & Sets (Amazon) →',
+                s2Tag: 'Film & Couch',
+                s2Title: 'Heimkino-Abend & Streaming',
+                s2Desc: 'Wenn eure Wahl auf Thriller, Comedy, Sci-Fi oder Serie gefallen ist, könnt ihr aktuelle Highlights direkt streamen oder mit einer Kino-Snackbox abrunden.',
+                s2Btn1: 'Prime Video Highlights →',
+                s2Btn2: 'Heimkino-Snackboxen →',
+                s3Tag: 'Erlebnisse & Kurztrips',
+                s3Title: 'Unternehmungen am Wochenende',
+                s3Desc: 'Von spontanen Städtetrips und Wellness-Wochenenden bis hin zu Escape-Rooms, Konzerten und Date-Night-Spielen.',
+                s3Btn1: 'Erlebnisse bei GetYourGuide →',
+                s3Btn2: 'Hotels bei Booking.com →',
+                s3Btn3: 'Tickets bei Eventim →',
+                s3Btn4: 'Spiele für Paare (Amazon) →',
+                footerNote: '* Hinweis: Einige Links sind Partner-Links (u. a. Amazon & Skimlinks). Für euch entstehen keine Mehrkosten.'
+            },
+            en: {
+                back: '← Back',
+                badge: 'Partners & Ideas',
+                title: 'Matching ideas for your pick',
+                sub: 'Once you both agree in 30 seconds, explore matching delivery services, meal kits, streaming highlights, and weekend getaways.',
+                s1Tag: 'Food & Dinner',
+                s1Title: 'Order delivery or cook fresh together',
+                s1Desc: 'Order your matched dish right to your door or get fresh ingredients delivered as a meal kit.',
+                s1Btn1: 'Order food delivery →',
+                s1Btn2: 'HelloFresh Meal Kits →',
+                s1Btn3: 'Couple Cookbooks & Kits (Amazon) →',
+                s2Tag: 'Movies & Couch',
+                s2Title: 'Movie Night & Streaming',
+                s2Desc: 'Whether you matched on thriller, comedy, sci-fi, or a new series, stream top picks directly or grab a movie snack box.',
+                s2Btn1: 'Prime Video Highlights →',
+                s2Btn2: 'Movie Night Snack Boxes →',
+                s3Tag: 'Activities & Getaways',
+                s3Title: 'Weekend Plans & Date Nights',
+                s3Desc: 'From spontaneous city trips and spa weekends to escape rooms, live shows, and date night games.',
+                s3Btn1: 'Activities on GetYourGuide →',
+                s3Btn2: 'Hotels on Booking.com →',
+                s3Btn3: 'Live Tickets on Eventim →',
+                s3Btn4: 'Couple Games (Amazon) →',
+                footerNote: '* Note: Some links are affiliate partner links. There is no extra cost to you.'
+            },
+            es: {
+                back: '← Volver',
+                badge: 'Colaboraciones e Ideas',
+                title: 'Ideas para vuestra elección',
+                sub: 'En cuanto os pongáis de acuerdo en 30 segundos, aquí tenéis los mejores servicios de comida a domicilio, kits de cocina, streaming y escapadas.',
+                s1Tag: 'Hambre & Cena',
+                s1Title: 'Pedir a domicilio o cocinar juntos',
+                s1Desc: 'Pedid vuestro plato elegido directamente a domicilio o recibid los ingredientes frescos en casa.',
+                s1Btn1: 'Pedir comida a domicilio →',
+                s1Btn2: 'Kits de cocina HelloFresh →',
+                s1Btn3: 'Libros de cocina en pareja (Amazon) →',
+                s2Tag: 'Peli & Sofá',
+                s2Title: 'Noche de cine y streaming',
+                s2Desc: 'Si habéis coincidido en thriller, comedia, ciencia ficción o serie, podéis ver los estrenos directamente o pedir una caja de snacks de cine.',
+                s2Btn1: 'Estrenos en Prime Video →',
+                s2Btn2: 'Cajas de snacks para cine →',
+                s3Tag: 'Planes & Escapadas',
+                s3Title: 'Planes de fin de semana en pareja',
+                s3Desc: 'Desde escapadas urbanas y fines de semana de spa hasta escape rooms, conciertos y juegos para parejas.',
+                s3Btn1: 'Actividades en GetYourGuide →',
+                s3Btn2: 'Hoteles en Booking.com →',
+                s3Btn3: 'Entradas y eventos →',
+                s3Btn4: 'Juegos para parejas (Amazon) →',
+                footerNote: '* Nota: Algunos enlaces son de afiliados. No suponen ningún coste adicional para vosotros.'
+            },
+            fr: {
+                back: '← Retour',
+                badge: 'Partenaires & Idées',
+                title: 'Des idées adaptées à votre choix',
+                sub: 'Dès que vous êtes tombés d’accord en 30 secondes, retrouvez ici les services de livraison, box à cuisiner, streaming et escapades.',
+                s1Tag: 'Faim & Dîner',
+                s1Title: 'Commander ou cuisiner frais à deux',
+                s1Desc: 'Commandez votre plat commun en livraison ou faites-vous livrer des ingrédients frais en box à cuisiner.',
+                s1Btn1: 'Commander en livraison →',
+                s1Btn2: 'Box repas HelloFresh →',
+                s1Btn3: 'Livres de cuisine en couple (Amazon) →',
+                s2Tag: 'Films & Canapé',
+                s2Title: 'Soirée cinéma & Streaming',
+                s2Desc: 'Que vous ayez choisi thriller, comédie, SF ou série, regardez les nouveautés en streaming ou commandez un coffret snacks cinéma.',
+                s2Btn1: 'Nouveautés Prime Video →',
+                s2Btn2: 'Coffrets snacks soirée ciné →',
+                s3Tag: 'Sorties & Week-ends',
+                s3Title: 'Activités et escapades à deux',
+                s3Desc: 'Des city-trips spontanés et week-ends spa aux escape games, concerts et jeux pour couples.',
+                s3Btn1: 'Activités sur GetYourGuide →',
+                s3Btn2: 'Hôtels sur Booking.com →',
+                s3Btn3: 'Billets & spectacles →',
+                s3Btn4: 'Jeux pour couples (Amazon) →',
+                footerNote: '* Note : Certains liens sont des liens partenaires affiliés, sans aucun coût supplémentaire pour vous.'
+            },
+            it: {
+                back: '← Indietro',
+                badge: 'Partner & Idee',
+                title: 'Idee perfette per la vostra scelta',
+                sub: 'Appena avete trovato un accordo in 30 secondi, ecco i migliori servizi di consegna a domicilio, meal kit, streaming e weekend fuori porta.',
+                s1Tag: 'Fame & Cena',
+                s1Title: 'Ordinare a domicilio o cucinare insieme',
+                s1Desc: 'Ordinate il vostro piatto scelto a domicilio oppure ricevete gli ingredienti freschi direttamente a casa.',
+                s1Btn1: 'Ordina a domicilio →',
+                s1Btn2: 'Box ricette HelloFresh →',
+                s1Btn3: 'Libri di cucina di coppia (Amazon) →',
+                s2Tag: 'Film & Divano',
+                s2Title: 'Serata cinema & Streaming',
+                s2Desc: 'Che abbiate scelto thriller, commedia, sci-fi o serie, guardate i film in streaming o completate la serata con una snack box da cinema.',
+                s2Btn1: 'Novità su Prime Video →',
+                s2Btn2: 'Snack box serata cinema →',
+                s3Tag: 'Esperienze & Weekend',
+                s3Title: 'Programmi per il weekend in coppia',
+                s3Desc: 'Dai viaggi spontanei in città e weekend benessere alle escape room, concerti e giochi di coppia.',
+                s3Btn1: 'Attività su GetYourGuide →',
+                s3Btn2: 'Hotel su Booking.com →',
+                s3Btn3: 'Biglietti ed eventi →',
+                s3Btn4: 'Giochi di coppia (Amazon) →',
+                footerNote: '* Nota: Alcuni link sono link di affiliazione, senza alcun costo aggiuntivo per voi.'
             }
+        };
+
+        function setGuidesLang(lang) {
+            const code = GUIDES_I18N[lang] ? lang : 'de';
+            localStorage.setItem('syncswipe_lang', code);
+            const t = GUIDES_I18N[code];
+            document.documentElement.lang = code;
+            document.getElementById('g-lang-label').textContent = code.toUpperCase();
+            document.getElementById('g-back-btn').textContent = t.back;
+            document.getElementById('g-badge').textContent = t.badge;
+            document.getElementById('g-title').textContent = t.title;
+            document.getElementById('g-sub').textContent = t.sub;
+            document.getElementById('g-s1-tag').textContent = t.s1Tag;
+            document.getElementById('g-s1-title').textContent = t.s1Title;
+            document.getElementById('g-s1-desc').textContent = t.s1Desc;
+            document.getElementById('g-s1-btn1').textContent = t.s1Btn1;
+            document.getElementById('g-s1-btn2').textContent = t.s1Btn2;
+            document.getElementById('g-s1-btn3').textContent = t.s1Btn3;
+            document.getElementById('g-s2-tag').textContent = t.s2Tag;
+            document.getElementById('g-s2-title').textContent = t.s2Title;
+            document.getElementById('g-s2-desc').textContent = t.s2Desc;
+            document.getElementById('g-s2-btn1').textContent = t.s2Btn1;
+            document.getElementById('g-s2-btn2').textContent = t.s2Btn2;
+            document.getElementById('g-s3-tag').textContent = t.s3Tag;
+            document.getElementById('g-s3-title').textContent = t.s3Title;
+            document.getElementById('g-s3-desc').textContent = t.s3Desc;
+            document.getElementById('g-s3-btn1').textContent = t.s3Btn1;
+            document.getElementById('g-s3-btn2').textContent = t.s3Btn2;
+            document.getElementById('g-s3-btn3').textContent = t.s3Btn3;
+            document.getElementById('g-s3-btn4').textContent = t.s3Btn4;
+            document.getElementById('g-footer-note').textContent = t.footerNote;
+            const menu = document.getElementById('g-lang-menu');
+            if (menu) menu.classList.add('hidden');
+        }
+
+        function toggleGuidesLangMenu(e) {
+            if (e) e.stopPropagation();
+            const menu = document.getElementById('g-lang-menu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        document.addEventListener('click', (e) => {
+            const wrapper = document.getElementById('g-lang-wrapper');
+            const menu = document.getElementById('g-lang-menu');
+            if (menu && !menu.classList.contains('hidden') && wrapper && !wrapper.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        (function initGuides() {
+            const savedLang = localStorage.getItem('syncswipe_lang') || 'de';
+            setGuidesLang(savedLang);
             if (typeof setTheme === 'function' && typeof getPreferredTheme === 'function') {
                 setTheme(getPreferredTheme());
             }
