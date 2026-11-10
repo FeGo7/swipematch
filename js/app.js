@@ -502,6 +502,35 @@ function setLang(lang) {
     setText('t-random-pick-btn', t.randomPickBtn);
     setText('t-retry-btn', t.retryBtn);
     setText('t-footer', t.footerText);
+    setText('t-footer-guides', t.footerGuides);
+    setText('t-footer-impressum', t.footerImpressum);
+    setText('t-footer-datenschutz', t.footerDatenschutz);
+
+    // Screen P1 Zero
+    setText('t-p1zero-title', t.p1ZeroTitle);
+    setText('t-p1zero-sub', t.p1ZeroSub);
+    setText('t-p1zero-fresh-btn', t.p1ZeroFreshBtn);
+    setText('t-p1zero-idea-label', t.p1ZeroIdeaLabel);
+    const p1IdeaInput = document.getElementById('p1-custom-idea-input');
+    if (p1IdeaInput) p1IdeaInput.placeholder = t.p1ZeroPlaceholder;
+    setText('t-p1zero-inject-btn', t.p1ZeroInjectBtn);
+    setText('t-p1zero-back-btn', t.retryBtn);
+
+    // Screen Suspense / Matching
+    setText('t-matching-title', t.matchingTitle);
+    setText('t-matching-sub', t.matchingSub);
+
+    // Screen No Match
+    setText('t-nomatch-wa-btn', t.noMatchWaBtn);
+    setText('t-nomatch-idea-label', t.noMatchIdeaLabel);
+    const p2CounterInput = document.getElementById('p2-counter-idea-input');
+    if (p2CounterInput) p2CounterInput.placeholder = t.p1ZeroPlaceholder;
+    setText('t-nomatch-send-btn', t.noMatchSendBtn);
+    setText('t-new-round-btn', t.noMatchNewRoundBtn);
+
+    // Chores & Legal Modals
+    setText('t-chores-deal-text', t.choresDealText);
+    setText('legal-modal-close-btn', t.modalClose);
 
     // 3 Primary Hero Scenarios
     setText('t-hero-food-title', t.heroFoodTitle);
@@ -707,7 +736,7 @@ function renderDeckList() {
                 </div>
             </div>
             <div class="flex items-center gap-2 text-muted-role shrink-0">
-                <span class="text-[11px] font-mono tabular-nums">${isPartnerDeck ? 'Aktiv' : poolText}</span>
+                <span class="text-[11px] font-mono tabular-nums">${isPartnerDeck ? (I18N[currentLang]?.partnerDeckActive || 'Aktiv') : poolText}</span>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </div>
         `;
@@ -1148,7 +1177,9 @@ function injectPlayer1CustomIdea() {
 // Fall B: Spieler 2 gibt per WhatsApp Bescheid, dass es 0 Treffer gab
 function notifyNoMatchViaWhatsApp() {
     const baseUrl = window.location.origin + window.location.pathname;
-    const text = encodeURIComponent(`Wir hatten in dieser Runde leider keine Übereinstimmung 😅 Lass uns 8 frische Karten probieren oder eine neue Runde starten:\n${baseUrl}`);
+    const t = I18N[currentLang];
+    const noMatchMsg = t.waNoMatchText || "Wir hatten in dieser Runde leider keine Übereinstimmung 😅 Lass uns 8 frische Karten probieren oder eine neue Runde starten:";
+    const text = encodeURIComponent(`${noMatchMsg}\n${baseUrl}`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 }
 
@@ -1186,7 +1217,9 @@ function sendCounterIdeaFromNoMatch() {
     const shareUrl = `${baseUrl}#m=${encodedPayload}&from=${encodeURIComponent(myName)}`;
 
     document.getElementById('share-url-input').value = shareUrl;
-    const text = encodeURIComponent(`Wir hatten eben leider keine Übereinstimmung 😅 Ich habe eine neue Runde mit einer eigenen Idee gestartet – wisch mal kurz durch:\n${shareUrl}`);
+    const t = I18N[currentLang];
+    const counterMsg = t.waCounterIdeaText || "Wir hatten eben leider keine Übereinstimmung 😅 Ich habe eine neue Runde mit einer eigenen Idee gestartet – wisch mal kurz durch:";
+    const text = encodeURIComponent(`${counterMsg}\n${shareUrl}`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
     showScreen('screen-share');
 }
@@ -1250,25 +1283,27 @@ function revealMatchScreen(card) {
         const titleStr = card.title[currentLang] || card.title.de || 'Idee';
         const query = encodeURIComponent(card.title.de || card.title.en || titleStr);
 
+        const t = I18N[currentLang] || I18N.de;
         if (cat === 'food') {
             actionBtn.href = `https://www.lieferando.de/lieferservice/essen/${query}`;
-            actionText.innerText = `${titleStr} bei Lieferando bestellen`;
+            actionText.innerText = `${titleStr} ${t.winnerOrderFood || 'bei Lieferando bestellen'}`;
             if (secondaryBtn && secondaryText) {
                 secondaryBtn.href = `https://www.amazon.de/s?k=${query}+zutaten+kochbuch&tag=f05b1-21`;
-                secondaryText.innerText = `Zutaten & Koch-Sets für ${titleStr} (Amazon)`;
+                const secPattern = t.winnerFoodSecondary || 'Zutaten & Koch-Sets für {title} (Amazon)';
+                secondaryText.innerText = secPattern.replace('{title}', titleStr);
                 secondaryBtn.classList.remove('hidden');
             }
         } else if (cat === 'entertainment') {
             actionBtn.href = `https://www.amazon.de/s?k=${query}&i=instant-video&tag=f05b1-21`;
-            actionText.innerText = `${titleStr} auf Prime Video streamen`;
+            actionText.innerText = `${titleStr} ${t.winnerStreamPrime || 'auf Prime Video streamen'}`;
             if (secondaryBtn && secondaryText) {
                 secondaryBtn.href = `https://www.amazon.de/s?k=kino+snack+box+popcorn&tag=f05b1-21`;
-                secondaryText.innerText = `Passende Heimkino-Snackbox bestellen`;
+                secondaryText.innerText = t.winnerSnackBox || 'Passende Heimkino-Snackbox bestellen';
                 secondaryBtn.classList.remove('hidden');
             }
         } else if (cat === 'activity') {
             actionBtn.href = `https://www.getyourguide.de/s/?q=${query}`;
-            actionText.innerText = `${titleStr} – Erlebnisse & Tickets ansehen`;
+            actionText.innerText = `${titleStr} – ${t.winnerActivities || 'Erlebnisse & Tickets ansehen'}`;
             if (secondaryBtn && secondaryText) {
                 secondaryBtn.href = `https://www.amazon.de/s?k=${query}+paar+date+spiel&tag=f05b1-21`;
                 secondaryText.innerText = `Passendes Zubehör & Date-Boxen bei Amazon`;
@@ -1276,7 +1311,7 @@ function revealMatchScreen(card) {
             }
         } else if (cat === 'trips') {
             actionBtn.href = `https://www.booking.com/searchresults.de.html?ss=${query}`;
-            actionText.innerText = `${titleStr} – Angebote auf Booking.com prüfen`;
+            actionText.innerText = `${titleStr} – Booking.com`;
             if (secondaryBtn && secondaryText) {
                 secondaryBtn.href = `https://www.amazon.de/s?k=${query}+reise+geschenk&tag=f05b1-21`;
                 secondaryText.innerText = `Reise-Gadgets & Geschenk-Sets bei Amazon`;
@@ -1284,7 +1319,7 @@ function revealMatchScreen(card) {
             }
         } else {
             actionBtn.href = `https://www.amazon.de/s?k=${query}&tag=f05b1-21`;
-            actionText.innerText = `${titleStr} direkt online entdecken`;
+            actionText.innerText = `${titleStr} – ${t.winnerOpenAction || 'Direkt online entdecken'}`;
             if (secondaryBtn) {
                 secondaryBtn.classList.add('hidden');
             }
@@ -1376,7 +1411,7 @@ function renderChoresSummaryUI() {
     antiListEl.innerHTML = '';
 
     if (currentChoresSummary.voluntary.length === 0) {
-        volListEl.innerHTML = `<div class="text-muted-role py-1">Keine</div>`;
+        volListEl.innerHTML = `<div class="text-muted-role py-1">${t.choresNone || "Keine"}</div>`;
     } else {
         currentChoresSummary.voluntary.forEach(item => {
             const title = item.card.title[currentLang] || item.card.title.de;
@@ -1400,7 +1435,7 @@ function renderChoresSummaryUI() {
     } else {
         currentChoresSummary.antiMatches.forEach(item => {
             const title = item.card.title[currentLang] || item.card.title.de;
-            let statusText = "Offen";
+            let statusText = t.choresOpen || "Offen";
             if (item.assignedTo === 'p1') statusText = p1Name;
             if (item.assignedTo === 'p2') statusText = p2Name;
 
@@ -1486,7 +1521,9 @@ function copyShareLink() {
 function shareViaWhatsApp() {
     const url = document.getElementById('share-url-input').value;
     const myName = getUserProfile().name;
-    const text = encodeURIComponent(`${myName} hat eine Runde auf Agreesy gestartet. Schau kurz rein, wo ihr übereinstimmt:\n${url}`);
+    const t = I18N[currentLang];
+    const challengeMsg = t.waChallengeText || "Ich habe meine Auswahl getroffen. Schau mal rein, wo wir übereinstimmen:";
+    const text = encodeURIComponent(`${myName}: ${challengeMsg}\n${url}`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 }
 
@@ -1629,56 +1666,62 @@ function openLegalModal(type) {
     const modal = document.getElementById('modal-legal');
     const titleEl = document.getElementById('legal-modal-title');
     const contentEl = document.getElementById('legal-modal-content');
+    const closeBtn = document.getElementById('legal-modal-close-btn');
     if (!modal || !titleEl || !contentEl) return;
 
-    if (type === 'impressum') {
-        titleEl.innerText = currentLang === 'de' ? 'Impressum' : (currentLang === 'es' ? 'Aviso Legal' : 'Legal Notice');
-        contentEl.innerHTML = `
-            <div>
-                <h4 class="font-medium text-primary-role mb-1">Angaben gemäß § 5 DDG</h4>
-                <p>Felix Gooßens<br>
-                E-Mail: <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a><br>
-                Webseite: <a href="https://agreesy.com" class="text-primary-role underline">agreesy.com</a></p>
-            </div>
-            <div>
-                <h4 class="font-medium text-primary-role mb-1">Verantwortlich für den Inhalt</h4>
-                <p>Felix Gooßens</p>
-            </div>
-            <div>
-                <h4 class="font-medium text-primary-role mb-1">Haftung für Inhalte und Links</h4>
-                <p>Die Inhalte dieser Web-App wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Für externe Links zu Webseiten Dritter übernehmen wir keine Haftung; für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich.</p>
-            </div>
-            <div>
-                <h4 class="font-medium text-primary-role mb-1">Affiliate- und Werbehinweis</h4>
-                <p>Diese Web-App enthält sogenannte Affiliate-Links (u. a. zu Amazon und Partnershops über Netzwerke wie Skimlinks). Wenn Sie über einen dieser Links einen Kauf oder eine Bestellung tätigen, erhalten wir gegebenenfalls eine geringe Provision. Für Sie entstehen dadurch keinerlei Mehrkosten.</p>
-            </div>
-        `;
-    } else {
-        titleEl.innerText = currentLang === 'de' ? 'Datenschutzerklärung' : (currentLang === 'es' ? 'Política de Privacidad' : 'Privacy Policy');
-        contentEl.innerHTML = `
-            <div>
-                <h4 class="font-medium text-primary-role mb-1">1. Datenschutz auf einen Blick</h4>
-                <p>Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Diese Anwendung folgt dem Grundsatz der Datensparsamkeit („Zero-Server Engine“): Wir erfassen und speichern keine personenbezogenen Daten auf eigenen Servern.</p>
-            </div>
-            <div>
-                <h4 class="font-medium text-primary-role mb-1">2. Verantwortliche Stelle</h4>
-                <p>Felix Gooßens<br>
-                E-Mail: <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a></p>
-            </div>
-            <div>
-                <h4 class="font-medium text-primary-role mb-1">3. Funktionsweise und lokale Speicherung</h4>
-                <p>Die Auswahl Ihrer Karten und Präferenzen verbleibt rein clientseitig in Ihrem Browser. Zur Synchronisation mit Ihrem Gegenüber wird der Spielstand Base64-kodiert im URL-Fragment (#m=...) abgelegt und direkt per Link geteilt. Es findet keine serverseitige Speicherung statt.</p>
-            </div>
-            <div>
-                <h4 class="font-medium text-primary-role mb-1">4. Hosting und Content Delivery Network (CDN)</h4>
-                <p>Diese Web-App wird über Cloudflare Pages (Cloudflare Inc., 101 Townsend St, San Francisco, CA 94107, USA) gehostet. Beim Aufruf der Seite werden technisch notwendige Server-Logfiles verarbeitet.</p>
-            </div>
-            <div>
-                <h4 class="font-medium text-primary-role mb-1">5. Externe Links und Partnernetzwerke</h4>
-                <p>Wenn Sie auf externe Partner-Links (z. B. Amazon, Lieferando, Google Maps) klicken, verlassen Sie unsere Anwendung. Für die Datenverarbeitung auf den Zielseiten gelten die Datenschutzbestimmungen der jeweiligen Anbieter.</p>
-            </div>
-        `;
-    }
+    const t = I18N[currentLang] || I18N.de;
+    if (closeBtn) closeBtn.innerText = t.modalClose || 'Schließen';
+
+    const LEGAL_DATA = {
+        impressum: {
+            de: {
+                title: "Impressum",
+                html: `<div><h4 class="font-medium text-primary-role mb-1">Angaben gemäß § 5 DDG</h4><p>Felix Gooßens<br>E-Mail: <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a><br>Webseite: <a href="https://agreesy.com" class="text-primary-role underline">agreesy.com</a></p></div><div><h4 class="font-medium text-primary-role mb-1">Verantwortlich für den Inhalt</h4><p>Felix Gooßens</p></div><div><h4 class="font-medium text-primary-role mb-1">Haftung für Inhalte und Links</h4><p>Die Inhalte dieser Web-App wurden mit größter Sorgfalt erstellt. Für externe Links zu Webseiten Dritter übernehmen wir keine Haftung; für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich.</p></div><div><h4 class="font-medium text-primary-role mb-1">Affiliate- und Werbehinweis</h4><p>Diese Web-App enthält sogenannte Affiliate-Links (u. a. zu Amazon und Partnershops über Netzwerke wie Skimlinks). Wenn Sie über einen dieser Links einen Kauf tätigen, erhalten wir gegebenenfalls eine geringe Provision – für Sie entstehen keinerlei Mehrkosten.</p></div>`
+            },
+            en: {
+                title: "Legal Notice",
+                html: `<div><h4 class="font-medium text-primary-role mb-1">Operator Information (§ 5 DDG)</h4><p>Felix Gooßens<br>Email: <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a><br>Website: <a href="https://agreesy.com" class="text-primary-role underline">agreesy.com</a></p></div><div><h4 class="font-medium text-primary-role mb-1">Responsible for Content</h4><p>Felix Gooßens</p></div><div><h4 class="font-medium text-primary-role mb-1">Liability for Content & Links</h4><p>The contents of this web application have been compiled with great care. We assume no liability for the contents of external third-party links; the respective provider is always responsible for the contents of linked pages.</p></div><div><h4 class="font-medium text-primary-role mb-1">Affiliate Disclosure</h4><p>This web application contains affiliate links (e.g. to Amazon and partner merchants via networks like Skimlinks). If you make a purchase through these links, we may receive a small commission at no extra cost to you.</p></div>`
+            },
+            es: {
+                title: "Aviso Legal",
+                html: `<div><h4 class="font-medium text-primary-role mb-1">Información legal (§ 5 DDG)</h4><p>Felix Gooßens<br>Email: <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a><br>Sitio web: <a href="https://agreesy.com" class="text-primary-role underline">agreesy.com</a></p></div><div><h4 class="font-medium text-primary-role mb-1">Responsable del contenido</h4><p>Felix Gooßens</p></div><div><h4 class="font-medium text-primary-role mb-1">Responsabilidad de contenidos y enlaces</h4><p>Los contenidos de esta app han sido elaborados con sumo cuidado. No asumimos responsabilidad por enlaces externos a terceros; el responsable es siempre el proveedor de cada página enlazada.</p></div><div><h4 class="font-medium text-primary-role mb-1">Aviso de afiliados</h4><p>Esta aplicación contiene enlaces de afiliados (como Amazon y tiendas colaboradoras a través de redes como Skimlinks). Si realizas una compra a través de ellos, podemos recibir una pequeña comisión sin coste adicional para ti.</p></div>`
+            },
+            fr: {
+                title: "Mentions Légales",
+                html: `<div><h4 class="font-medium text-primary-role mb-1">Informations légales (§ 5 DDG)</h4><p>Felix Gooßens<br>E-mail : <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a><br>Site web : <a href="https://agreesy.com" class="text-primary-role underline">agreesy.com</a></p></div><div><h4 class="font-medium text-primary-role mb-1">Responsable du contenu</h4><p>Felix Gooßens</p></div><div><h4 class="font-medium text-primary-role mb-1">Responsabilité des contenus et liens</h4><p>Le contenu de cette application web a été créé avec le plus grand soin. Nous déclinons toute responsabilité quant aux liens externes ; l'exploitant de chaque site lié en est toujours seul responsable.</p></div><div><h4 class="font-medium text-primary-role mb-1">Mention d'affiliation</h4><p>Cette application web contient des liens d'affiliation (notamment vers Amazon et boutiques partenaires via des réseaux comme Skimlinks). Si vous effectuez un achat, nous pouvons percevoir une commission sans frais supplémentaires pour vous.</p></div>`
+            },
+            it: {
+                title: "Note Legali",
+                html: `<div><h4 class="font-medium text-primary-role mb-1">Informazioni legali (§ 5 DDG)</h4><p>Felix Gooßens<br>Email: <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a><br>Sito web: <a href="https://agreesy.com" class="text-primary-role underline">agreesy.com</a></p></div><div><h4 class="font-medium text-primary-role mb-1">Responsabile dei contenuti</h4><p>Felix Gooßens</p></div><div><h4 class="font-medium text-primary-role mb-1">Responsabilità per contenuti e link</h4><p>I contenuti di questa applicazione sono stati preparati con la massima cura. Non ci assumiamo alcuna responsabilità per i contenuti dei link esterni; il rispettivo gestore è sempre responsabile dei siti collegati.</p></div><div><h4 class="font-medium text-primary-role mb-1">Informativa affiliazione</h4><p>Questa applicazione web contiene link di affiliazione (tra cui Amazon e partner tramite reti come Skimlinks). Se effettui un acquisto, potremmo ricevere una commissione senza alcun costo aggiuntivo per te.</p></div>`
+            }
+        },
+        datenschutz: {
+            de: {
+                title: "Datenschutzerklärung",
+                html: `<div><h4 class="font-medium text-primary-role mb-1">1. Datenschutz auf einen Blick</h4><p>Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Diese Anwendung folgt dem Grundsatz der Datensparsamkeit („Zero-Server Engine“): Wir erfassen und speichern keine personenbezogenen Daten auf eigenen Servern.</p></div><div><h4 class="font-medium text-primary-role mb-1">2. Verantwortliche Stelle</h4><p>Felix Gooßens<br>E-Mail: <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a></p></div><div><h4 class="font-medium text-primary-role mb-1">3. Funktionsweise und lokale Speicherung</h4><p>Die Auswahl Ihrer Karten und Präferenzen verbleibt rein clientseitig in Ihrem Browser. Zur Synchronisation mit Ihrem Gegenüber wird der Spielstand Base64-kodiert im URL-Fragment (#m=...) abgelegt und direkt per Link geteilt. Es findet keine serverseitige Speicherung statt.</p></div><div><h4 class="font-medium text-primary-role mb-1">4. Hosting und CDN</h4><p>Diese Web-App wird über Cloudflare Pages (Cloudflare Inc., 101 Townsend St, San Francisco, CA 94107, USA) gehostet. Beim Aufruf der Seite werden technisch notwendige Server-Logfiles verarbeitet.</p></div><div><h4 class="font-medium text-primary-role mb-1">5. Externe Links</h4><p>Wenn Sie auf externe Partner-Links klicken, gelten die Datenschutzbestimmungen der jeweiligen Zielanbieter.</p></div>`
+            },
+            en: {
+                title: "Privacy Policy",
+                html: `<div><h4 class="font-medium text-primary-role mb-1">1. Privacy at a Glance</h4><p>We take the protection of your personal data seriously. This application follows a strict zero-server privacy standard: we do not collect or store any personal data on centralized servers.</p></div><div><h4 class="font-medium text-primary-role mb-1">2. Data Controller</h4><p>Felix Gooßens<br>Email: <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a></p></div><div><h4 class="font-medium text-primary-role mb-1">3. How It Works & Local Storage</h4><p>Your card picks remain entirely client-side in your local browser. For 2-player synchronization, round state is encoded into the URL hash fragment (#m=...) and shared directly peer-to-peer. No database or server storage is used.</p></div><div><h4 class="font-medium text-primary-role mb-1">4. Hosting & CDN</h4><p>This web app is hosted via Cloudflare Pages (Cloudflare Inc., 101 Townsend St, San Francisco, CA 94107, USA) with standard encrypted delivery.</p></div><div><h4 class="font-medium text-primary-role mb-1">5. External Partner Links</h4><p>If you click on external partner links (such as Amazon or food delivery services), the privacy terms of those destination sites apply.</p></div>`
+            },
+            es: {
+                title: "Política de Privacidad",
+                html: `<div><h4 class="font-medium text-primary-role mb-1">1. Privacidad de un vistazo</h4><p>Nos tomamos muy en serio la protección de tus datos. Esta aplicación sigue un estándar de privacidad sin servidor: no recopilamos ni almacenamos datos personales en servidores propios.</p></div><div><h4 class="font-medium text-primary-role mb-1">2. Responsable</h4><p>Felix Gooßens<br>Email: <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a></p></div><div><h4 class="font-medium text-primary-role mb-1">3. Funcionamiento y almacenamiento local</h4><p>Tus selecciones se procesan exclusivamente en tu navegador. Para sincronizar con tu pareja o amigo, el estado se codifica en el enlace (#m=...) y se comparte de persona a persona.</p></div><div><h4 class="font-medium text-primary-role mb-1">4. Alojamiento y CDN</h4><p>Alojado en Cloudflare Pages (Cloudflare Inc., San Francisco, CA, EE. UU.).</p></div><div><h4 class="font-medium text-primary-role mb-1">5. Enlaces externos</h4><p>Al hacer clic en enlaces externos asociados se aplican las políticas de privacidad de los respectivos proveedores.</p></div>`
+            },
+            fr: {
+                title: "Politique de Confidentialité",
+                html: `<div><h4 class="font-medium text-primary-role mb-1">1. La protection des données en un coup d'œil</h4><p>Nous prenons la protection de vos données très au sérieux. Cette application fonctionne selon le principe du zéro-serveur : nous ne collectons ni ne stockons aucune donnée personnelle sur nos serveurs.</p></div><div><h4 class="font-medium text-primary-role mb-1">2. Responsable du traitement</h4><p>Felix Gooßens<br>E-mail : <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a></p></div><div><h4 class="font-medium text-primary-role mb-1">3. Fonctionnement et stockage local</h4><p>Vos choix restent entièrement stockés localement dans votre navigateur. Pour la synchronisation à deux, les choix sont encodés directement dans l'URL (#m=...) et partagés de personne à personne.</p></div><div><h4 class="font-medium text-primary-role mb-1">4. Hébergement et CDN</h4><p>Hébergé via Cloudflare Pages (Cloudflare Inc., San Francisco, CA, États-Unis).</p></div><div><h4 class="font-medium text-primary-role mb-1">5. Liens externes</h4><p>Si vous cliquez sur des liens partenaires externes, les politiques de confidentialité des sites de destination s'appliquent.</p></div>`
+            },
+            it: {
+                title: "Informativa sulla Privacy",
+                html: `<div><h4 class="font-medium text-primary-role mb-1">1. La privacy in breve</h4><p>Prendiamo molto sul serio la protezione dei tuoi dati personali. Questa applicazione segue il principio zero-server: non raccogliamo né memorizziamo dati personali su server centralizzati.</p></div><div><h4 class="font-medium text-primary-role mb-1">2. Titolare del trattamento</h4><p>Felix Gooßens<br>Email: <a href="mailto:felix.goossens@aol.com" class="text-primary-role underline">felix.goossens@aol.com</a></p></div><div><h4 class="font-medium text-primary-role mb-1">3. Funzionamento e memorizzazione locale</h4><p>Le tue scelte rimangono esclusivamente nel tuo browser. Per la sincronizzazione di coppia, le selezioni vengono codificate direttamente nel link (#m=...) e condivise da persona a persona.</p></div><div><h4 class="font-medium text-primary-role mb-1">4. Hosting e CDN</h4><p>Ospitato tramite Cloudflare Pages (Cloudflare Inc., San Francisco, CA, USA).</p></div><div><h4 class="font-medium text-primary-role mb-1">5. Link esterni</h4><p>Cliccando su link esterni di partner si applicano le condizioni di privacy dei rispettivi fornitori.</p></div>`
+            }
+        }
+    };
+
+    const doc = (LEGAL_DATA[type] && (LEGAL_DATA[type][currentLang] || LEGAL_DATA[type].de)) || LEGAL_DATA.impressum.de;
+    titleEl.innerText = doc.title;
+    contentEl.innerHTML = doc.html;
 
     modal.classList.remove('hidden');
 }
