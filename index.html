@@ -394,8 +394,8 @@
             <!-- Macro 1: Essen -->
             <button onclick="startGame('dinner')" class="rounded-[20px] p-3.5 row-card flex flex-col justify-between text-left">
                 <div>
-                    <div class="text-[16px] font-extrabold tracking-[-0.025em] text-primary-role leading-tight mb-0.5">Essen</div>
-                    <div class="text-[11.5px] font-medium text-secondary-role mb-3">8 Vorschläge</div>
+                    <div class="text-[16px] font-extrabold tracking-[-0.025em] text-primary-role leading-tight mb-0.5" id="t-macro-food-title">Essen</div>
+                    <div class="text-[11.5px] font-medium text-secondary-role mb-3" id="t-macro-food-sub">8 Vorschläge</div>
                 </div>
                 <div class="w-[58px] h-[58px] mx-auto relative flex items-center justify-center">
                     <svg class="ring-svg" viewBox="0 0 60 60">
@@ -409,8 +409,8 @@
             <!-- Macro 2: Streaming -->
             <button onclick="startGame('streaming')" class="rounded-[20px] p-3.5 row-card flex flex-col justify-between text-left">
                 <div>
-                    <div class="text-[16px] font-extrabold tracking-[-0.025em] text-primary-role leading-tight mb-0.5">Streaming</div>
-                    <div class="text-[11.5px] font-medium text-secondary-role mb-3">8 Genres</div>
+                    <div class="text-[16px] font-extrabold tracking-[-0.025em] text-primary-role leading-tight mb-0.5" id="t-macro-movie-title">Streaming</div>
+                    <div class="text-[11.5px] font-medium text-secondary-role mb-3" id="t-macro-movie-sub">8 Genres</div>
                 </div>
                 <div class="w-[58px] h-[58px] mx-auto relative flex items-center justify-center">
                     <svg class="ring-svg" viewBox="0 0 60 60">
@@ -424,8 +424,8 @@
             <!-- Macro 3: Haushalt -->
             <button onclick="startGame('chores')" class="rounded-[20px] p-3.5 row-card flex flex-col justify-between text-left">
                 <div>
-                    <div class="text-[16px] font-extrabold tracking-[-0.025em] text-primary-role leading-tight mb-0.5">Haushalt</div>
-                    <div class="text-[11.5px] font-medium text-secondary-role mb-3">Fair teilen</div>
+                    <div class="text-[16px] font-extrabold tracking-[-0.025em] text-primary-role leading-tight mb-0.5" id="t-macro-chores-title">Haushalt</div>
+                    <div class="text-[11.5px] font-medium text-secondary-role mb-3" id="t-macro-chores-sub">Fair teilen</div>
                 </div>
                 <div class="w-[58px] h-[58px] mx-auto relative flex items-center justify-center">
                     <svg class="ring-svg" viewBox="0 0 60 60">
@@ -439,8 +439,8 @@
 
         <!-- Section Header ("Direkt starten") -->
         <div class="w-full flex items-center justify-between px-0.5 mb-3">
-            <h2 class="text-[17px] font-extrabold tracking-[-0.025em] text-primary-role">Direkt starten</h2>
-            <button onclick="openCustomDeckModal()" class="text-[12.5px] font-semibold text-secondary-role hover:text-primary-role transition-colors">
+            <h2 class="text-[17px] font-extrabold tracking-[-0.025em] text-primary-role" id="t-section-quickstart">Direkt starten</h2>
+            <button onclick="openCustomDeckModal()" class="text-[12.5px] font-semibold text-secondary-role hover:text-primary-role transition-colors" id="t-section-custom-link">
                 + Eigene Runde
             </button>
         </div>
@@ -463,9 +463,9 @@
                         Kochen, bestellen oder essen gehen
                     </p>
                     <div class="flex items-center gap-3 text-[11.5px] font-medium text-secondary-role">
-                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-coral)]"></span>Kochen</span>
-                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-amber)]"></span>Bestellen</span>
-                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-blue)]"></span>8 Ideen</span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-coral)]"></span><span id="t-meta-food-1">Kochen</span></span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-amber)]"></span><span id="t-meta-food-2">Bestellen</span></span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-blue)]"></span><span id="t-meta-food-3">8 Ideen</span></span>
                     </div>
                 </div>
             </button>
@@ -486,9 +486,9 @@
                         Filme, Serien und Genres für heute Abend
                     </p>
                     <div class="flex items-center gap-3 text-[11.5px] font-medium text-secondary-role">
-                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-amber)]"></span>Blockbuster</span>
-                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-blue)]"></span>Serie</span>
-                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-green)]"></span>Doku</span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-amber)]"></span><span id="t-meta-movie-1">Blockbuster</span></span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-blue)]"></span><span id="t-meta-movie-2">Serie</span></span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-green)]"></span><span id="t-meta-movie-3">Doku</span></span>
                     </div>
                 </div>
             </button>
@@ -509,9 +509,9 @@
                         Haushalt und Erledigungen fair klären
                     </p>
                     <div class="flex items-center gap-3 text-[11.5px] font-medium text-secondary-role">
-                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-blue)]"></span>Küche</span>
-                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-coral)]"></span>Wäsche</span>
-                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-green)]"></span>Anti-Match</span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-blue)]"></span><span id="t-meta-chores-1">Küche</span></span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-coral)]"></span><span id="t-meta-chores-2">Wäsche</span></span>
+                        <span class="inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-green)]"></span><span id="t-meta-chores-3">50/50 Split</span></span>
                     </div>
                 </div>
             </button>
@@ -673,7 +673,7 @@
                     <!-- Cal AI Progress / Timer Bar Card -->
                     <div class="w-full rounded-[16px] surface-raised p-3 mb-3">
                         <div class="flex items-center justify-between text-[11.5px] font-bold mb-1.5">
-                            <span class="text-secondary-role">Runden-Zeit</span>
+                            <span class="text-secondary-role" id="t-round-timer-label">Runden-Zeit</span>
                             <span class="text-primary-role tabular-nums"><span id="timer-display">30</span>s</span>
                         </div>
                         <div class="w-full h-1.5 rounded-full overflow-hidden" style="background: var(--ring-track);">
@@ -1065,17 +1065,17 @@
         </div>
     </div>
 
-    <!-- Modular Scripts mit Cache-Bust v27 -->
-    <script src="js/theme.js?v=27"></script>
-    <script src="js/i18n.js?v=27"></script>
-    <script src="js/fluent_map.js?v=27"></script>
-    <script src="js/decks.js?v=27"></script>
-    <script src="js/logos.js?v=27"></script>
-    <script src="js/app.js?v=27"></script>
+    <!-- Modular Scripts mit Cache-Bust v28 -->
+    <script src="js/theme.js?v=28"></script>
+    <script src="js/i18n.js?v=28"></script>
+    <script src="js/fluent_map.js?v=28"></script>
+    <script src="js/decks.js?v=28"></script>
+    <script src="js/logos.js?v=28"></script>
+    <script src="js/app.js?v=28"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=16')
+                navigator.serviceWorker.register('./sw.js?v=17')
                     .then(reg => {
                         reg.update();
                     })

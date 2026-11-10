@@ -532,7 +532,7 @@ function setLang(lang) {
     setText('t-chores-deal-text', t.choresDealText);
     setText('legal-modal-close-btn', t.modalClose);
 
-    // 3 Primary Hero Scenarios
+    // 3 Primary Hero Scenarios + Cal AI Macro & Feed Metadata
     setText('t-hero-food-title', t.heroFoodTitle);
     setText('t-hero-food-sub', t.heroFoodSub);
     setText('t-hero-food-btn', t.heroFoodBtn);
@@ -543,6 +543,28 @@ function setLang(lang) {
     setText('t-hero-chores-sub', t.heroChoresSub);
     setText('t-hero-chores-btn', t.heroChoresBtn);
     setText('t-all-categories-toggle', t.allCategoriesToggle);
+
+    setText('t-macro-food-title', t.macroFoodTitle);
+    setText('t-macro-food-sub', t.macroFoodSub);
+    setText('t-macro-movie-title', t.macroMovieTitle);
+    setText('t-macro-movie-sub', t.macroMovieSub);
+    setText('t-macro-chores-title', t.macroChoresTitle);
+    setText('t-macro-chores-sub', t.macroChoresSub);
+
+    setText('t-section-quickstart', t.sectionQuickstart);
+    setText('t-section-custom-link', t.sectionCustomLink);
+
+    setText('t-meta-food-1', t.metaFood1);
+    setText('t-meta-food-2', t.metaFood2);
+    setText('t-meta-food-3', t.metaFood3);
+    setText('t-meta-movie-1', t.metaMovie1);
+    setText('t-meta-movie-2', t.metaMovie2);
+    setText('t-meta-movie-3', t.metaMovie3);
+    setText('t-meta-chores-1', t.metaChores1);
+    setText('t-meta-chores-2', t.metaChores2);
+    setText('t-meta-chores-3', t.metaChores3);
+    setText('t-round-timer-label', t.roundTimerLabel);
+    updateHeroRoundCardUI();
 
     // Onboarding Profile Modal
     setText('profile-modal-title', t.onboardingTitle);
@@ -918,8 +940,9 @@ function startGame(deckId) {
     const p2TextEl = document.getElementById('p2-live-text');
     if (p2LiveEl && p2TextEl) {
         if (partnerLikes !== null) {
-            const sender = partnerSenderName || "Person 1";
-            p2TextEl.innerText = `${sender} hat bereits gewählt`;
+            const t = I18N[currentLang] || I18N.de;
+            const sender = partnerSenderName || t.choresPlayer1 || "Person 1";
+            p2TextEl.innerText = (t.p2LiveBanner || "{name} hat bereits gewählt").replace('{name}', sender);
             p2LiveEl.classList.remove('hidden');
         } else {
             p2LiveEl.classList.add('hidden');
@@ -1619,10 +1642,17 @@ function updateHeroRoundCardUI() {
         const total = activeRoundCards.length;
         const remaining = total - num + 1;
 
-        if (badgeEl) badgeEl.innerText = `Aktive Runde · Karte ${num} von ${total}`;
+        if (badgeEl) {
+            badgeEl.innerText = (t.heroActiveBadge || "Aktive Runde · Karte {num} von {total}")
+                .replace('{num}', num)
+                .replace('{total}', total);
+        }
         if (titleEl) titleEl.innerText = deck.title[currentLang] || deck.title.de;
-        if (subEl) subEl.innerText = `Noch ${remaining} Karten offen · Einigen ohne Diskussion`;
-        if (ctaEl) ctaEl.innerText = num === 1 ? 'Runde jetzt starten' : 'Runde fortsetzen';
+        if (subEl) {
+            subEl.innerText = (t.heroActiveSub || "Noch {rem} Karten offen")
+                .replace('{rem}', remaining);
+        }
+        if (ctaEl) ctaEl.innerText = num === 1 ? (t.heroCtaStart || 'Runde jetzt starten') : (t.heroCtaResume || 'Runde fortsetzen');
 
         if (ringEl) {
             const circumference = 207;
@@ -1637,7 +1667,7 @@ function updateHeroRoundCardUI() {
         if (badgeEl) badgeEl.innerText = t.badge;
         if (titleEl) titleEl.innerHTML = t.heroTitle;
         if (subEl) subEl.innerText = t.heroSub;
-        if (ctaEl) ctaEl.innerText = currentLang === 'de' ? 'Abendessen-Runde starten' : (t.customStartBtn || 'Start round');
+        if (ctaEl) ctaEl.innerText = t.heroCtaStart || t.customStartBtn || 'Runde jetzt starten';
         if (ringEl) ringEl.setAttribute('stroke-dashoffset', '175');
         if (imgEl) imgEl.src = 'options_gallery/images/spaghetti_3d.png';
     }
