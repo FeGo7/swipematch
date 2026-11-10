@@ -1476,12 +1476,24 @@ function shareViaWhatsApp() {
 
 function sendWinnerToPartner() {
     if (!matchedCard) return;
-    const p1Name = partnerSenderName || "Person 1";
+    const p1Name = partnerSenderName || (I18N[currentLang]?.choresPlayer1 || "Person 1");
     const p2Name = getUserProfile().name;
-    const title = matchedCard.title[currentLang] || matchedCard.title.de;
-    const baseUrl = window.location.origin + window.location.pathname;
-    const text = encodeURIComponent(`Gemeinsame Wahl von ${p1Name} & ${p2Name}: ${title}\n${baseUrl}`);
-    window.open(`https://wa.me/?text=${text}`, '_blank');
+    const title = matchedCard.title[currentLang] || matchedCard.title.en || matchedCard.title.de;
+    const prefix = I18N[currentLang]?.waWinnerText || "Gemeinsame Wahl:";
+    const shareUrl = "https://agreesy.com";
+    const shareText = `🎉 ${prefix} ${title}! (${p1Name} & ${p2Name})\n30s-Entscheidung auf Agreesy: ${shareUrl}`;
+
+    if (navigator.share) {
+        navigator.share({
+            title: `Agreesy Match: ${title}`,
+            text: `🎉 ${prefix} ${title}! (${p1Name} & ${p2Name})`,
+            url: shareUrl
+        }).catch(() => {
+            window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+        });
+    } else {
+        window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+    }
 }
 
 function simulatePartnerRightHere() {
