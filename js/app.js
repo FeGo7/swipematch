@@ -127,6 +127,7 @@ function openProfileModal() {
     if (input) input.value = profile.isCustom ? profile.name : '';
     if (dotEl) dotEl.style.backgroundColor = codenameObj.dot || profile.dot;
     if (aliasEl) aliasEl.innerText = codenameObj.name || profile.name;
+    renderProfileBlacklistUI();
     if (modal) modal.classList.remove('hidden');
 }
 
@@ -143,6 +144,114 @@ function saveProfileName() {
     }
     localStorage.setItem('agreesy_profile_initialized', '1');
     closeProfileModal();
+}
+
+/**************************************************************
+ * 0A. PERMANENT CARD BLACKLIST & SEEN MEDIA ENGINE
+ **************************************************************/
+function getCanonicalDeckId(deckId) {
+    if (deckId === 'streaming') return 'movie';
+    if (deckId === 'chores') return 'household';
+    return deckId || 'all';
+}
+
+function getBlacklistedCards() {
+    try {
+        const raw = localStorage.getItem('agreesy_blacklist_cards');
+        return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveBlacklistedCards(list) {
+    try {
+        localStorage.setItem('agreesy_blacklist_cards', JSON.stringify(list));
+    } catch (e) {}
+}
+
+function isCardBlacklisted(deckId, cardId) {
+    const canon = getCanonicalDeckId(deckId);
+    const key = `${canon}:${cardId}`;
+    return getBlacklistedCards().some(item => item.key === key);
+}
+
+function getSeenMediaList() {
+    try {
+        const raw = localStorage.getItem('agreesy_seen_media');
+        return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveSeenMediaList(list) {
+    try {
+        localStorage.setItem('agreesy_seen_media', JSON.stringify(list));
+    } catch (e) {}
+}
+
+function removeBlacklistedCard(key) {
+    const next = getBlacklistedCards().filter(item => item.key !== key);
+    saveBlacklistedCards(next);
+    renderProfileBlacklistUI();
+}
+
+function removeSeenMediaItem(id) {
+    const next = getSeenMediaList().filter(item => item.id !== id);
+    saveSeenMediaList(next);
+    renderProfileBlacklistUI();
+    if (matchedCard && !document.getElementById('screen-match').classList.contains('hidden')) {
+        renderStage2MediaPicks(matchedCard);
+    }
+}
+
+function clearAllBlacklists() {
+    saveBlacklistedCards([]);
+    saveSeenMediaList([]);
+    renderProfileBlacklistUI();
+    if (matchedCard && !document.getElementById('screen-match').classList.contains('hidden')) {
+        renderStage2MediaPicks(matchedCard);
+    }
+}
+
+function renderProfileBlacklistUI() {
+    const listEl = document.getElementById('profile-blacklist-list');
+    const resetBtn = document.getElementById('t-profile-blacklist-reset');
+    if (!listEl) return;
+    const t = I18N[currentLang] || I18N.de;
+    const cards = getBlacklistedCards();
+    const seen = getSeenMediaList();
+    const total = cards.length + seen.length;
+
+    if (resetBtn) {
+        if (total > 0) resetBtn.classList.remove('hidden');
+        else resetBtn.classList.add('hidden');
+    }
+
+    if (total === 0) {
+        listEl.innerHTML = `<div class="text-[11.5px] text-muted-role py-1">${t.profileBlacklistEmpty || 'Noch keine Karten ausgeblendet'}</div>`;
+        return;
+    }
+
+    const itemsHtml = [];
+    cards.forEach(item => {
+        itemsHtml.push(`
+            <div class="flex items-center justify-between gap-2 surface-raised px-2.5 py-1.5 rounded-[8px]">
+                <span class="truncate text-[11.5px] text-primary-role">🚫 ${item.label}</span>
+                <button type="button" onclick="removeBlacklistedCard('${item.key}')" class="text-[11px] font-bold text-secondary-role hover:text-primary-role px-1.5">✕</button>
+            </div>
+        `);
+    });
+    seen.forEach(item => {
+        itemsHtml.push(`
+            <div class="flex items-center justify-between gap-2 surface-raised px-2.5 py-1.5 rounded-[8px]">
+                <span class="truncate text-[11.5px] text-primary-role">👁️ ${item.title}</span>
+                <button type="button" onclick="removeSeenMediaItem('${item.id}')" class="text-[11px] font-bold text-secondary-role hover:text-primary-role px-1.5">✕</button>
+            </div>
+        `);
+    });
+    listEl.innerHTML = itemsHtml.join('');
 }
 
 // 0-BYTE WEB AUDIO SYNTHESIZER (Walt Disney, Hans Zimmer & John Carmack)
@@ -568,6 +677,11 @@ function setLang(lang) {
     setText('t-meta-chores-2', t.metaChores2);
     setText('t-meta-chores-3', t.metaChores3);
     setText('t-round-timer-label', t.roundTimerLabel);
+    setText('t-blacklist-card-btn', t.blacklistCardBtn);
+    setText('t-profile-blacklist-title', t.profileBlacklistTitle);
+    setText('t-profile-blacklist-reset', t.profileBlacklistReset);
+    setText('t-stage2-shuffle-btn', t.stage2ShuffleBtn);
+    renderProfileBlacklistUI();
     updateHeroRoundCardUI();
 
     // Onboarding Profile Modal
@@ -840,30 +954,53 @@ function addCustomOptionInput() {
     renderCustomOptionInputs(inputs);
 }
 
+function findStage2MediaPickByFormattedTitle(formatted) {
+    if (typeof MEDIA_STAGE2_PICKS === 'undefined') return null;
+    for (const type of ['movie', 'series']) {
+        const genres = MEDIA_STAGE2_PICKS[type] || {};
+        for (const gKey of Object.keys(genres)) {
+            const found = (genres[gKey] || []).find(item => `${item.title} (${item.year})` === formatted);
+            if (found) return found;
+        }
+    }
+    return null;
+}
+
 function registerCustomDeckInMemory(rawTitle, mode, optionsArray) {
     const cleanTitle = (rawTitle && rawTitle.trim()) ? rawTitle.trim() : "Eigene Abstimmung";
-    const cards = optionsArray.map((optText, idx) => ({
-        id: idx,
-        emoji: "",
-        bg: "",
-        tag: { de: cleanTitle, en: cleanTitle, es: cleanTitle },
-        title: { de: optText, en: optText, es: optText },
-        desc: {
-            de: mode === 'chores' ? "Aufgabe zuteilen" : "Option zur Abstimmung",
-            en: mode === 'chores' ? "Assign task" : "Option for this round",
-            es: mode === 'chores' ? "Asignar tarea" : "Opción de la ronda"
-        },
-        actionLabel: {
-            de: "Auf Google suchen",
-            en: "Search on Google",
-            es: "Buscar en Google"
-        },
-        actionUrl: `https://www.google.com/search?q=${encodeURIComponent(optText)}`
-    }));
+    let hasStage2Match = false;
+    const cards = optionsArray.map((optText, idx) => {
+        const mediaItem = findStage2MediaPickByFormattedTitle(optText);
+        if (mediaItem) hasStage2Match = true;
+        const descStr = mediaItem ? mediaItem.vibe : (mode === 'chores' ? "Aufgabe zuteilen" : "Option zur Abstimmung");
+        const tagStr = mediaItem ? `${mediaItem.year} · ${cleanTitle}` : cleanTitle;
+        return {
+            id: idx,
+            emoji: mediaItem ? (mediaItem.emoji || "🎬") : "✨",
+            bg: "",
+            tag: { de: tagStr, en: tagStr, es: tagStr, fr: tagStr, it: tagStr },
+            title: { de: optText, en: optText, es: optText, fr: optText, it: optText },
+            desc: {
+                de: descStr,
+                en: mediaItem ? mediaItem.vibe : (mode === 'chores' ? "Assign task" : "Option for this round"),
+                es: mediaItem ? mediaItem.vibe : (mode === 'chores' ? "Asignar tarea" : "Opción de la ronda"),
+                fr: mediaItem ? mediaItem.vibe : (mode === 'chores' ? "Attribuer la tâche" : "Option de la manche"),
+                it: mediaItem ? mediaItem.vibe : (mode === 'chores' ? "Assegna compito" : "Opzione della manche")
+            },
+            actionLabel: {
+                de: "Auf Google suchen",
+                en: "Search on Google",
+                es: "Buscar en Google",
+                fr: "Rechercher sur Google",
+                it: "Cerca su Google"
+            },
+            actionUrl: `https://www.google.com/search?q=${encodeURIComponent(optText)}`
+        };
+    });
 
     DECKS['custom'] = {
         id: 'custom',
-        category: 'all',
+        category: hasStage2Match ? 'entertainment' : 'all',
         mode: mode === 'chores' ? 'chores' : 'match',
         customMeta: {
             t: cleanTitle,
@@ -918,11 +1055,55 @@ function buildActiveRoundCards(deck) {
         }
     }
 
-    const shuffledPool = shuffleArray(deck.cards);
+    let availableCards = deck.cards.filter(c => !isCardBlacklisted(deck.id, c.id));
+    if (availableCards.length < 2) {
+        availableCards = deck.cards;
+    }
+
+    const shuffledPool = shuffleArray(availableCards);
     if (deck.id === 'custom') {
         return shuffledPool;
     }
     return shuffledPool.slice(0, Math.min(CARDS_PER_ROUND, shuffledPool.length));
+}
+
+function blacklistCurrentCard() {
+    const deck = DECKS[currentDeckId];
+    if (!deck || !activeRoundCards.length) return;
+    const card = activeRoundCards[currentCardIndex];
+    if (!card) return;
+
+    const canon = getCanonicalDeckId(currentDeckId);
+    const key = `${canon}:${card.id}`;
+    const label = card.title[currentLang] || card.title.de || 'Karte';
+    const currentList = getBlacklistedCards();
+    if (!currentList.some(item => item.key === key)) {
+        currentList.push({ key, deckId: canon, cardId: card.id, label });
+        saveBlacklistedCards(currentList);
+    }
+
+    const t = I18N[currentLang] || I18N.de;
+    const btnSpan = document.getElementById('t-blacklist-card-btn');
+    if (btnSpan) {
+        btnSpan.innerText = `✓ ${t.blacklistAddedToast || 'Dauerhaft ausgeblendet'}`;
+        setTimeout(() => {
+            if (btnSpan) btnSpan.innerText = (I18N[currentLang] || I18N.de).blacklistCardBtn;
+        }, 900);
+    }
+
+    // Try to swap in an unused non-blacklisted card from the deck if Player 1
+    if (partnerLikes === null && deck.id !== 'custom') {
+        const activeIds = new Set(activeRoundCards.map(c => c.id));
+        const replacement = deck.cards.find(c => !activeIds.has(c.id) && !isCardBlacklisted(currentDeckId, c.id));
+        if (replacement) {
+            activeRoundCards[currentCardIndex] = replacement;
+            renderCurrentCard();
+            return;
+        }
+    }
+
+    // Otherwise treat as "Nope" and advance
+    handleSwipe(false);
 }
 
 function startGame(deckId) {
@@ -1422,6 +1603,158 @@ function updateWinnerAffiliateLinks(card) {
             }
         }
     }
+
+    renderStage2MediaPicks(card);
+}
+
+let stage2ShuffleOffset = 0;
+
+function getStage2MediaContext(card) {
+    if (!card || typeof MEDIA_STAGE2_PICKS === 'undefined') return null;
+    let mediaType = null;
+    if (currentDeckId === 'movie' || currentDeckId === 'streaming') {
+        mediaType = 'movie';
+    } else if (currentDeckId === 'series') {
+        mediaType = 'series';
+    }
+    if (!mediaType || !MEDIA_STAGE2_PICKS[mediaType]) return null;
+    const pool = MEDIA_STAGE2_PICKS[mediaType][card.id];
+    if (!Array.isArray(pool) || pool.length === 0) return null;
+    return { mediaType, pool };
+}
+
+function renderStage2MediaPicks(card) {
+    const boxEl = document.getElementById('winner-stage2-box');
+    const listEl = document.getElementById('winner-stage2-list');
+    const headerEl = document.getElementById('t-stage2-header');
+    const shuffleBtnEl = document.getElementById('t-stage2-shuffle-btn');
+    const startBtnEl = document.getElementById('t-stage2-start-btn');
+    if (!boxEl || !listEl) return;
+
+    const ctx = getStage2MediaContext(card);
+    if (!ctx) {
+        boxEl.classList.add('hidden');
+        return;
+    }
+
+    boxEl.classList.remove('hidden');
+    const t = I18N[currentLang] || I18N.de;
+    const store = getRegionalStoreConfig(currentLang);
+    const isSeries = (ctx.mediaType === 'series');
+
+    if (headerEl) {
+        headerEl.innerText = isSeries ? (t.stage2SeriesHeader || '3 aktuelle Serien-Tipps (2024–2026)') : (t.stage2MoviesHeader || '3 aktuelle Film-Tipps (2024–2026)');
+    }
+    if (shuffleBtnEl) {
+        shuffleBtnEl.innerText = t.stage2ShuffleBtn || '🎲 Andere 3';
+    }
+    if (startBtnEl) {
+        startBtnEl.innerText = isSeries ? (t.stage2StartSeriesBtn || '📺 Runde 2: Aus 8 passenden Serien swipen →') : (t.stage2StartMoviesBtn || '🎬 Runde 2: Aus 8 passenden Filmen swipen →');
+    }
+
+    const seenIds = new Set(getSeenMediaList().map(item => item.id));
+    let unseenPool = ctx.pool.filter(item => !seenIds.has(item.id));
+    if (unseenPool.length === 0) {
+        unseenPool = ctx.pool;
+    }
+
+    const count = Math.min(3, unseenPool.length);
+    const picked = [];
+    for (let i = 0; i < count; i++) {
+        picked.push(unseenPool[(stage2ShuffleOffset + i) % unseenPool.length]);
+    }
+
+    listEl.innerHTML = picked.map(item => {
+        const streamUrl = `https://${store.amazonHost}/s?k=${encodeURIComponent(item.title + ' ' + item.year)}&i=instant-video&tag=${store.tag}`;
+        const safeTitle = item.title.replace(/'/g, "\\'");
+        return `
+            <div class="surface-raised rounded-[14px] p-2.5 flex items-center justify-between gap-2.5">
+                <a href="${streamUrl}" target="_blank" rel="noopener" class="flex items-center gap-2.5 min-w-0 flex-1 group">
+                    <span class="text-lg shrink-0">${item.emoji || '🎬'}</span>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-bold text-[13px] text-primary-role truncate group-hover:underline">${item.title}</span>
+                            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md surface text-secondary-role shrink-0">${item.year}</span>
+                        </div>
+                        <div class="text-[11.5px] text-secondary-role truncate">${item.vibe}</div>
+                    </div>
+                </a>
+                <button type="button" onclick="markMediaPickSeen('${item.id}', '${safeTitle}')" class="px-2 py-1 rounded-full surface text-[10.5px] font-semibold text-secondary-role hover:text-primary-role shrink-0 transition-colors" title="${t.stage2SeenBtn || 'Schon gesehen'}">
+                    👁️ ${t.stage2SeenBtn || 'Schon gesehen'}
+                </button>
+            </div>
+        `;
+    }).join('');
+}
+
+function shuffleStage2Picks() {
+    stage2ShuffleOffset += 3;
+    if (matchedCard) {
+        renderStage2MediaPicks(matchedCard);
+    }
+}
+
+function markMediaPickSeen(id, title) {
+    const current = getSeenMediaList();
+    if (!current.some(item => item.id === id)) {
+        current.push({ id, title });
+        saveSeenMediaList(current);
+    }
+    if (matchedCard) {
+        renderStage2MediaPicks(matchedCard);
+    }
+}
+
+function startStage2MediaRound() {
+    if (!matchedCard) return;
+    const ctx = getStage2MediaContext(matchedCard);
+    if (!ctx) return;
+
+    const seenIds = new Set(getSeenMediaList().map(item => item.id));
+    let pool = ctx.pool.filter(item => !seenIds.has(item.id));
+    if (pool.length < 3) {
+        pool = ctx.pool;
+    }
+
+    const genreTitle = matchedCard.title[currentLang] || matchedCard.title.de || 'Auswahl';
+    const optionsArray = pool.map(item => `${item.title} (${item.year})`);
+    registerCustomDeckInMemory(genreTitle, 'match', optionsArray);
+
+    // Enrich the generated custom deck cards with emojis, descriptions, and entertainment category so Winner links route to Prime Video
+    if (DECKS['custom']) {
+        DECKS['custom'].category = 'entertainment';
+        DECKS['custom'].cards = pool.map((item, idx) => ({
+            id: idx,
+            emoji: item.emoji || '🎬',
+            bg: '',
+            tag: {
+                de: `${item.year} · ${genreTitle}`,
+                en: `${item.year} · ${genreTitle}`,
+                es: `${item.year} · ${genreTitle}`,
+                fr: `${item.year} · ${genreTitle}`,
+                it: `${item.year} · ${genreTitle}`
+            },
+            title: {
+                de: `${item.title} (${item.year})`,
+                en: `${item.title} (${item.year})`,
+                es: `${item.title} (${item.year})`,
+                fr: `${item.title} (${item.year})`,
+                it: `${item.title} (${item.year})`
+            },
+            desc: {
+                de: item.vibe,
+                en: item.vibe,
+                es: item.vibe,
+                fr: item.vibe,
+                it: item.vibe
+            }
+        }));
+    }
+
+    partnerLikes = null;
+    partnerRoundCardIds = null;
+    window.history.replaceState(null, null, window.location.pathname);
+    startGame('custom');
 }
 
 function revealMatchScreen(card) {

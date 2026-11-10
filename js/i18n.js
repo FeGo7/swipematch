@@ -170,7 +170,18 @@ const I18N = {
         metaChores2: "Wäsche",
         metaChores3: "50/50 Split",
         roundTimerLabel: "Runden-Zeit",
-        p2LiveBanner: "{name} hat bereits gewählt"
+        p2LiveBanner: "{name} hat bereits gewählt",
+        blacklistCardBtn: "Nicht mein Fall (ausblenden)",
+        blacklistAddedToast: "Dauerhaft ausgeblendet",
+        profileBlacklistTitle: "Ausgeblendete Karten & Filme",
+        profileBlacklistEmpty: "Noch keine Karten ausgeblendet",
+        profileBlacklistReset: "Alle zurücksetzen",
+        stage2MoviesHeader: "3 aktuelle Film-Tipps (2024–2026)",
+        stage2SeriesHeader: "3 aktuelle Serien-Tipps (2024–2026)",
+        stage2ShuffleBtn: "🎲 Andere 3",
+        stage2SeenBtn: "Schon gesehen",
+        stage2StartMoviesBtn: "🎬 Runde 2: Aus 8 passenden Filmen swipen →",
+        stage2StartSeriesBtn: "📺 Runde 2: Aus 8 passenden Serien swipen →"
     },
     en: {
         badge: "Quickstart · 8 cards in 30 sec.",
@@ -330,7 +341,18 @@ const I18N = {
         metaChores2: "Laundry",
         metaChores3: "50/50 Split",
         roundTimerLabel: "Round timer",
-        p2LiveBanner: "{name} has already chosen"
+        p2LiveBanner: "{name} has already chosen",
+        blacklistCardBtn: "Not for me (hide forever)",
+        blacklistAddedToast: "Hidden from future rounds",
+        profileBlacklistTitle: "Hidden cards & seen titles",
+        profileBlacklistEmpty: "No hidden cards yet",
+        profileBlacklistReset: "Restore all",
+        stage2MoviesHeader: "3 current movie picks (2024–2026)",
+        stage2SeriesHeader: "3 current series picks (2024–2026)",
+        stage2ShuffleBtn: "🎲 Shuffle 3",
+        stage2SeenBtn: "Already seen",
+        stage2StartMoviesBtn: "🎬 Round 2: Swipe 8 matching movies →",
+        stage2StartSeriesBtn: "📺 Round 2: Swipe 8 matching series →"
     },
     es: {
         badge: "Inicio rápido · 8 cartas en 30 s",
@@ -490,7 +512,18 @@ const I18N = {
         metaChores2: "Colada",
         metaChores3: "50/50 Split",
         roundTimerLabel: "Tiempo de ronda",
-        p2LiveBanner: "{name} ya ha elegido"
+        p2LiveBanner: "{name} ya ha elegido",
+        blacklistCardBtn: "No me gusta (ocultar)",
+        blacklistAddedToast: "Ocultado para siempre",
+        profileBlacklistTitle: "Cartas ocultas y vistos",
+        profileBlacklistEmpty: "Ninguna carta oculta",
+        profileBlacklistReset: "Restaurar todo",
+        stage2MoviesHeader: "3 películas actuales (2024–2026)",
+        stage2SeriesHeader: "3 series actuales (2024–2026)",
+        stage2ShuffleBtn: "🎲 Otros 3",
+        stage2SeenBtn: "Ya la vi",
+        stage2StartMoviesBtn: "🎬 Ronda 2: Elegir entre 8 películas →",
+        stage2StartSeriesBtn: "📺 Ronda 2: Elegir entre 8 series →"
     },
     fr: {
         badge: "Accès rapide · 8 cartes en 30 s",
@@ -650,7 +683,18 @@ const I18N = {
         metaChores2: "Linge",
         metaChores3: "Partage 50/50",
         roundTimerLabel: "Temps restant",
-        p2LiveBanner: "{name} a déjà choisi"
+        p2LiveBanner: "{name} a déjà choisi",
+        blacklistCardBtn: "Pas mon truc (masquer)",
+        blacklistAddedToast: "Masqué définitivement",
+        profileBlacklistTitle: "Cartes masquées et vus",
+        profileBlacklistEmpty: "Aucune carte masquée",
+        profileBlacklistReset: "Tout restaurer",
+        stage2MoviesHeader: "3 films récents (2024–2026)",
+        stage2SeriesHeader: "3 séries récentes (2024–2026)",
+        stage2ShuffleBtn: "🎲 3 autres",
+        stage2SeenBtn: "Déjà vu",
+        stage2StartMoviesBtn: "🎬 Manche 2 : Swiper 8 films →",
+        stage2StartSeriesBtn: "📺 Manche 2 : Swiper 8 séries →"
     },
     it: {
         badge: "Avvio rapido · 8 carte in 30 s",
@@ -810,6 +854,17 @@ const I18N = {
         metaChores2: "Bucato",
         metaChores3: "Divisione 50/50",
         roundTimerLabel: "Tempo manche",
-        p2LiveBanner: "{name} ha già scelto"
+        p2LiveBanner: "{name} ha già scelto",
+        blacklistCardBtn: "Non fa per me (nascondi)",
+        blacklistAddedToast: "Nascosto per sempre",
+        profileBlacklistTitle: "Carte nascoste e già visti",
+        profileBlacklistEmpty: "Nessuna carta nascosta",
+        profileBlacklistReset: "Ripristina tutto",
+        stage2MoviesHeader: "3 film recenti (2024–2026)",
+        stage2SeriesHeader: "3 serie recenti (2024–2026)",
+        stage2ShuffleBtn: "🎲 Altri 3",
+        stage2SeenBtn: "Già visto",
+        stage2StartMoviesBtn: "🎬 Manche 2: Scegli tra 8 film →",
+        stage2StartSeriesBtn: "📺 Manche 2: Scegli tra 8 serie →"
     }
 };
