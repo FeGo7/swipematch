@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agreesy – Inspiration, Date-Ideen &amp; Partner-Empfehlungen</title>
-    <meta name="description" content="Die besten Ideen für Abendessen zu zweit, Filmabende, Date-Nights und Wochenend-Trips – direkt passend zu eurer gemeinsamen Wahl auf Agreesy.">
+    <meta name="description" content="Die besten Ideen für Abendessen zu zweit, Filmabende, smarte Haushaltshelfer, Date-Nights und Wochenend-Trips – direkt passend zu eurer gemeinsamen Wahl auf Agreesy.">
     <link rel="canonical" href="https://agreesy.com/guides.html">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -126,7 +126,7 @@
                 Passende Ideen für eure Wahl
             </h1>
             <p id="g-sub" class="text-[14px] text-[var(--text-secondary)] leading-relaxed">
-                Sobald ihr euch in 30 Sekunden geeinigt habt, findet ihr hier direkt die passenden Dienste für Lieferessen, Kochboxen, Streaming und Kurztrips.
+                Sobald ihr euch in 30 Sekunden geeinigt habt, findet ihr hier direkt die passenden Dienste für Lieferessen, Kochboxen, Streaming, Haushaltshelfer und Kurztrips.
             </p>
         </div>
 
@@ -192,7 +192,39 @@
                 </div>
             </section>
 
-            <!-- 3. Date Night, Activities & Trips -->
+            <!-- 3. Chores & Smart Household Helpers (NEW 4th Category Card) -->
+            <section class="surface rounded-[24px] p-5">
+                <div class="flex items-center gap-3.5 mb-3">
+                    <div class="w-14 h-14 rounded-[15px] surface-raised flex items-center justify-center shrink-0">
+                        <img src="options_gallery/images/broom_3d.png" alt="Haushalt" class="w-9 h-9 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.14)]">
+                    </div>
+                    <div>
+                        <div class="inline-flex items-center gap-1.5 text-[11.5px] font-bold text-[var(--text-secondary)] mb-0.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[var(--ring-green)]"></span>
+                            <span id="g-s4-tag">Haushalt &amp; Smarte Helfer</span>
+                        </div>
+                        <h2 id="g-s4-title" class="text-[17px] font-extrabold tracking-[-0.02em] leading-snug">
+                            Weniger Hausarbeit, mehr Zeit zu zweit
+                        </h2>
+                    </div>
+                </div>
+                <p id="g-s4-desc" class="text-[13px] text-[var(--text-secondary)] mb-4 leading-relaxed">
+                    Keine Lust auf Staubsaugen, Abwasch oder Wäscheberg? Gebt unbeliebte Aufgaben einfach an smarte Saugroboter, Airfryer und Alltagshelfer ab.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.amazon.de/s?k=saugroboter+mit+wischfunktion+testsieger&tag=f05b1-21" target="_blank" rel="noopener" id="g-s4-btn1" class="px-4 py-2 rounded-full btn-primary text-[12.5px] font-bold">
+                        Saug- &amp; Wischroboter (Amazon) →
+                    </a>
+                    <a href="https://www.amazon.de/s?k=heissluftfritteuse+kuechenhelfer+bestseller&tag=f05b1-21" target="_blank" rel="noopener" id="g-s4-btn2" class="px-4 py-2 rounded-full btn-secondary text-[12.5px] font-bold">
+                        Smarte Küchenhelfer &amp; Airfryer →
+                    </a>
+                    <a href="https://www.amazon.de/s?k=haushaltshelfer+ordnungssystem+putzen+bestseller&tag=f05b1-21" target="_blank" rel="noopener" id="g-s4-btn3" class="px-4 py-2 rounded-full btn-secondary text-[12.5px] font-bold">
+                        Ordnungs- &amp; Putz-Bestseller →
+                    </a>
+                </div>
+            </section>
+
+            <!-- 4. Date Night, Activities & Trips -->
             <section class="surface rounded-[24px] p-5">
                 <div class="flex items-center gap-3.5 mb-3">
                     <div class="w-14 h-14 rounded-[15px] surface-raised flex items-center justify-center shrink-0">
@@ -234,14 +266,103 @@
         <a href="/" id="g-footer-back" class="font-bold text-[var(--text-primary)] hover:underline">← Agreesy</a>
     </footer>
 
-    <script src="js/theme.js?v=29"></script>
+    <script src="js/theme.js?v=30"></script>
     <script>
+        const AMAZON_ASSOC_TAG = 'f05b1-21';
+
+        function isUkOrIeLocale() {
+            try {
+                const nav = (navigator.language || '').toLowerCase();
+                if (nav.includes('gb') || nav.includes('uk') || nav.includes('ie')) return true;
+                const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').toLowerCase();
+                if (tz.includes('london') || tz.includes('dublin')) return true;
+            } catch (e) {}
+            return false;
+        }
+
+        function getGuidesRegionalLinks(lang) {
+            const uk = isUkOrIeLocale();
+            const map = {
+                de: {
+                    s1Url1: 'https://www.lieferando.de/',
+                    s1Url2: 'https://www.hellofresh.de/',
+                    s1Url3: `https://www.amazon.de/s?k=kochbuch+paare+schnelle+rezepte&tag=${AMAZON_ASSOC_TAG}`,
+                    s2Url1: `https://www.amazon.de/gp/video/storefront?tag=${AMAZON_ASSOC_TAG}`,
+                    s2Url2: `https://www.amazon.de/s?k=kino+snack+box+popcorn+geschenkset&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url1: `https://www.amazon.de/s?k=saugroboter+mit+wischfunktion+testsieger&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url2: `https://www.amazon.de/s?k=heissluftfritteuse+kuechenhelfer+bestseller&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url3: `https://www.amazon.de/s?k=haushaltshelfer+ordnungssystem+putzen+bestseller&tag=${AMAZON_ASSOC_TAG}`,
+                    s3Url1: 'https://www.getyourguide.de/',
+                    s3Url2: 'https://www.booking.com/index.de.html',
+                    s3Url3: 'https://www.eventim.de/',
+                    s3Url4: `https://www.amazon.de/s?k=spiele+fuer+paare+date+night&tag=${AMAZON_ASSOC_TAG}`
+                },
+                en: {
+                    s1Url1: uk ? 'https://www.ubereats.com/gb' : 'https://www.ubereats.com/',
+                    s1Url2: uk ? 'https://www.hellofresh.co.uk/' : 'https://www.hellofresh.com/',
+                    s1Url3: `https://www.${uk ? 'amazon.co.uk' : 'amazon.com'}/s?k=cookbook+for+couples+quick+recipes&tag=${AMAZON_ASSOC_TAG}`,
+                    s2Url1: `https://www.${uk ? 'amazon.co.uk' : 'amazon.com'}/gp/video/storefront?tag=${AMAZON_ASSOC_TAG}`,
+                    s2Url2: `https://www.${uk ? 'amazon.co.uk' : 'amazon.com'}/s?k=movie+night+snack+box+popcorn+gift+set&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url1: `https://www.${uk ? 'amazon.co.uk' : 'amazon.com'}/s?k=robot+vacuum+and+mop+bestseller&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url2: `https://www.${uk ? 'amazon.co.uk' : 'amazon.com'}/s?k=air+fryer+smart+kitchen+gadgets+bestseller&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url3: `https://www.${uk ? 'amazon.co.uk' : 'amazon.com'}/s?k=home+organization+cleaning+gadgets+bestseller&tag=${AMAZON_ASSOC_TAG}`,
+                    s3Url1: 'https://www.getyourguide.com/',
+                    s3Url2: 'https://www.booking.com/',
+                    s3Url3: uk ? 'https://www.ticketmaster.co.uk/' : 'https://www.ticketmaster.com/',
+                    s3Url4: `https://www.${uk ? 'amazon.co.uk' : 'amazon.com'}/s?k=couple+games+date+night+cards&tag=${AMAZON_ASSOC_TAG}`
+                },
+                es: {
+                    s1Url1: 'https://www.just-eat.es/',
+                    s1Url2: 'https://www.hellofresh.es/',
+                    s1Url3: `https://www.amazon.es/s?k=libro+cocina+parejas+recetas+faciles&tag=${AMAZON_ASSOC_TAG}`,
+                    s2Url1: `https://www.amazon.es/gp/video/storefront?tag=${AMAZON_ASSOC_TAG}`,
+                    s2Url2: `https://www.amazon.es/s?k=caja+snacks+cine+palomitas+regalo&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url1: `https://www.amazon.es/s?k=robot+aspirador+y+fregasuelos+mas+vendidos&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url2: `https://www.amazon.es/s?k=freidora+de+aire+utensilios+cocina+inteligente&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url3: `https://www.amazon.es/s?k=organizadores+hogar+limpieza+bestseller&tag=${AMAZON_ASSOC_TAG}`,
+                    s3Url1: 'https://www.getyourguide.es/',
+                    s3Url2: 'https://www.booking.com/index.es.html',
+                    s3Url3: 'https://www.ticketmaster.es/',
+                    s3Url4: `https://www.amazon.es/s?k=juegos+para+parejas+citas+noche&tag=${AMAZON_ASSOC_TAG}`
+                },
+                fr: {
+                    s1Url1: 'https://www.ubereats.com/fr',
+                    s1Url2: 'https://www.hellofresh.fr/',
+                    s1Url3: `https://www.amazon.fr/s?k=livre+cuisine+couple+recettes+rapides&tag=${AMAZON_ASSOC_TAG}`,
+                    s2Url1: `https://www.amazon.fr/gp/video/storefront?tag=${AMAZON_ASSOC_TAG}`,
+                    s2Url2: `https://www.amazon.fr/s?k=coffret+snacks+cinema+popcorn&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url1: `https://www.amazon.fr/s?k=aspirateur+robot+laveur+meilleures+ventes&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url2: `https://www.amazon.fr/s?k=air+fryer+friteuse+sans+huile+accessoires+cuisine&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url3: `https://www.amazon.fr/s?k=rangement+maison+accessoires+menage+bestseller&tag=${AMAZON_ASSOC_TAG}`,
+                    s3Url1: 'https://www.getyourguide.fr/',
+                    s3Url2: 'https://www.booking.com/index.fr.html',
+                    s3Url3: 'https://www.ticketmaster.fr/',
+                    s3Url4: `https://www.amazon.fr/s?k=jeux+pour+couples+soiree+romantique&tag=${AMAZON_ASSOC_TAG}`
+                },
+                it: {
+                    s1Url1: 'https://www.justeat.it/',
+                    s1Url2: 'https://www.hellofresh.it/',
+                    s1Url3: `https://www.amazon.it/s?k=libro+cucina+coppia+ricette+veloci&tag=${AMAZON_ASSOC_TAG}`,
+                    s2Url1: `https://www.amazon.it/gp/video/storefront?tag=${AMAZON_ASSOC_TAG}`,
+                    s2Url2: `https://www.amazon.it/s?k=box+snack+serata+cinema+popcorn&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url1: `https://www.amazon.it/s?k=robot+aspirapolvere+lavapavimenti+piu+venduti&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url2: `https://www.amazon.it/s?k=friggitrice+ad+aria+accessori+cucina+smart&tag=${AMAZON_ASSOC_TAG}`,
+                    s4Url3: `https://www.amazon.it/s?k=organizzazione+casa+pulizia+bestseller&tag=${AMAZON_ASSOC_TAG}`,
+                    s3Url1: 'https://www.getyourguide.it/',
+                    s3Url2: 'https://www.booking.com/index.it.html',
+                    s3Url3: 'https://www.ticketone.it/',
+                    s3Url4: `https://www.amazon.it/s?k=giochi+di+coppia+serata+romantica&tag=${AMAZON_ASSOC_TAG}`
+                }
+            };
+            return map[lang] || map.de;
+        }
+
         const GUIDES_I18N = {
             de: {
                 back: '← Zurück',
                 badge: 'Partner & Ideen',
                 title: 'Passende Ideen für eure Wahl',
-                sub: 'Sobald ihr euch in 30 Sekunden geeinigt habt, findet ihr hier direkt die passenden Dienste für Lieferessen, Kochboxen, Streaming und Kurztrips.',
+                sub: 'Sobald ihr euch in 30 Sekunden geeinigt habt, findet ihr hier direkt die passenden Dienste für Lieferessen, Kochboxen, Streaming, Haushaltshelfer und Kurztrips.',
                 s1Tag: 'Hunger & Essen',
                 s1Title: 'Bestellen oder frisch zu zweit kochen',
                 s1Desc: 'Bestellt euer Match-Gericht direkt beim Lieferdienst oder lasst euch die frischen Zutaten als Kochbox nach Hause liefern.',
@@ -253,6 +374,12 @@
                 s2Desc: 'Wenn eure Wahl auf Thriller, Comedy, Sci-Fi oder Serie gefallen ist, könnt ihr aktuelle Highlights direkt streamen oder mit einer Kino-Snackbox abrunden.',
                 s2Btn1: 'Prime Video Highlights →',
                 s2Btn2: 'Heimkino-Snackboxen →',
+                s4Tag: 'Haushalt & Smarte Helfer',
+                s4Title: 'Weniger Hausarbeit, mehr Zeit zu zweit',
+                s4Desc: 'Keine Lust auf Staubsaugen, Abwasch oder Wäscheberg? Gebt unbeliebte Aufgaben einfach an smarte Saugroboter, Airfryer und Alltagshelfer ab.',
+                s4Btn1: 'Saug- & Wischroboter (Amazon) →',
+                s4Btn2: 'Smarte Küchenhelfer & Airfryer →',
+                s4Btn3: 'Ordnungs- & Putz-Bestseller →',
                 s3Tag: 'Erlebnisse & Kurztrips',
                 s3Title: 'Unternehmungen am Wochenende',
                 s3Desc: 'Von spontanen Städtetrips und Wellness-Wochenenden bis hin zu Escape-Rooms, Konzerten und Date-Night-Spielen.',
@@ -266,11 +393,11 @@
                 back: '← Back',
                 badge: 'Partners & Ideas',
                 title: 'Matching ideas for your pick',
-                sub: 'Once you both agree in 30 seconds, explore matching delivery services, meal kits, streaming highlights, and weekend getaways.',
+                sub: 'Once you both agree in 30 seconds, explore matching delivery services, meal kits, streaming highlights, smart home helpers, and weekend getaways.',
                 s1Tag: 'Food & Dinner',
                 s1Title: 'Order delivery or cook fresh together',
                 s1Desc: 'Order your matched dish right to your door or get fresh ingredients delivered as a meal kit.',
-                s1Btn1: 'Order food delivery →',
+                s1Btn1: 'Order on Uber Eats →',
                 s1Btn2: 'HelloFresh Meal Kits →',
                 s1Btn3: 'Couple Cookbooks & Kits (Amazon) →',
                 s2Tag: 'Movies & Couch',
@@ -278,12 +405,18 @@
                 s2Desc: 'Whether you matched on thriller, comedy, sci-fi, or a new series, stream top picks directly or grab a movie snack box.',
                 s2Btn1: 'Prime Video Highlights →',
                 s2Btn2: 'Movie Night Snack Boxes →',
+                s4Tag: 'Chores & Smart Home',
+                s4Title: 'Less housework, more time together',
+                s4Desc: 'Neither of you wants to vacuum or do the dishes? Hand off unpopular chores to smart robot vacuums, air fryers, and home organizers.',
+                s4Btn1: 'Robot Vacuums & Mops (Amazon) →',
+                s4Btn2: 'Smart Kitchen & Air Fryers →',
+                s4Btn3: 'Home & Cleaning Bestsellers →',
                 s3Tag: 'Activities & Getaways',
                 s3Title: 'Weekend Plans & Date Nights',
                 s3Desc: 'From spontaneous city trips and spa weekends to escape rooms, live shows, and date night games.',
                 s3Btn1: 'Activities on GetYourGuide →',
                 s3Btn2: 'Hotels on Booking.com →',
-                s3Btn3: 'Live Tickets on Eventim →',
+                s3Btn3: 'Live Tickets on Ticketmaster →',
                 s3Btn4: 'Couple Games (Amazon) →',
                 footerNote: '* Note: Some links are affiliate partner links. There is no extra cost to you.'
             },
@@ -291,11 +424,11 @@
                 back: '← Volver',
                 badge: 'Colaboraciones e Ideas',
                 title: 'Ideas para vuestra elección',
-                sub: 'En cuanto os pongáis de acuerdo en 30 segundos, aquí tenéis los mejores servicios de comida a domicilio, kits de cocina, streaming y escapadas.',
+                sub: 'En cuanto os pongáis de acuerdo en 30 segundos, aquí tenéis los mejores servicios de comida a domicilio, kits de cocina, streaming, hogar inteligente y escapadas.',
                 s1Tag: 'Hambre & Cena',
                 s1Title: 'Pedir a domicilio o cocinar juntos',
                 s1Desc: 'Pedid vuestro plato elegido directamente a domicilio o recibid los ingredientes frescos en casa.',
-                s1Btn1: 'Pedir comida a domicilio →',
+                s1Btn1: 'Pedir en Just Eat →',
                 s1Btn2: 'Kits de cocina HelloFresh →',
                 s1Btn3: 'Libros de cocina en pareja (Amazon) →',
                 s2Tag: 'Peli & Sofá',
@@ -303,12 +436,18 @@
                 s2Desc: 'Si habéis coincidido en thriller, comedia, ciencia ficción o serie, podéis ver los estrenos directamente o pedir una caja de snacks de cine.',
                 s2Btn1: 'Estrenos en Prime Video →',
                 s2Btn2: 'Cajas de snacks para cine →',
+                s4Tag: 'Tareas & Hogar Smart',
+                s4Title: 'Menos tareas, más tiempo juntos',
+                s4Desc: '¿A ninguno le apetece pasar el aspirador o fregar? Delegad las tareas más pesadas en robots aspiradores, freidoras de aire y organizadores.',
+                s4Btn1: 'Robots aspiradores y fregasuelos (Amazon) →',
+                s4Btn2: 'Freidoras de aire y cocina smart →',
+                s4Btn3: 'Organización y limpieza en casa →',
                 s3Tag: 'Planes & Escapadas',
                 s3Title: 'Planes de fin de semana en pareja',
                 s3Desc: 'Desde escapadas urbanas y fines de semana de spa hasta escape rooms, conciertos y juegos para parejas.',
                 s3Btn1: 'Actividades en GetYourGuide →',
                 s3Btn2: 'Hoteles en Booking.com →',
-                s3Btn3: 'Entradas y eventos →',
+                s3Btn3: 'Entradas en Ticketmaster →',
                 s3Btn4: 'Juegos para parejas (Amazon) →',
                 footerNote: '* Nota: Algunos enlaces son de afiliados. No suponen ningún coste adicional para vosotros.'
             },
@@ -316,11 +455,11 @@
                 back: '← Retour',
                 badge: 'Partenaires & Idées',
                 title: 'Des idées adaptées à votre choix',
-                sub: 'Dès que vous êtes tombés d’accord en 30 secondes, retrouvez ici les services de livraison, box à cuisiner, streaming et escapades.',
+                sub: 'Dès que vous êtes tombés d’accord en 30 secondes, retrouvez ici les services de livraison, box à cuisiner, streaming, maison connectée et escapades.',
                 s1Tag: 'Faim & Dîner',
                 s1Title: 'Commander ou cuisiner frais à deux',
                 s1Desc: 'Commandez votre plat commun en livraison ou faites-vous livrer des ingrédients frais en box à cuisiner.',
-                s1Btn1: 'Commander en livraison →',
+                s1Btn1: 'Commander sur Uber Eats →',
                 s1Btn2: 'Box repas HelloFresh →',
                 s1Btn3: 'Livres de cuisine en couple (Amazon) →',
                 s2Tag: 'Films & Canapé',
@@ -328,12 +467,18 @@
                 s2Desc: 'Que vous ayez choisi thriller, comédie, SF ou série, regardez les nouveautés en streaming ou commandez un coffret snacks cinéma.',
                 s2Btn1: 'Nouveautés Prime Video →',
                 s2Btn2: 'Coffrets snacks soirée ciné →',
+                s4Tag: 'Ménage & Maison Smart',
+                s4Title: 'Moins de corvées, plus de temps à deux',
+                s4Desc: 'Personne n’a envie de passer l’aspirateur ou de faire la vaisselle ? Confiez les corvées aux robots aspirateurs, Airfryers et accessoires malins.',
+                s4Btn1: 'Robots aspirateurs laveurs (Amazon) →',
+                s4Btn2: 'Airfryers & aide culinaire smart →',
+                s4Btn3: 'Rangement & maison impeccable →',
                 s3Tag: 'Sorties & Week-ends',
                 s3Title: 'Activités et escapades à deux',
                 s3Desc: 'Des city-trips spontanés et week-ends spa aux escape games, concerts et jeux pour couples.',
                 s3Btn1: 'Activités sur GetYourGuide →',
                 s3Btn2: 'Hôtels sur Booking.com →',
-                s3Btn3: 'Billets & spectacles →',
+                s3Btn3: 'Billets sur Ticketmaster →',
                 s3Btn4: 'Jeux pour couples (Amazon) →',
                 footerNote: '* Note : Certains liens sont des liens partenaires affiliés, sans aucun coût supplémentaire pour vous.'
             },
@@ -341,11 +486,11 @@
                 back: '← Indietro',
                 badge: 'Partner & Idee',
                 title: 'Idee perfette per la vostra scelta',
-                sub: 'Appena avete trovato un accordo in 30 secondi, ecco i migliori servizi di consegna a domicilio, meal kit, streaming e weekend fuori porta.',
+                sub: 'Appena avete trovato un accordo in 30 secondi, ecco i migliori servizi di consegna a domicilio, meal kit, streaming, smart home e weekend fuori porta.',
                 s1Tag: 'Fame & Cena',
                 s1Title: 'Ordinare a domicilio o cucinare insieme',
                 s1Desc: 'Ordinate il vostro piatto scelto a domicilio oppure ricevete gli ingredienti freschi direttamente a casa.',
-                s1Btn1: 'Ordina a domicilio →',
+                s1Btn1: 'Ordina su Just Eat →',
                 s1Btn2: 'Box ricette HelloFresh →',
                 s1Btn3: 'Libri di cucina di coppia (Amazon) →',
                 s2Tag: 'Film & Divano',
@@ -353,12 +498,18 @@
                 s2Desc: 'Che abbiate scelto thriller, commedia, sci-fi o serie, guardate i film in streaming o completate la serata con una snack box da cinema.',
                 s2Btn1: 'Novità su Prime Video →',
                 s2Btn2: 'Snack box serata cinema →',
+                s4Tag: 'Casa & Aiuti Smart',
+                s4Title: 'Meno faccende, più tempo insieme',
+                s4Desc: 'Nessuno ha voglia di passare l’aspirapolvere o lavare i piatti? Affidate le faccende domestiche a robot aspirapolvere, friggitrici ad aria e organizer smart.',
+                s4Btn1: 'Robot aspirapolvere e lavapavimenti (Amazon) →',
+                s4Btn2: 'Friggitrici ad aria e cucina smart →',
+                s4Btn3: 'Bestseller ordine e pulizia casa →',
                 s3Tag: 'Esperienze & Weekend',
                 s3Title: 'Programmi per il weekend in coppia',
                 s3Desc: 'Dai viaggi spontanei in città e weekend benessere alle escape room, concerti e giochi di coppia.',
                 s3Btn1: 'Attività su GetYourGuide →',
                 s3Btn2: 'Hotel su Booking.com →',
-                s3Btn3: 'Biglietti ed eventi →',
+                s3Btn3: 'Biglietti su TicketOne →',
                 s3Btn4: 'Giochi di coppia (Amazon) →',
                 footerNote: '* Nota: Alcuni link sono link di affiliazione, senza alcun costo aggiuntivo per voi.'
             }
@@ -368,30 +519,58 @@
             const code = GUIDES_I18N[lang] ? lang : 'de';
             localStorage.setItem('syncswipe_lang', code);
             const t = GUIDES_I18N[code];
+            const urls = getGuidesRegionalLinks(code);
             document.documentElement.lang = code;
             document.getElementById('g-lang-label').textContent = code.toUpperCase();
             document.getElementById('g-back-btn').textContent = t.back;
             document.getElementById('g-badge').textContent = t.badge;
             document.getElementById('g-title').textContent = t.title;
             document.getElementById('g-sub').textContent = t.sub;
+
+            // Section 1: Food
             document.getElementById('g-s1-tag').textContent = t.s1Tag;
             document.getElementById('g-s1-title').textContent = t.s1Title;
             document.getElementById('g-s1-desc').textContent = t.s1Desc;
-            document.getElementById('g-s1-btn1').textContent = t.s1Btn1;
-            document.getElementById('g-s1-btn2').textContent = t.s1Btn2;
-            document.getElementById('g-s1-btn3').textContent = t.s1Btn3;
+            const s1b1 = document.getElementById('g-s1-btn1');
+            const s1b2 = document.getElementById('g-s1-btn2');
+            const s1b3 = document.getElementById('g-s1-btn3');
+            s1b1.textContent = t.s1Btn1; s1b1.href = urls.s1Url1;
+            s1b2.textContent = t.s1Btn2; s1b2.href = urls.s1Url2;
+            s1b3.textContent = t.s1Btn3; s1b3.href = urls.s1Url3;
+
+            // Section 2: Movies & Streaming
             document.getElementById('g-s2-tag').textContent = t.s2Tag;
             document.getElementById('g-s2-title').textContent = t.s2Title;
             document.getElementById('g-s2-desc').textContent = t.s2Desc;
-            document.getElementById('g-s2-btn1').textContent = t.s2Btn1;
-            document.getElementById('g-s2-btn2').textContent = t.s2Btn2;
+            const s2b1 = document.getElementById('g-s2-btn1');
+            const s2b2 = document.getElementById('g-s2-btn2');
+            s2b1.textContent = t.s2Btn1; s2b1.href = urls.s2Url1;
+            s2b2.textContent = t.s2Btn2; s2b2.href = urls.s2Url2;
+
+            // Section 4: Chores & Smart Home Helpers
+            document.getElementById('g-s4-tag').textContent = t.s4Tag;
+            document.getElementById('g-s4-title').textContent = t.s4Title;
+            document.getElementById('g-s4-desc').textContent = t.s4Desc;
+            const s4b1 = document.getElementById('g-s4-btn1');
+            const s4b2 = document.getElementById('g-s4-btn2');
+            const s4b3 = document.getElementById('g-s4-btn3');
+            s4b1.textContent = t.s4Btn1; s4b1.href = urls.s4Url1;
+            s4b2.textContent = t.s4Btn2; s4b2.href = urls.s4Url2;
+            s4b3.textContent = t.s4Btn3; s4b3.href = urls.s4Url3;
+
+            // Section 3: Activities & Getaways
             document.getElementById('g-s3-tag').textContent = t.s3Tag;
             document.getElementById('g-s3-title').textContent = t.s3Title;
             document.getElementById('g-s3-desc').textContent = t.s3Desc;
-            document.getElementById('g-s3-btn1').textContent = t.s3Btn1;
-            document.getElementById('g-s3-btn2').textContent = t.s3Btn2;
-            document.getElementById('g-s3-btn3').textContent = t.s3Btn3;
-            document.getElementById('g-s3-btn4').textContent = t.s3Btn4;
+            const s3b1 = document.getElementById('g-s3-btn1');
+            const s3b2 = document.getElementById('g-s3-btn2');
+            const s3b3 = document.getElementById('g-s3-btn3');
+            const s3b4 = document.getElementById('g-s3-btn4');
+            s3b1.textContent = t.s3Btn1; s3b1.href = urls.s3Url1;
+            s3b2.textContent = t.s3Btn2; s3b2.href = urls.s3Url2;
+            s3b3.textContent = t.s3Btn3; s3b3.href = urls.s3Url3;
+            s3b4.textContent = t.s3Btn4; s3b4.href = urls.s3Url4;
+
             document.getElementById('g-footer-note').textContent = t.footerNote;
             const menu = document.getElementById('g-lang-menu');
             if (menu) menu.classList.add('hidden');
@@ -411,9 +590,26 @@
             }
         });
 
+        function detectInitialGuidesLang() {
+            const search = window.location.search;
+            if (search) {
+                const p = new URLSearchParams(search);
+                const l = p.get('lang');
+                if (l && GUIDES_I18N[l.toLowerCase()]) return l.toLowerCase();
+            }
+            const saved = localStorage.getItem('syncswipe_lang');
+            if (saved && GUIDES_I18N[saved]) return saved;
+            const candidates = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || 'de'];
+            for (const lang of candidates) {
+                if (!lang) continue;
+                const code = lang.slice(0, 2).toLowerCase();
+                if (GUIDES_I18N[code]) return code;
+            }
+            return 'de';
+        }
+
         (function initGuides() {
-            const savedLang = localStorage.getItem('syncswipe_lang') || 'de';
-            setGuidesLang(savedLang);
+            setGuidesLang(detectInitialGuidesLang());
             if (typeof setTheme === 'function' && typeof getPreferredTheme === 'function') {
                 setTheme(getPreferredTheme());
             }

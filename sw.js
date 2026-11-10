@@ -1,5 +1,5 @@
 // Agreesy Service Worker (Network-First for 100% instant UI updates, Cache for offline)
-const CACHE_NAME = 'agreesy-v29';
+const CACHE_NAME = 'agreesy-v30';
 const ASSETS = [
   './',
   './index.html',

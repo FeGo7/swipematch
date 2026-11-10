@@ -530,6 +530,10 @@ function setLang(lang) {
 
     // Chores & Legal Modals
     setText('t-chores-deal-text', t.choresDealText);
+    const choresDealLink = document.getElementById('chores-deal-link');
+    if (choresDealLink && typeof getRegionalStoreConfig === 'function') {
+        choresDealLink.href = getRegionalStoreConfig(lang).choresUrl;
+    }
     setText('legal-modal-close-btn', t.modalClose);
 
     // 3 Primary Hero Scenarios + Cal AI Macro & Feed Metadata
@@ -635,6 +639,9 @@ function setLang(lang) {
     }
     if (!document.getElementById('screen-chores-result').classList.contains('hidden') && currentDeckId) {
         renderChoresSummaryUI();
+    }
+    if (!document.getElementById('screen-match').classList.contains('hidden') && matchedCard) {
+        updateWinnerAffiliateLinks(matchedCard);
     }
 }
 
@@ -1281,6 +1288,142 @@ function triggerMatchScreen(card) {
     }
 }
 
+function getRegionalStoreConfig(lang) {
+    const tag = 'f05b1-21';
+    let isUk = false;
+    try {
+        const nav = (navigator.language || '').toLowerCase();
+        const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').toLowerCase();
+        if (nav.includes('gb') || nav.includes('uk') || nav.includes('ie') || tz.includes('london') || tz.includes('dublin')) {
+            isUk = true;
+        }
+    } catch (e) {}
+
+    const configs = {
+        de: {
+            amazonHost: 'www.amazon.de',
+            foodUrl: (q) => `https://www.lieferando.de/lieferservice/essen/${q}`,
+            foodSuffix: 'zutaten+kochbuch',
+            snackQuery: 'kino+snack+box+popcorn',
+            gygHost: 'www.getyourguide.de',
+            activitySuffix: 'paar+date+spiel',
+            bookingLang: 'de',
+            tripsSuffix: 'reise+geschenk',
+            choresUrl: `https://www.amazon.de/s?k=saugroboter+haushaltshelfer+bestseller&tag=${tag}`
+        },
+        en: {
+            amazonHost: isUk ? 'www.amazon.co.uk' : 'www.amazon.com',
+            foodUrl: (q) => `https://www.ubereats.com/${isUk ? 'gb/' : ''}search?q=${q}`,
+            foodSuffix: 'ingredients+cookbook',
+            snackQuery: 'movie+night+snack+box+popcorn',
+            gygHost: 'www.getyourguide.com',
+            activitySuffix: 'couple+date+night+game',
+            bookingLang: 'en-gb',
+            tripsSuffix: 'travel+accessories+gift',
+            choresUrl: `https://${isUk ? 'www.amazon.co.uk' : 'www.amazon.com'}/s?k=robot+vacuum+smart+home+helpers+bestseller&tag=${tag}`
+        },
+        es: {
+            amazonHost: 'www.amazon.es',
+            foodUrl: () => `https://www.just-eat.es/`,
+            foodSuffix: 'ingredientes+libro+cocina',
+            snackQuery: 'caja+snacks+cine+palomitas',
+            gygHost: 'www.getyourguide.es',
+            activitySuffix: 'juego+parejas+cita',
+            bookingLang: 'es',
+            tripsSuffix: 'accesorios+viaje+regalo',
+            choresUrl: `https://www.amazon.es/s?k=robot+aspirador+hogar+inteligente+mas+vendidos&tag=${tag}`
+        },
+        fr: {
+            amazonHost: 'www.amazon.fr',
+            foodUrl: (q) => `https://www.ubereats.com/fr/search?q=${q}`,
+            foodSuffix: 'ingredients+livre+cuisine',
+            snackQuery: 'coffret+snacks+cinema+popcorn',
+            gygHost: 'www.getyourguide.fr',
+            activitySuffix: 'jeu+couple+soiree',
+            bookingLang: 'fr',
+            tripsSuffix: 'accessoires+voyage+cadeau',
+            choresUrl: `https://www.amazon.fr/s?k=aspirateur+robot+maison+connectee+meilleures+ventes&tag=${tag}`
+        },
+        it: {
+            amazonHost: 'www.amazon.it',
+            foodUrl: () => `https://www.justeat.it/`,
+            foodSuffix: 'ingredienti+libro+cucina',
+            snackQuery: 'box+snack+cinema+popcorn',
+            gygHost: 'www.getyourguide.it',
+            activitySuffix: 'gioco+coppia+serata',
+            bookingLang: 'it',
+            tripsSuffix: 'accessori+viaggio+regalo',
+            choresUrl: `https://www.amazon.it/s?k=robot+aspirapolvere+casa+smart+piu+venduti&tag=${tag}`
+        }
+    };
+    const cfg = configs[lang] || configs.de;
+    cfg.tag = tag;
+    return cfg;
+}
+
+function updateWinnerAffiliateLinks(card) {
+    if (!card) return;
+    const deck = DECKS[currentDeckId];
+    const titleEl = document.getElementById('winner-title');
+    const descEl = document.getElementById('winner-desc');
+    if (titleEl) titleEl.innerText = card.title[currentLang] || card.title.de;
+    if (descEl) descEl.innerText = card.desc[currentLang] || card.desc.de;
+
+    const actionBtn = document.getElementById('winner-action-btn');
+    const actionText = document.getElementById('winner-action-text');
+    const secondaryBtn = document.getElementById('winner-secondary-deal-btn');
+    const secondaryText = document.getElementById('winner-secondary-deal-text');
+
+    if (actionBtn && actionText) {
+        const cat = deck ? deck.category : 'all';
+        const titleStr = card.title[currentLang] || card.title.de || 'Idee';
+        const query = encodeURIComponent(titleStr);
+        const store = getRegionalStoreConfig(currentLang);
+        const t = I18N[currentLang] || I18N.de;
+
+        if (cat === 'food') {
+            actionBtn.href = store.foodUrl(query);
+            actionText.innerText = `${titleStr} – ${t.winnerOrderFood || 'bei Lieferando bestellen'}`;
+            if (secondaryBtn && secondaryText) {
+                secondaryBtn.href = `https://${store.amazonHost}/s?k=${query}+${store.foodSuffix}&tag=${store.tag}`;
+                const secPattern = t.winnerFoodSecondary || 'Zutaten & Koch-Sets für {title} (Amazon)';
+                secondaryText.innerText = secPattern.replace('{title}', titleStr);
+                secondaryBtn.classList.remove('hidden');
+            }
+        } else if (cat === 'entertainment') {
+            actionBtn.href = `https://${store.amazonHost}/s?k=${query}&i=instant-video&tag=${store.tag}`;
+            actionText.innerText = `${titleStr} – ${t.winnerStreamPrime || 'auf Prime Video streamen'}`;
+            if (secondaryBtn && secondaryText) {
+                secondaryBtn.href = `https://${store.amazonHost}/s?k=${store.snackQuery}&tag=${store.tag}`;
+                secondaryText.innerText = t.winnerSnackBox || 'Passende Heimkino-Snackbox bestellen';
+                secondaryBtn.classList.remove('hidden');
+            }
+        } else if (cat === 'activity') {
+            actionBtn.href = `https://${store.gygHost}/s/?q=${query}`;
+            actionText.innerText = `${titleStr} – ${t.winnerActivities || 'Erlebnisse & Tickets ansehen'}`;
+            if (secondaryBtn && secondaryText) {
+                secondaryBtn.href = `https://${store.amazonHost}/s?k=${query}+${store.activitySuffix}&tag=${store.tag}`;
+                secondaryText.innerText = t.winnerActivitySecondary || 'Passendes Zubehör & Date-Boxen (Amazon)';
+                secondaryBtn.classList.remove('hidden');
+            }
+        } else if (cat === 'trips') {
+            actionBtn.href = `https://www.booking.com/searchresults.${store.bookingLang}.html?ss=${query}`;
+            actionText.innerText = `${titleStr} – Booking.com`;
+            if (secondaryBtn && secondaryText) {
+                secondaryBtn.href = `https://${store.amazonHost}/s?k=${query}+${store.tripsSuffix}&tag=${store.tag}`;
+                secondaryText.innerText = t.winnerTripsSecondary || 'Reise-Gadgets & Geschenk-Sets (Amazon)';
+                secondaryBtn.classList.remove('hidden');
+            }
+        } else {
+            actionBtn.href = `https://${store.amazonHost}/s?k=${query}&tag=${store.tag}`;
+            actionText.innerText = `${titleStr} – ${t.winnerOpenAction || 'Direkt online entdecken'}`;
+            if (secondaryBtn) {
+                secondaryBtn.classList.add('hidden');
+            }
+        }
+    }
+}
+
 function revealMatchScreen(card) {
     showScreen('screen-match');
     playMatchChime();
@@ -1298,7 +1441,6 @@ function revealMatchScreen(card) {
         });
     }
 
-    const deck = DECKS[currentDeckId];
     const winnerCardEl = document.getElementById('winner-card');
     if (winnerCardEl) {
         winnerCardEl.className = "w-full rounded-[24px] p-6 mb-5 flex flex-col items-center text-center surface transition-all";
@@ -1322,9 +1464,6 @@ function revealMatchScreen(card) {
         }
     }
 
-    document.getElementById('winner-title').innerText = card.title[currentLang] || card.title.de;
-    document.getElementById('winner-desc').innerText = card.desc[currentLang] || card.desc.de;
-
     const partiesEl = document.getElementById('winner-parties');
     if (partiesEl) {
         const p1Name = partnerSenderName || "Person 1";
@@ -1332,58 +1471,7 @@ function revealMatchScreen(card) {
         partiesEl.innerText = `${p1Name} & ${p2Name}`;
     }
 
-    const actionBtn = document.getElementById('winner-action-btn');
-    const actionText = document.getElementById('winner-action-text');
-    const secondaryBtn = document.getElementById('winner-secondary-deal-btn');
-    const secondaryText = document.getElementById('winner-secondary-deal-text');
-
-    if (actionBtn && actionText) {
-        const cat = deck ? deck.category : 'all';
-        const titleStr = card.title[currentLang] || card.title.de || 'Idee';
-        const query = encodeURIComponent(card.title.de || card.title.en || titleStr);
-
-        const t = I18N[currentLang] || I18N.de;
-        if (cat === 'food') {
-            actionBtn.href = `https://www.lieferando.de/lieferservice/essen/${query}`;
-            actionText.innerText = `${titleStr} ${t.winnerOrderFood || 'bei Lieferando bestellen'}`;
-            if (secondaryBtn && secondaryText) {
-                secondaryBtn.href = `https://www.amazon.de/s?k=${query}+zutaten+kochbuch&tag=f05b1-21`;
-                const secPattern = t.winnerFoodSecondary || 'Zutaten & Koch-Sets für {title} (Amazon)';
-                secondaryText.innerText = secPattern.replace('{title}', titleStr);
-                secondaryBtn.classList.remove('hidden');
-            }
-        } else if (cat === 'entertainment') {
-            actionBtn.href = `https://www.amazon.de/s?k=${query}&i=instant-video&tag=f05b1-21`;
-            actionText.innerText = `${titleStr} ${t.winnerStreamPrime || 'auf Prime Video streamen'}`;
-            if (secondaryBtn && secondaryText) {
-                secondaryBtn.href = `https://www.amazon.de/s?k=kino+snack+box+popcorn&tag=f05b1-21`;
-                secondaryText.innerText = t.winnerSnackBox || 'Passende Heimkino-Snackbox bestellen';
-                secondaryBtn.classList.remove('hidden');
-            }
-        } else if (cat === 'activity') {
-            actionBtn.href = `https://www.getyourguide.de/s/?q=${query}`;
-            actionText.innerText = `${titleStr} – ${t.winnerActivities || 'Erlebnisse & Tickets ansehen'}`;
-            if (secondaryBtn && secondaryText) {
-                secondaryBtn.href = `https://www.amazon.de/s?k=${query}+paar+date+spiel&tag=f05b1-21`;
-                secondaryText.innerText = `Passendes Zubehör & Date-Boxen bei Amazon`;
-                secondaryBtn.classList.remove('hidden');
-            }
-        } else if (cat === 'trips') {
-            actionBtn.href = `https://www.booking.com/searchresults.de.html?ss=${query}`;
-            actionText.innerText = `${titleStr} – Booking.com`;
-            if (secondaryBtn && secondaryText) {
-                secondaryBtn.href = `https://www.amazon.de/s?k=${query}+reise+geschenk&tag=f05b1-21`;
-                secondaryText.innerText = `Reise-Gadgets & Geschenk-Sets bei Amazon`;
-                secondaryBtn.classList.remove('hidden');
-            }
-        } else {
-            actionBtn.href = `https://www.amazon.de/s?k=${query}&tag=f05b1-21`;
-            actionText.innerText = `${titleStr} – ${t.winnerOpenAction || 'Direkt online entdecken'}`;
-            if (secondaryBtn) {
-                secondaryBtn.classList.add('hidden');
-            }
-        }
-    }
+    updateWinnerAffiliateLinks(card);
 
     const continueBtn = document.getElementById('btn-continue-swiping');
     if (continueBtn) {
