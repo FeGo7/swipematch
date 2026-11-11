@@ -1,7 +1,7 @@
 {
   "name": "Agreesy – 30s Konsens ohne Login",
   "short_name": "Agreesy",
-  "description": "Schluss mit 'Mir egal, sag du!': Wische durch kuratierte Decks und finde in 30 Sekunden gemeinsame Matches für Essen, Filme, Dates & Haushalts-Pflichten.",
+  "description": "Schluss mit 'Mir egal, sag du!': Wische durch kuratierte Decks und finde in 30 Sekunden gemeinsame Matches für Essen, Filme, Dates & Haushalts-Pflichten. (ID: 2d31)",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#090D16",
