@@ -181,7 +181,12 @@ const I18N = {
         stage2ShuffleBtn: "🎲 Andere 3",
         stage2SeenBtn: "Schon gesehen",
         stage2StartMoviesBtn: "🎬 Runde 2: Aus 8 passenden Filmen swipen →",
-        stage2StartSeriesBtn: "📺 Runde 2: Aus 8 passenden Serien swipen →"
+        stage2StartSeriesBtn: "📺 Runde 2: Aus 8 passenden Serien swipen →",
+        pillVegan: "Veggie & Vegan",
+        pillSeries: "Serien-Finder",
+        pillDatenight: "Date-Night",
+        pillWeekend: "Kurztrip",
+        pillQuickcook: "15-Min Kochen"
     },
     en: {
         badge: "Quickstart · 8 cards in 30 sec.",
@@ -352,7 +357,12 @@ const I18N = {
         stage2ShuffleBtn: "🎲 Shuffle 3",
         stage2SeenBtn: "Already seen",
         stage2StartMoviesBtn: "🎬 Round 2: Swipe 8 matching movies →",
-        stage2StartSeriesBtn: "📺 Round 2: Swipe 8 matching series →"
+        stage2StartSeriesBtn: "📺 Round 2: Swipe 8 matching series →",
+        pillVegan: "Veggie & Vegan",
+        pillSeries: "Series Finder",
+        pillDatenight: "Date Night",
+        pillWeekend: "Weekend Trip",
+        pillQuickcook: "15-Min Cook"
     },
     es: {
         badge: "Inicio rápido · 8 cartas en 30 s",
@@ -523,7 +533,12 @@ const I18N = {
         stage2ShuffleBtn: "🎲 Otros 3",
         stage2SeenBtn: "Ya la vi",
         stage2StartMoviesBtn: "🎬 Ronda 2: Elegir entre 8 películas →",
-        stage2StartSeriesBtn: "📺 Ronda 2: Elegir entre 8 series →"
+        stage2StartSeriesBtn: "📺 Ronda 2: Elegir entre 8 series →",
+        pillVegan: "Veggie y Vegano",
+        pillSeries: "Series",
+        pillDatenight: "Cita en Pareja",
+        pillWeekend: "Escapada",
+        pillQuickcook: "Cocina 15 min"
     },
     fr: {
         badge: "Accès rapide · 8 cartes en 30 s",
@@ -694,7 +709,12 @@ const I18N = {
         stage2ShuffleBtn: "🎲 3 autres",
         stage2SeenBtn: "Déjà vu",
         stage2StartMoviesBtn: "🎬 Manche 2 : Swiper 8 films →",
-        stage2StartSeriesBtn: "📺 Manche 2 : Swiper 8 séries →"
+        stage2StartSeriesBtn: "📺 Manche 2 : Swiper 8 séries →",
+        pillVegan: "Veggie & Vegan",
+        pillSeries: "Séries TV",
+        pillDatenight: "Soirée Couple",
+        pillWeekend: "Week-end",
+        pillQuickcook: "Cuisine 15 min"
     },
     it: {
         badge: "Avvio rapido · 8 carte in 30 s",
@@ -865,6 +885,11 @@ const I18N = {
         stage2ShuffleBtn: "🎲 Altri 3",
         stage2SeenBtn: "Già visto",
         stage2StartMoviesBtn: "🎬 Manche 2: Scegli tra 8 film →",
-        stage2StartSeriesBtn: "📺 Manche 2: Scegli tra 8 serie →"
+        stage2StartSeriesBtn: "📺 Manche 2: Scegli tra 8 serie →",
+        pillVegan: "Veggie & Vegan",
+        pillSeries: "Serie TV",
+        pillDatenight: "Serata Coppia",
+        pillWeekend: "Weekend",
+        pillQuickcook: "Cucina 15 min"
     }
 };

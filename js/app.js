@@ -681,6 +681,11 @@ function setLang(lang) {
     setText('t-profile-blacklist-title', t.profileBlacklistTitle);
     setText('t-profile-blacklist-reset', t.profileBlacklistReset);
     setText('t-stage2-shuffle-btn', t.stage2ShuffleBtn);
+    setText('t-pill-vegan', t.pillVegan);
+    setText('t-pill-series', t.pillSeries);
+    setText('t-pill-datenight', t.pillDatenight);
+    setText('t-pill-weekend', t.pillWeekend);
+    setText('t-pill-quickcook', t.pillQuickcook);
     renderProfileBlacklistUI();
     updateHeroRoundCardUI();
 
